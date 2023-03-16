@@ -1,0 +1,16 @@
+format 224
+
+classcanvas 128015 class_ref 128271 // IHM
+  classdiagramsettings show_members_full_definition yes show_members_visibility yes member_max_width 0 end
+  xyz 183 212 2000
+end
+classcanvas 128143 class_ref 134799 // Statistiques
+  classdiagramsettings show_members_full_definition yes show_members_visibility yes member_max_width 0 end
+  xyz 503 182 2000
+end
+relationcanvas 128271 relation_ref 134543 // <aggregation>
+  from ref 128015 z 2001 to ref 128143
+  no_role_a no_role_b
+  multiplicity_a_pos 486 240 3000 no_multiplicity_b
+end
+end
