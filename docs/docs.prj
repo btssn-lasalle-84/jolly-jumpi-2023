@@ -1,6 +1,6 @@
 format 224
 "uml"
-  revision 5
+  revision 4
   modified_by 15 "lapierre"
 
 
@@ -368,5 +368,6 @@ format 224
       sequencediagramsettings end
       overlapping_bars size A4
     end
+
   end
 end
