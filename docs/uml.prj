@@ -278,6 +278,27 @@ format 224
 	mysql_decl ""
 	MysqlColumn
       end
+
+      operation 141199 "afficherChevaux"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	
+	
+	
+      end
+
+      attribute 148111 "NOMBRE_CHEVAUX"
+	private explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
     end
 
     class 134799 "Statistiques"
