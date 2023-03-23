@@ -11,7 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>IHM</string>
+   <string>JollyJumpi</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(78, 154, 6);</string>
   </property>
  </widget>
  <resources/>

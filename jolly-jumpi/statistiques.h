@@ -1,20 +1,18 @@
 #ifndef STATISTIQUES_H
 #define STATISTIQUES_H
 
-#include <QWidget>
+#include <QObject>
 
-#include "IHM.h"
-
-class Statistiques : public IHM
+class Statistiques : public QObject
 {
     Q_OBJECT
 
-private:
+  private:
     unsigned int temps;
     unsigned int nombreBallesRentrees;
 
-public:
-    Statistiques(QWidget *parent = nullptr);
+  public:
+    Statistiques(QObject* parent = nullptr);
     ~Statistiques();
 };
 

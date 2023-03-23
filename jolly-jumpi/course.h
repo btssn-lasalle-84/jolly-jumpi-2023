@@ -1,18 +1,17 @@
 #ifndef COURSE_H
 #define COURSE_H
 
-#include <QtWidgets>
+#include <QObject>
 
-class Course : public QWidget
+class Course : public QObject
 {
     Q_OBJECT
 
   public:
-    Course(QWidget* parent = 0);
+    Course(QObject* parent = 0);
     ~Course();
 
   public slots:
-
 };
 
 #endif // COURSE_H
