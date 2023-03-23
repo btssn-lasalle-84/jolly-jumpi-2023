@@ -1,4 +1,5 @@
 #include "IHM.h"
+#include "chevaux.h"
 #include "ui_IHM.h"
 
 IHM::IHM(QWidget *parent)
@@ -11,4 +12,10 @@ IHM::IHM(QWidget *parent)
 IHM::~IHM()
 {
     delete ui;
+}
+
+void IHM::jouer()
+{
+   chevaux chevaux;
+   chevaux.avancerLesChevaux(0);
 }
