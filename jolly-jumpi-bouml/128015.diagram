@@ -1,0 +1,35 @@
+format 224
+
+classcanvas 128015 class_ref 128143 // Joueur
+  simpleclassdiagramsettings end
+  xyz -2 177 2000
+end
+usecasecanvas 128143 usecase_ref 128015 // Voir la position des chevaux
+  xyzwh 423 12 3005 64 32 label_xy 368 45
+end
+usecasecanvas 128527 usecase_ref 128143 // Commencer ou arrêter la partie
+  xyzwh 171 105 3005 64 32 label_xy 101 137
+end
+usecasecanvas 128655 usecase_ref 128271 // Accéder aux statistiques de la partie
+  xyzwh 422 162 3005 64 32 label_xy 336 194
+end
+usecasecanvas 128783 usecase_ref 128399 // Paramétrer le jeu
+  xyzwh 181 286 3005 64 32 label_xy 157 318
+end
+usecasecanvas 130063 usecase_ref 128527 // Changer de mode
+  xyzwh 423 285 3005 64 32 label_xy 397 317
+end
+line 128911 ---- decenter_begin 492
+  from ref 128015 z 3006 to ref 128527
+line 129551 ----
+  from ref 128783 z 3006 to ref 128015
+simplerelationcanvas 129679 simplerelation_ref 128015
+  from ref 128527 z 3006 stereotype "<<include>>" xyz 288 72 3000 to ref 128143
+end
+simplerelationcanvas 129807 simplerelation_ref 128143
+  from ref 128527 z 3006 stereotype "<<include>>" xyz 287 148 3000 to ref 128655
+end
+simplerelationcanvas 130191 simplerelation_ref 128271
+  from ref 128783 z 3006 stereotype "<<include>>" xyz 292 300 3000 to ref 130063
+end
+end
