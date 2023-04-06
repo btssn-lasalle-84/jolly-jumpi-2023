@@ -15,6 +15,7 @@
  * @fn IHM::IHM
  * @param parent nullptr pour définir la fenêtre principale de l'application
  */
+
 IHM::IHM(QWidget* parent) : QWidget(parent), ui(new Ui::IHM)
 {
     qDebug() << Q_FUNC_INFO;
@@ -75,10 +76,12 @@ void IHM::afficherPageCourse()
 void IHM::instancierWidgets()
 {
     ui->setupUi(this);
+
 }
 
 void IHM::initialiserWidgets()
 {
+   QPixmap avatar("images/cheval.jpg");
 }
 
 void IHM::positionnerWidgets()
@@ -94,10 +97,8 @@ void IHM::initialiserFenetre()
 #ifdef RASPBERRY_PI
     showFullScreen();
 #else
-    resize(qApp->desktop()->availableGeometry(this).width(),
+    setFixedSize(qApp->desktop()->availableGeometry(this).width(),
            qApp->desktop()->availableGeometry(this).height());
-    setMinimumSize(qApp->desktop()->availableGeometry(this).width(),
-                   qApp->desktop()->availableGeometry(this).height());
     // showMaximized();
 #endif
     afficherPageConnexion();
