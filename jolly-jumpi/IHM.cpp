@@ -29,6 +29,8 @@ IHM::IHM(QWidget* parent) : QWidget(parent), ui(new Ui::IHM)
     connecterSignauxSlots();
 
     initialiserFenetre();
+
+    afficherPageCourse();
 }
 
 /**
@@ -77,11 +79,15 @@ void IHM::instancierWidgets()
 {
     ui->setupUi(this);
 
+    QPixmap *avatar = new QPixmap("images/cheval.png");
+    QLabel *label = new QLabel(this);
+    label->setPixmap(*avatar);
+    ui->pages->widget(IHM::Page::Course)->verticalLayoutPageCourse->addWidget(label);
 }
 
 void IHM::initialiserWidgets()
 {
-   QPixmap avatar("images/cheval.jpg");
+
 }
 
 void IHM::positionnerWidgets()
