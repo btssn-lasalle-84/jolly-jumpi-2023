@@ -80,24 +80,27 @@ void IHM::instancierWidgets()
 {
     ui->setupUi(this);
 
-    imageAvatarJoueur1 = new QPixmap("../Images/cheval.jpg");
+    imageAvatarJoueur1 = new QPixmap("../Images/cheval1.png");
     avatarJoueur1 = new QLabel(this);
 
-    imageAvatarJoueur2 = new QPixmap("../Images/cheval.jpg");
+    imageAvatarJoueur2 = new QPixmap("../Images/cheval3.png");
     avatarJoueur2 = new QLabel(this);
 
-    imageAvatarJoueur3 = new QPixmap("../Images/cheval.jpg");
+    imageAvatarJoueur3 = new QPixmap("../Images/cheval2.png");
     avatarJoueur3 = new QLabel(this);
 }
 
 void IHM::initialiserWidgets()
 {
+    *imageAvatarJoueur1 = imageAvatarJoueur1->scaled(QSize(200, 100));
     avatarJoueur1->setPixmap(*imageAvatarJoueur1);
     ui->pages->widget(IHM::Page::Course)->layout()->addWidget(avatarJoueur1);
 
+    *imageAvatarJoueur2 = imageAvatarJoueur2->scaled(QSize(200, 100));
     avatarJoueur2->setPixmap(*imageAvatarJoueur2);
     ui->pages->widget(IHM::Page::Course)->layout()->addWidget(avatarJoueur2);
 
+    *imageAvatarJoueur3 = imageAvatarJoueur3->scaled(QSize(200, 100));
     avatarJoueur3->setPixmap(*imageAvatarJoueur3);
     ui->pages->widget(IHM::Page::Course)->layout()->addWidget(avatarJoueur3);
 }
