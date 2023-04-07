@@ -45,14 +45,8 @@ class IHM : public QWidget
 private:
   Ui::IHM* ui;
 
-  QPixmap* imageAvatarJoueur1;
-  QLabel* avatarJoueur1;
-
-  QPixmap* imageAvatarJoueur2;
-  QLabel* avatarJoueur2;
-
-  QPixmap* imageAvatarJoueur3;
-  QLabel* avatarJoueur3;
+  std::vector<QPixmap*> imageAvatarsJoueurs;
+  std::vector<QLabel*> avatarsJoueurs;
 
   void instancierWidgets();
   void initialiserWidgets();
