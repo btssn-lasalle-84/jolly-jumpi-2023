@@ -39,6 +39,7 @@ IHM::IHM(QWidget* parent) : QWidget(parent), ui(new Ui::IHM)
  * @fn IHM::~IHM
  * @details Libère les ressources de l'application
  */
+
 IHM::~IHM()
 {
     delete ui;
@@ -79,15 +80,26 @@ void IHM::instancierWidgets()
 {
     ui->setupUi(this);
 
-    QPixmap *avatar = new QPixmap("images/cheval.png");
-    QLabel *label = new QLabel(this);
-    label->setPixmap(*avatar);
-    ui->pages->widget(IHM::Page::Course)->verticalLayoutPageCourse->addWidget(label);
+    imageAvatarJoueur1 = new QPixmap("../Images/cheval.jpg");
+    avatarJoueur1 = new QLabel(this);
+
+    imageAvatarJoueur2 = new QPixmap("../Images/cheval.jpg");
+    avatarJoueur2 = new QLabel(this);
+
+    imageAvatarJoueur3 = new QPixmap("../Images/cheval.jpg");
+    avatarJoueur3 = new QLabel(this);
 }
 
 void IHM::initialiserWidgets()
 {
+    avatarJoueur1->setPixmap(*imageAvatarJoueur1);
+    ui->pages->widget(IHM::Page::Course)->layout()->addWidget(avatarJoueur1);
 
+    avatarJoueur2->setPixmap(*imageAvatarJoueur2);
+    ui->pages->widget(IHM::Page::Course)->layout()->addWidget(avatarJoueur2);
+
+    avatarJoueur3->setPixmap(*imageAvatarJoueur3);
+    ui->pages->widget(IHM::Page::Course)->layout()->addWidget(avatarJoueur3);
 }
 
 void IHM::positionnerWidgets()
