@@ -40,24 +40,22 @@ class IHM : public QWidget
         NbPages
     };
 
-
   private:
-private:
-  Ui::IHM* ui;
+    Ui::IHM* ui;
 
-  std::vector<QPixmap*> imageAvatarsJoueurs;
-  std::vector<QLabel*> avatarsJoueurs;
+    QVector<QPixmap*> imageAvatarsJoueurs;
+    QVector<QLabel*> avatarsJoueurs;
 
-  void instancierWidgets();
-  void initialiserWidgets();
-  void positionnerWidgets();
-  void connecterSignauxSlots();
-  void initialiserFenetre();
+    void instancierWidgets();
+    void initialiserWidgets();
+    void positionnerWidgets();
+    void connecterSignauxSlots();
+    void initialiserFenetre();
 
-public slots:
-  void afficherPage(IHM::Page page);
-  void afficherPageConnexion();
-  void afficherPageCourse();
+  public slots:
+    void afficherPage(IHM::Page page);
+    void afficherPageConnexion();
+    void afficherPageCourse();
 
   public:
     IHM(QWidget* parent = nullptr);
