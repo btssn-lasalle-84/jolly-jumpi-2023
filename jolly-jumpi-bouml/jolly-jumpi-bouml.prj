@@ -1,7 +1,8 @@
 format 224
 "jolly-jumpi-bouml"
-  revision 5
-  modified_by 15 "lapierre"
+  revision 6
+  modified_by 42 "tv"
+  cpp_root_dir "../"
 
 
   
@@ -390,4 +391,6 @@ format 224
       overlapping_bars size A4
     end
   end
+
+  package_ref 134570 // jolly-jumpi
 end

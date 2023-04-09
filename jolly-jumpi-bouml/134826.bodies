@@ -1,0 +1,50 @@
+class IHM
+!!!135850.cpp!!!	IHM(inout parent : QWidget = nullptr)
+    qDebug() << Q_FUNC_INFO;
+
+    instancierWidgets();
+
+    initialiserWidgets();
+
+    positionnerWidgets();
+
+    connecterSignauxSlots();
+
+    initialiserFenetre();
+
+    afficherPageCourse();
+!!!135978.cpp!!!	~IHM()
+    delete ui;
+!!!134826.cpp!!!	instancierWidgets() : void
+    ui->setupUi(this);
+
+    imageAvatarsJoueurs.push_back(new QPixmap("../Images/cheval1.png"));
+    avatarsJoueurs.push_back(new QLabel(this));
+
+    imageAvatarsJoueurs.push_back(new QPixmap("../Images/cheval3.png"));
+    avatarsJoueurs.push_back(new QLabel(this));
+
+    imageAvatarsJoueurs.push_back(new QPixmap("../Images/cheval2.png"));
+    avatarsJoueurs.push_back(new QLabel(this));
+!!!134954.cpp!!!	initialiserWidgets() : void
+    for (int i = 0; i < imageAvatarsJoueurs.size(); i++)
+    {
+        *imageAvatarsJoueurs[i] = imageAvatarsJoueurs[i]->scaled(QSize(200, 100));
+        avatarsJoueurs[i]->setPixmap(*imageAvatarsJoueurs[i]);
+        ui->pages->widget(IHM::Page::Course)->layout()->addWidget(avatarsJoueurs[i]);
+    }
+!!!135338.cpp!!!	initialiserFenetre() : void
+#ifdef RASPBERRY_PI
+    showFullScreen();
+#else
+    setFixedSize(qApp->desktop()->availableGeometry(this).width(),
+           qApp->desktop()->availableGeometry(this).height());
+    // showMaximized();
+#endif
+    afficherPageConnexion();
+!!!135466.cpp!!!	afficherPage(in page : IHM::Page) : void
+    ui->pages->setCurrentIndex(page);
+!!!135594.cpp!!!	afficherPageConnexion() : void
+    afficherPage(IHM::Page::Connexion);
+!!!135722.cpp!!!	afficherPageCourse() : void
+    afficherPage(IHM::Page::Course);

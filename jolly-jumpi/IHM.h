@@ -40,14 +40,11 @@ class IHM : public QWidget
         NbPages
     };
 
-  public:
-    IHM(QWidget* parent = nullptr);
-    ~IHM();
-
-    void jouer();
-
   private:
     Ui::IHM* ui;
+
+    QVector<QPixmap*> imageAvatarsJoueurs;
+    QVector<QLabel*> avatarsJoueurs;
 
     void instancierWidgets();
     void initialiserWidgets();
@@ -59,6 +56,12 @@ class IHM : public QWidget
     void afficherPage(IHM::Page page);
     void afficherPageConnexion();
     void afficherPageCourse();
+
+  public:
+    IHM(QWidget* parent = nullptr);
+    ~IHM();
+
+    void jouer();
 };
 
 #endif // IHM_H

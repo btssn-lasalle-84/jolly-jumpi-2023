@@ -15,6 +15,7 @@
  * @fn IHM::IHM
  * @param parent nullptr pour définir la fenêtre principale de l'application
  */
+
 IHM::IHM(QWidget* parent) : QWidget(parent), ui(new Ui::IHM)
 {
     qDebug() << Q_FUNC_INFO;
@@ -28,6 +29,8 @@ IHM::IHM(QWidget* parent) : QWidget(parent), ui(new Ui::IHM)
     connecterSignauxSlots();
 
     initialiserFenetre();
+
+    afficherPageCourse();
 }
 
 /**
@@ -36,6 +39,7 @@ IHM::IHM(QWidget* parent) : QWidget(parent), ui(new Ui::IHM)
  * @fn IHM::~IHM
  * @details Libère les ressources de l'application
  */
+
 IHM::~IHM()
 {
     delete ui;
@@ -75,10 +79,25 @@ void IHM::afficherPageCourse()
 void IHM::instancierWidgets()
 {
     ui->setupUi(this);
+
+    imageAvatarsJoueurs.push_back(new QPixmap("../Images/cheval1.png"));
+    avatarsJoueurs.push_back(new QLabel(this));
+
+    imageAvatarsJoueurs.push_back(new QPixmap("../Images/cheval3.png"));
+    avatarsJoueurs.push_back(new QLabel(this));
+
+    imageAvatarsJoueurs.push_back(new QPixmap("../Images/cheval2.png"));
+    avatarsJoueurs.push_back(new QLabel(this));
 }
 
 void IHM::initialiserWidgets()
 {
+    for (int i = 0; i < imageAvatarsJoueurs.size(); i++)
+    {
+        *imageAvatarsJoueurs[i] = imageAvatarsJoueurs[i]->scaled(QSize(200, 100));
+        avatarsJoueurs[i]->setPixmap(*imageAvatarsJoueurs[i]);
+        ui->pages->widget(IHM::Page::Course)->layout()->addWidget(avatarsJoueurs[i]);
+    }
 }
 
 void IHM::positionnerWidgets()
@@ -94,10 +113,8 @@ void IHM::initialiserFenetre()
 #ifdef RASPBERRY_PI
     showFullScreen();
 #else
-    resize(qApp->desktop()->availableGeometry(this).width(),
+    setFixedSize(qApp->desktop()->availableGeometry(this).width(),
            qApp->desktop()->availableGeometry(this).height());
-    setMinimumSize(qApp->desktop()->availableGeometry(this).width(),
-                   qApp->desktop()->availableGeometry(this).height());
     // showMaximized();
 #endif
     afficherPageConnexion();
