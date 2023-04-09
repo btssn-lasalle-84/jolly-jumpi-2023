@@ -15,7 +15,7 @@
  * @def RASPBERRY_PI
  * @brief Pour le mode plein écran sur la RPI
  */
-//#define RASPBERRY_PI
+#define RASPBERRY_PI
 
 namespace Ui
 {
@@ -44,7 +44,7 @@ class IHM : public QWidget
     Ui::IHM* ui;
 
     QVector<QPixmap*> imageAvatarsJoueurs;
-    QVector<QLabel*> avatarsJoueurs;
+    QVector<QLabel*>  avatarsJoueurs;
 
     void instancierWidgets();
     void initialiserWidgets();
