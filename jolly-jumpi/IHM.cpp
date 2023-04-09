@@ -68,7 +68,7 @@ void IHM::afficherPageConnexion()
 }
 
 /**
- * @fn IHM::afficherCourse()
+ * @fn IHM::afficherPageCourse()
  * @brief Affiche la page pour une course de chevaux
  */
 void IHM::afficherPageCourse()
@@ -92,11 +92,14 @@ void IHM::instancierWidgets()
 
 void IHM::initialiserWidgets()
 {
-    for (int i = 0; i < imageAvatarsJoueurs.size(); i++)
+    for(int i = 0; i < imageAvatarsJoueurs.size(); i++)
     {
-        *imageAvatarsJoueurs[i] = imageAvatarsJoueurs[i]->scaled(QSize(200, 100));
+        *imageAvatarsJoueurs[i] =
+          imageAvatarsJoueurs[i]->scaled(QSize(200, 100));
         avatarsJoueurs[i]->setPixmap(*imageAvatarsJoueurs[i]);
-        ui->pages->widget(IHM::Page::Course)->layout()->addWidget(avatarsJoueurs[i]);
+        ui->pages->widget(IHM::Page::Course)
+          ->layout()
+          ->addWidget(avatarsJoueurs[i]);
     }
 }
 
@@ -114,7 +117,7 @@ void IHM::initialiserFenetre()
     showFullScreen();
 #else
     setFixedSize(qApp->desktop()->availableGeometry(this).width(),
-           qApp->desktop()->availableGeometry(this).height());
+                 qApp->desktop()->availableGeometry(this).height());
     // showMaximized();
 #endif
     afficherPageConnexion();
