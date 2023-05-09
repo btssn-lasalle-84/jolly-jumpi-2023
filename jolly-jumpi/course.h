@@ -2,16 +2,19 @@
 #define COURSE_H
 
 #include <QObject>
+#include <QVector>
 
-class Course : public QObject
-{
-    Q_OBJECT
+#include "IHM.h"
 
-  public:
-    Course(QObject* parent = 0);
-    ~Course();
+class Course : public QObject {
+  Q_OBJECT
 
-  public slots:
+private:
+public:
+  Course();
+  ~Course();
+
+public slots:
 };
 
 #endif // COURSE_H

@@ -1,6 +1,10 @@
 #ifndef IHM_H
 #define IHM_H
 
+#define JAUNE 1
+#define BLEU 3
+#define ROUGE 5
+
 /**
  * @file IHM.h
  *
@@ -15,10 +19,9 @@
  * @def RASPBERRY_PI
  * @brief Pour le mode plein écran sur la RPI
  */
-#define RASPBERRY_PI
+//#define RASPBERRY_PI
 
-namespace Ui
-{
+namespace Ui {
 class IHM;
 }
 
@@ -26,42 +29,42 @@ class IHM;
  * @class IHM
  * @brief Affiche les pages d'écran pour l'application
  */
-class IHM : public QWidget
-{
-    Q_OBJECT
-    /**
-     * @enum Page
-     * @brief Les différentes pages de la GUI
-     */
-    enum Page
-    {
-        Connexion,
-        Course,
-        NbPages
-    };
+class IHM : public QWidget {
+  Q_OBJECT
+  /**
+   * @enum Page
+   * @brief Les différentes pages de la GUI
+   */
+  enum Page { Connexion, Course, NbPages };
 
-  private:
-    Ui::IHM* ui;
+private:
+  Ui::IHM *ui;
 
-    QVector<QPixmap*> imageAvatarsJoueurs;
-    QVector<QLabel*>  avatarsJoueurs;
+  QVector<unsigned int> positionChevaux;
 
-    void instancierWidgets();
-    void initialiserWidgets();
-    void positionnerWidgets();
-    void connecterSignauxSlots();
-    void initialiserFenetre();
+  QVector<QPixmap *> imageAvatarsJoueurs;
+  QVector<QLabel *> avatarsJoueurs;
 
-  public slots:
-    void afficherPage(IHM::Page page);
-    void afficherPageConnexion();
-    void afficherPageCourse();
+  void instancierWidgets();
+  void initialiserWidgets();
+  void positionnerWidgets();
+  void connecterSignauxSlots();
+  void initialiserFenetre();
 
-  public:
-    IHM(QWidget* parent = nullptr);
-    ~IHM();
+  bool partieFinie(QVector<unsigned int> positionChevaux);
+  void actualiserPositionChevaux(QVector<unsigned int> positionChevaux);
+  void avancerChevaux(QVector<unsigned int> positionChevaux);
 
-    void jouer();
+public slots:
+  void afficherPage(IHM::Page page);
+  void afficherPageConnexion();
+  void afficherPageCourse();
+
+public:
+  IHM(QWidget *parent = nullptr);
+  ~IHM();
+
+  void jouer();
 };
 
 #endif // IHM_H

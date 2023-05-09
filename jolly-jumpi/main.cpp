@@ -1,5 +1,5 @@
-#include <QApplication>
 #include "IHM.h"
+#include <QApplication>
 
 /**
  * @file main.cpp
@@ -12,12 +12,11 @@
  * @param argv[]
  * @return int
  */
-int main(int argc, char* argv[])
-{
-    QApplication a(argc, argv);
-    IHM          ihm;
+int main(int argc, char *argv[]) {
+  QApplication a(argc, argv);
+  IHM ihm;
 
-    ihm.show();
+  ihm.show();
 
-    return a.exec();
+  return a.exec();
 }

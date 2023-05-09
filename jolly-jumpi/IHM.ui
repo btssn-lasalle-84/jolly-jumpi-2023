@@ -56,7 +56,11 @@
      <widget class="QWidget" name="pageCourse">
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayoutPageCourse"/>
+        <layout class="QGridLayout" name="gridLayout">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+        </layout>
        </item>
       </layout>
      </widget>
