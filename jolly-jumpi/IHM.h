@@ -1,10 +1,6 @@
 #ifndef IHM_H
 #define IHM_H
 
-#define JAUNE 1
-#define BLEU 3
-#define ROUGE 5
-
 /**
  * @file IHM.h
  *
@@ -21,7 +17,33 @@
  */
 //#define RASPBERRY_PI
 
-namespace Ui {
+/**
+ * @def MODE_SIMULATION
+ * @brief Pour le mode simulation avec les touches de clavier
+ */
+#define MODE_SIMULATION
+
+/**
+ * @def NB_CHEVAUX_MAX
+ * @brief Le nombre de chevaux maximum pour une course
+ */
+#define NB_CHEVAUX_MAX 6
+
+/**
+ * @def NB_COULEURS_TROU
+ * @brief Le nombre de couleurs différentes pour les trous
+ * @see Trou
+ */
+#define NB_COULEURS_TROU 3
+
+/**
+ * @def DISTANCE_MAX
+ * @brief La distance max en nombre de cases
+ */
+#define DISTANCE_MAX 10
+
+namespace Ui
+{
 class IHM;
 }
 
@@ -29,42 +51,59 @@ class IHM;
  * @class IHM
  * @brief Affiche les pages d'écran pour l'application
  */
-class IHM : public QWidget {
-  Q_OBJECT
-  /**
-   * @enum Page
-   * @brief Les différentes pages de la GUI
-   */
-  enum Page { Connexion, Course, NbPages };
+class IHM : public QWidget
+{
+    Q_OBJECT
+    /**
+     * @enum Page
+     * @brief Les différentes pages de la GUI
+     */
+    enum Page
+    {
+        Connexion,
+        Course,
+        NbPages
+    };
+    enum Trou
+    {
+        JAUNE = 1,
+        BLEU  = 3,
+        ROUGE = 5
+    };
 
-private:
-  Ui::IHM *ui;
+  private:
+    Ui::IHM*              ui;
+    QVector<unsigned int> positionChevaux;
+    int                   nbChevaux;
+    QVector<QPixmap*>     imageAvatarsJoueurs;
+    QVector<QLabel*>      avatarsJoueurs;
 
-  QVector<unsigned int> positionChevaux;
+    void instancierWidgets();
+    void initialiserWidgets();
+    void positionnerWidgets();
+    void connecterSignauxSlots();
+    void initialiserFenetre();
+    bool estPartieFinie();
+#ifdef MODE_SIMULATION
+    void installerModeSimulation();
+    int  randInt(int min, int max);
+#endif
 
-  QVector<QPixmap *> imageAvatarsJoueurs;
-  QVector<QLabel *> avatarsJoueurs;
+  public slots:
+    void afficherPage(IHM::Page page);
+    void afficherPageConnexion();
+    void afficherPageCourse();
+    void actualiserPositionChevaux(int numeroCheval, Trou deplacement);
+    void avancerChevaux();
+#ifdef MODE_SIMULATION
+    void simulerAvancementCheval();
+#endif
 
-  void instancierWidgets();
-  void initialiserWidgets();
-  void positionnerWidgets();
-  void connecterSignauxSlots();
-  void initialiserFenetre();
+  public:
+    IHM(QWidget* parent = nullptr);
+    ~IHM();
 
-  bool partieFinie(QVector<unsigned int> positionChevaux);
-  void actualiserPositionChevaux(QVector<unsigned int> positionChevaux);
-  void avancerChevaux(QVector<unsigned int> positionChevaux);
-
-public slots:
-  void afficherPage(IHM::Page page);
-  void afficherPageConnexion();
-  void afficherPageCourse();
-
-public:
-  IHM(QWidget *parent = nullptr);
-  ~IHM();
-
-  void jouer();
+    void jouer();
 };
 
 #endif // IHM_H
