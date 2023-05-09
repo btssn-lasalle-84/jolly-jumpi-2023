@@ -6,10 +6,10 @@ classcanvas 128042 class_ref 134826 // IHM
 end
 classcanvas 128170 class_ref 134570 // Course
   classdiagramsettings member_max_width 0 end
-  xyz 469 847 2000
+  xyz 680 993 2000
 end
 classcanvas 128298 class_ref 135210 // Statistiques
   classdiagramsettings member_max_width 0 end
-  xyz 1133 845 2000
+  xyz 1119 952 2000
 end
 end
