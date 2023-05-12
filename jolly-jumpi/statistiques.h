@@ -9,7 +9,10 @@ class Statistiques : public QObject
 
   private:
     unsigned int tempsDeLaPartie;
-    unsigned int nombreBallesRentrees; //devrait etre un vecteur car plusieurs joueurs et plusieurs couleurs de trou
+    /**
+     * @todo Implémenter la notion de conteneur
+     */
+    unsigned int nombreBallesRentrees;
 
   public:
     Statistiques(QObject* parent = nullptr);

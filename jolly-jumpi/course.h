@@ -6,15 +6,16 @@
 
 #include "IHM.h"
 
-class Course : public QObject {
-  Q_OBJECT
+class Course : public QObject
+{
+    Q_OBJECT
 
-private:
-public:
-  Course();
-  ~Course();
+  private:
+  public:
+    Course();
+    ~Course();
 
-public slots:
+  public slots:
 };
 
 #endif // COURSE_H
