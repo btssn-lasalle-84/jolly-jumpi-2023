@@ -1,6 +1,6 @@
 format 224
 "jolly-jumpi-bouml"
-  revision 6
+  revision 7
   modified_by 42 "tv"
   cpp_root_dir "../"
 
@@ -365,7 +365,7 @@ format 224
     end
   end
 
-  usecaseview 134543 "sequence"
+  usecaseview 134543 "sequences"
     
     usecasediagramsettings end
     
@@ -386,9 +386,14 @@ format 224
     
     activitydiagramsettings
      end
-    sequencediagram 141199 "sequence"
+    sequencediagram 141199 "Démarrer"
       sequencediagramsettings end
-      overlapping_bars size A4
+      overlapping_bars size A0
+    end
+
+    sequencediagram 141098 "Voir la position des chevaux"
+      sequencediagramsettings end
+      overlapping_bars size A0
     end
   end
 
