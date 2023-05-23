@@ -2,7 +2,8 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+CONFIG += c++11 \
+          file_copies
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
@@ -24,3 +25,9 @@ CONFIG(release, debug|release):DEFINES+=QT_NO_DEBUG_OUTPUT
 
 RESOURCES += \
     background.qrc
+
+
+COPIES += images
+images.files = Images
+images.path = $$OUT_PWD/
+images.base = $$PWD/
