@@ -9,10 +9,8 @@ class Statistiques : public QObject
 
   private:
     unsigned int tempsDeLaPartie;
-    /**
-     * @todo Implémenter la notion de conteneur
-     */
-    unsigned int nombreBallesRentrees;
+    QVector<unsigned int> nombreDePointsMarques;
+    QVector<unsigned int> nombreBallesRentrees;
 
   public:
     Statistiques(QObject* parent = nullptr);
