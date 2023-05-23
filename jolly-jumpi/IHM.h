@@ -42,7 +42,8 @@
  */
 #define DISTANCE_MAX 10
 
-namespace Ui {
+namespace Ui
+{
 class IHM;
 }
 
@@ -50,50 +51,61 @@ class IHM;
  * @class IHM
  * @brief Affiche les pages d'écran pour l'application
  */
-class IHM : public QWidget {
-  Q_OBJECT
-  /**
-   * @enum Page
-   * @brief Les différentes pages de la GUI
-   */
-  enum Page { Connexion, Course, NbPages };
-  enum Trou { JAUNE = 1, BLEU = 3, ROUGE = 5 };
+class IHM : public QWidget
+{
+    Q_OBJECT
+    /**
+     * @enum Page
+     * @brief Les différentes pages de la GUI
+     */
+    enum Page
+    {
+        Connexion,
+        Course,
+        NbPages
+    };
+    enum Trou
+    {
+        JAUNE = 1,
+        BLEU  = 3,
+        ROUGE = 5
+    };
 
-private:
-  Ui::IHM *ui;
-  QVector<unsigned int> positionChevaux;
-  int nbChevaux;
-  QVector<QPixmap *> imageAvatarsJoueurs;
-  QVector<QLabel *> avatarsJoueurs;
-  QPixmap *imagePlaceHolder;
-  QLabel *placeHolder;
+  private:
+    Ui::IHM*              ui;
+    QVector<unsigned int> positionChevaux;
+    int                   nbChevaux;
+    QVector<QPixmap*>     imageAvatarsJoueurs;
+    QVector<QLabel*>      avatarsJoueurs;
+    QVector<QPixmap*>     imagePlaceHolder;
+    QVector<QLabel*>      placeHolder;
 
-  void instancierWidgets();
-  void initialiserWidgets();
-  void positionnerWidgets();
-  void connecterSignauxSlots();
-  void initialiserFenetre();
-  bool estPartieFinie();
+    void instancierWidgets();
+    void initialiserWidgets();
+    void positionnerWidgets();
+    void connecterSignauxSlots();
+    void initialiserFenetre();
+    bool estPartieFinie();
 #ifdef MODE_SIMULATION
-  void installerModeSimulation();
-  int randInt(int min, int max);
+    void installerModeSimulation();
+    int  randInt(int min, int max);
 #endif
 
-public slots:
-  void afficherPage(IHM::Page page);
-  void afficherPageConnexion();
-  void afficherPageCourse();
-  void actualiserPositionChevaux(int numeroCheval, Trou deplacement);
-  void avancerChevaux();
+  public slots:
+    void afficherPage(IHM::Page page);
+    void afficherPageConnexion();
+    void afficherPageCourse();
+    void actualiserPositionChevaux(int numeroCheval, Trou deplacement);
+    void avancerChevaux();
 #ifdef MODE_SIMULATION
-  void simulerAvancementCheval();
+    void simulerAvancementCheval();
 #endif
 
-public:
-  IHM(QWidget *parent = nullptr);
-  ~IHM();
+  public:
+    IHM(QWidget* parent = nullptr);
+    ~IHM();
 
-  void jouer();
+    void jouer();
 };
 
 #endif // IHM_H
