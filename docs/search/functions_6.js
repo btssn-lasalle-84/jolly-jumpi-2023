@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['statistiques_67',['Statistiques',['../class_statistiques.html#a99c00468ae9c05d6d83a97e92ff86e96',1,'Statistiques']]]
+  ['positionnerwidgets_87',['positionnerWidgets',['../class_i_h_m.html#ad7eb31275e8188e98ef8c87475f202fa',1,'IHM']]]
 ];

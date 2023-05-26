@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['tempsdelapartie_34',['tempsDeLaPartie',['../class_statistiques.html#a3feed03c16c544bc22556244b5eb4661',1,'Statistiques']]]
+  ['qobject_41',['QObject',['../class_q_object.html',1,'']]],
+  ['qwidget_42',['QWidget',['../class_q_widget.html',1,'']]]
 ];

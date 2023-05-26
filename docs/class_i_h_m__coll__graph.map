@@ -1,4 +1,4 @@
 <map id="IHM" name="IHM">
-<area shape="rect" id="node1" title="Affiche les pages d&#39;écran pour l&#39;application." alt="" coords="5,131,201,384"/>
-<area shape="rect" id="node2" href="$class_q_widget.html" title=" " alt="" coords="64,5,143,83"/>
+<area shape="rect" id="node1" title="Affiche les pages d&#39;écran pour l&#39;application." alt="" coords="5,131,228,531"/>
+<area shape="rect" id="node2" href="$class_q_widget.html" title=" " alt="" coords="77,5,156,83"/>
 </map>
