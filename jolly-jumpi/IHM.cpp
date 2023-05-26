@@ -29,8 +29,8 @@ IHM::IHM(QWidget* parent) :
     initialiserFenetre();
 #ifdef MODE_SIMULATION
     installerModeSimulation();
-#endif
     afficherPageCourse();
+#endif
 }
 
 /**
@@ -72,57 +72,18 @@ void IHM::afficherPageCourse()
     afficherPage(IHM::Page::Course);
 }
 
-void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
-{
-    qDebug() << Q_FUNC_INFO << "numeroCheval" << numeroCheval << "deplacement"
-             << int(deplacement);
-    positionChevaux[numeroCheval] =
-      positionChevaux[numeroCheval] + int(deplacement);
-    if(positionChevaux[numeroCheval] > DISTANCE_MAX)
-        positionChevaux[numeroCheval] = DISTANCE_MAX;
-    avancerChevaux();
-}
-
-void IHM::avancerChevaux()
-{
-    for(int i = 0; i < nbChevaux; i++)
-    {
-        avatarsJoueurs[i]->setPixmap(*imageAvatarsJoueurs[i]);
-        ui->pages->widget(IHM::Page::Course)
-          ->findChild<QGridLayout*>("gridLayout")
-          ->removeWidget(avatarsJoueurs[i]);
-
-        ui->pages->widget(IHM::Page::Course)
-          ->findChild<QGridLayout*>("gridLayout")
-          ->addWidget(avatarsJoueurs[i], i, positionChevaux[i], Qt::AlignTop);
-
-        ui->pages->widget(IHM::Page::Course)
-          ->findChild<QGridLayout*>("gridLayout")
-          ->setRowStretch(imageAvatarsJoueurs.size(), 1);
-    }
-}
-
-#ifdef MODE_SIMULATION
-void IHM::simulerAvancementCheval()
-{
-    Trou trous[NB_COULEURS_TROU] = { JAUNE, BLEU, ROUGE };
-    int  numeroCheval            = randInt(0, NB_CHEVAUX_MAX - 1);
-    int  trou                    = randInt(0, NB_COULEURS_TROU - 1);
-    actualiserPositionChevaux(numeroCheval, trous[trou]);
-}
-#endif
-
-// Méthodes privées
-
 void IHM::instancierWidgets()
 {
     ui->setupUi(this);
 
-    for(int i = 0; i < NB_CHEVAUX_MAX; i++)
+    for(int i = 0; i < nbChevaux; i++)
     {
         imageAvatarsJoueurs.push_back(
-          new QPixmap("../Images/cheval" + QString::number(i + 1) + ".png"));
+          new QPixmap("Images/cheval" + QString::number(i + 1) + ".png"));
         avatarsJoueurs.push_back(new QLabel(this));
+
+        imagePlaceHolder.push_back(new QPixmap("Images/placeholder.png"));
+        placeHolder.push_back(new QLabel(this));
     }
 }
 
@@ -142,9 +103,26 @@ void IHM::initialiserWidgets()
         ui->pages->widget(IHM::Page::Course)
           ->findChild<QGridLayout*>("gridLayout")
           ->setRowStretch(imageAvatarsJoueurs.size(), 1);
+
+        *imagePlaceHolder[i] = imagePlaceHolder[i]->scaled(
+          QSize(qApp->desktop()->availableGeometry(this).width() * 0.1,
+                qApp->desktop()->availableGeometry(this).height() * 0.1));
+        placeHolder[i]->setPixmap(*imagePlaceHolder[i]);
+
+        ui->pages->widget(IHM::Page::Course)
+          ->findChild<QGridLayout*>("gridLayout")
+          ->addWidget(placeHolder[i], nbChevaux, i, Qt::AlignTop);
+
+        ui->pages->widget(IHM::Page::Course)
+          ->findChild<QGridLayout*>("gridLayout")
+          ->setRowStretch(imagePlaceHolder.size(), 1);
     }
 
-    for(int i = 0; i < DISTANCE_MAX; i++)
+    ui->pages->widget(IHM::Page::Course)
+      ->findChild<QGridLayout*>("gridLayout")
+      ->setRowStretch(imageAvatarsJoueurs.size(), 1);
+
+    for(int i = 0; i <= DISTANCE_MAX; i++)
     {
         ui->pages->widget(IHM::Page::Course)
           ->findChild<QGridLayout*>("gridLayout")
@@ -209,5 +187,48 @@ void IHM::installerModeSimulation()
 int IHM::randInt(int min, int max)
 {
     return qrand() % ((max + 1) - min) + min;
+}
+#endif
+
+void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
+{
+    qDebug() << Q_FUNC_INFO << "Cheval" << numeroCheval << "deplacement"
+             << int(deplacement) << "Position" << positionChevaux[numeroCheval];
+
+    positionChevaux[numeroCheval] =
+      positionChevaux[numeroCheval] + int(deplacement);
+    if(positionChevaux[numeroCheval] > DISTANCE_MAX)
+    {
+        positionChevaux[numeroCheval] = DISTANCE_MAX;
+    }
+    avancerChevaux();
+}
+
+void IHM::avancerChevaux()
+{
+    for(int i = 0; i < nbChevaux; i++)
+    {
+        avatarsJoueurs[i]->setPixmap(*imageAvatarsJoueurs[i]);
+        ui->pages->widget(IHM::Page::Course)
+          ->findChild<QGridLayout*>("gridLayout")
+          ->removeWidget(avatarsJoueurs[i]);
+
+        ui->pages->widget(IHM::Page::Course)
+          ->findChild<QGridLayout*>("gridLayout")
+          ->addWidget(avatarsJoueurs[i], i, positionChevaux[i], Qt::AlignTop);
+
+        ui->pages->widget(IHM::Page::Course)
+          ->findChild<QGridLayout*>("gridLayout")
+          ->setRowStretch(imageAvatarsJoueurs.size(), 1);
+    }
+}
+
+#ifdef MODE_SIMULATION
+void IHM::simulerAvancementCheval()
+{
+    Trou trous[NB_COULEURS_TROU] = { JAUNE, BLEU, ROUGE };
+    int  numeroCheval            = randInt(0, NB_CHEVAUX_MAX - 1);
+    int  trou                    = randInt(0, NB_COULEURS_TROU - 1);
+    actualiserPositionChevaux(numeroCheval, trous[trou]);
 }
 #endif

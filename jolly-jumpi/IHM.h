@@ -77,6 +77,8 @@ class IHM : public QWidget
     int                   nbChevaux;
     QVector<QPixmap*>     imageAvatarsJoueurs;
     QVector<QLabel*>      avatarsJoueurs;
+    QVector<QPixmap*>     imagePlaceHolder;
+    QVector<QLabel*>      placeHolder;
 
     void instancierWidgets();
     void initialiserWidgets();

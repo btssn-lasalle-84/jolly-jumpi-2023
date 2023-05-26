@@ -1,6 +1,6 @@
 format 224
 "jolly-jumpi" // jolly-jumpi
-  revision 2
+  revision 1
   modified_by 42 "tv"
   // class settings
   
@@ -85,10 +85,13 @@ ${inlines}
 
       operation 134570 "Course"
 	preserve_cpp_body_indent public explicit_return_type ""
-	nparams 0
-	cpp_decl "    ${comment}${inline}${name}${(}${)}${volatile}${throw}${abstract};
+	nparams 1
+	  param inout name "parent" explicit_type "QObject"
+	    defaultvalue "0"
+	cpp_decl "    ${comment}${inline}${name}${(}${t0} * ${p0}${v0}${)}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${)}${throw}{
+	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${t0} * ${p0}${)} : QObject(parent)
+${throw}{
 ${body}}
 "
 	
@@ -215,84 +218,9 @@ ${items}};
 	end
       end
 
-      class 141738 "Trou"
-	visibility package stereotype "enum"
-	cpp_decl "${comment}enum ${name} {
-${items}};
-"
-	java_decl ""
-	php_decl ""
-	python_2_2 python_decl ""
-	idl_decl ""
-	explicit_switch_type ""
-	mysql_decl ""
-	
-	attribute 141994 "JAUNE"
-	  public type class_ref 141738 // Trou
-	  init_value " 1"
-	  cpp_decl "  ${name}${value},${comment}"
-	  java_decl ""
-	  php_decl ""
-	  python_decl ""
-	  idl_decl ""
-	  mysql_decl ""
-	  MysqlColumn
-	end
-
-	attribute 142122 "BLEU"
-	  public type class_ref 141738 // Trou
-	  init_value " 3"
-	  cpp_decl "  ${name}${value},${comment}"
-	  java_decl ""
-	  php_decl ""
-	  python_decl ""
-	  idl_decl ""
-	  mysql_decl ""
-	  MysqlColumn
-	end
-
-	attribute 142250 "ROUGE"
-	  public type class_ref 141738 // Trou
-	  init_value " 5
-    "
-	  cpp_decl "  ${name}${value},${comment}"
-	  java_decl ""
-	  php_decl ""
-	  python_decl ""
-	  idl_decl ""
-	  mysql_decl ""
-	  MysqlColumn
-	end
-      end
-
       attribute 134954 "ui"
 	private explicit_type "Ui::IHM"
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
-"
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      attribute 142378 "positionChevaux"
-	private explicit_type "unsigned int"
-	stereotype "QVector"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${stereotype}<${type}> ${name}${value};
-"
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      attribute 142506 "nbChevaux"
-	private explicit_type "int"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
 "
 	java_decl ""
 	php_decl ""
@@ -328,14 +256,69 @@ ${items}};
 	MysqlColumn
       end
 
+      operation 135850 "IHM"
+	preserve_cpp_body_indent public explicit_return_type ""
+	nparams 1
+	  param inout name "parent" explicit_type "QWidget"
+	    defaultvalue "nullptr"
+	cpp_decl "    ${comment}${inline}${name}${(}${t0} * ${p0}${v0}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Constructeur de la classe IHM
+//
+//@fn IHM::IHM
+//@param parent nullptr pour définir la fenêtre principale de l'application
+//
+
+${inline}${typeprefix}${class}::${name}${(}${t0} * ${p0}${)} : QWidget(parent), ui(new Ui::IHM)
+${throw}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 135978 "~IHM"
+	preserve_cpp_body_indent public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Destructeur de la classe IHM
+//
+//@fn IHM::~IHM
+//@details Libère les ressources de l'application
+//
+
+${inline}${typeprefix}${class}::${name}${(}${)}${throw}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 136106 "jouer"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
       operation 134826 "instancierWidgets"
 	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "// Méthodes privées
-
-${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -400,50 +383,6 @@ ${body}}
 	
       end
 
-      operation 142890 "estPartieFinie"
-	preserve_cpp_body_indent private explicit_return_type "bool"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
-      end
-
-      operation 143018 "installerModeSimulation"
-	preserve_cpp_body_indent private explicit_return_type "void"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
-      end
-
-      operation 143146 "randInt"
-	preserve_cpp_body_indent private explicit_return_type "int"
-	nparams 2
-	  param in name "min" explicit_type "int"
-	  param in name "max" explicit_type "int"
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
-      end
-
       extra_member 134954 "slots"
 	
 	cpp "  public slots:" ""
@@ -499,112 +438,12 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "//@fn IHM::afficherPageCourse()
+	cpp_def "//@fn IHM::afficherCourse()
 //@brief Affiche la page pour une course de chevaux
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
-"
-	
-	
-	
-	
-      end
-
-      operation 143274 "actualiserPositionChevaux"
-	preserve_cpp_body_indent public explicit_return_type "void"
-	nparams 2
-	  param in name "numeroCheval" explicit_type "int"
-	  param in name "deplacement" type class_ref 141738 // Trou
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
-      end
-
-      operation 143402 "avancerChevaux"
-	preserve_cpp_body_indent public explicit_return_type "void"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
-      end
-
-      operation 143530 "simulerAvancementCheval"
-	preserve_cpp_body_indent public explicit_return_type "void"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
-      end
-
-      operation 135850 "IHM"
-	preserve_cpp_body_indent public explicit_return_type ""
-	nparams 1
-	  param inout name "parent" explicit_type "QWidget"
-	    defaultvalue "nullptr"
-	cpp_decl "    ${comment}${inline}${name}${(}${t0} * ${p0}${v0}${)}${volatile}${throw}${abstract};
-"
-	cpp_def "//@brief Constructeur de la classe IHM
-//
-//@fn IHM::IHM
-//@param parent nullptr pour définir la fenêtre principale de l'application
-//
-
-${inline}${typeprefix}${class}::${name}${(}${t0} * ${p0}${)} :
-    QWidget(parent), ui(new Ui::IHM), positionChevaux(NB_CHEVAUX_MAX, 0),
-    nbChevaux(positionChevaux.size())
-${throw}{
-${body}}
-"
-	
-	
-	
-	
-      end
-
-      operation 135978 "~IHM"
-	preserve_cpp_body_indent public explicit_return_type ""
-	nparams 0
-	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw}${abstract};
-"
-	cpp_def "//@brief Destructeur de la classe IHM
-//
-//@fn IHM::~IHM
-//@details Libère les ressources de l'application
-//
-
-${inline}${typeprefix}${class}::${name}${(}${)}${throw}{
-${body}}
-"
-	
-	
-	
-	
-      end
-
-      operation 136106 "jouer"
-	preserve_cpp_body_indent public explicit_return_type "void"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
 	
 	
@@ -679,9 +518,7 @@ ${inlines}
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
-	comment "@todo Implémenter la notion de conteneur
-
-"
+	comment "devrait etre un vecteur car plusieurs joueurs et plusieurs couleurs de trou"
       end
 
       operation 136234 "Statistiques"
