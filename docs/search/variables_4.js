@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ui_75',['ui',['../class_i_h_m.html#afcc6fb0fd40813eacc9980419c04a5c1',1,'IHM']]]
+  ['tempsdelapartie_102',['tempsDeLaPartie',['../class_statistiques.html#a3feed03c16c544bc22556244b5eb4661',1,'Statistiques']]]
 ];
