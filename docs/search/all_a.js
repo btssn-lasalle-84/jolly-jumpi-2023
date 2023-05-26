@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['statistiques_31',['Statistiques',['../class_statistiques.html',1,'Statistiques'],['../class_statistiques.html#a99c00468ae9c05d6d83a97e92ff86e96',1,'Statistiques::Statistiques()']]],
-  ['statistiques_2ecpp_32',['statistiques.cpp',['../statistiques_8cpp.html',1,'']]],
-  ['statistiques_2eh_33',['statistiques.h',['../statistiques_8h.html',1,'']]]
+  ['page_37',['Page',['../class_i_h_m.html#ae3b615ff0ec2652cfe004c49d790fbc0',1,'IHM']]],
+  ['placeholder_38',['placeHolder',['../class_i_h_m.html#af82a7138e20a64966558b3a99c4f3b54',1,'IHM']]],
+  ['positionchevaux_39',['positionChevaux',['../class_i_h_m.html#a1af3afa863f929adb0c4cb3b636323f8',1,'IHM']]],
+  ['positionnerwidgets_40',['positionnerWidgets',['../class_i_h_m.html#ad7eb31275e8188e98ef8c87475f202fa',1,'IHM']]]
 ];

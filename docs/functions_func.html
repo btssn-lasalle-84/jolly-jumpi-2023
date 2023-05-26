@@ -3,9 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Projet jolly-jumpi: Champs de donnée - Fonctions</title>
+<title>jolly-jumpi: Champs de donnée - Fonctions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,8 +26,8 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Projet jolly-jumpi
-   &#160;<span id="projectnumber">0.1</span>
+   <div id="projectname">jolly-jumpi
+   &#160;<span id="projectnumber">0.2</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2023</div>
   </td>
@@ -36,10 +36,10 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Généré par Doxygen 1.9.1 -->
+<!-- Généré par Doxygen 1.8.17 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -85,6 +85,9 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 
 <div class="contents">
 &#160;<ul>
+<li>actualiserPositionChevaux()
+: <a class="el" href="class_i_h_m.html#adcfb19e79382aea5223e4f1c2d4a84dd">IHM</a>
+</li>
 <li>afficherPage()
 : <a class="el" href="class_i_h_m.html#a7dada2a3f803c20fd160a8adcab4c28f">IHM</a>
 </li>
@@ -94,11 +97,17 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>afficherPageCourse()
 : <a class="el" href="class_i_h_m.html#a64b7af7227214b89584c9bc357d51adb">IHM</a>
 </li>
+<li>avancerChevaux()
+: <a class="el" href="class_i_h_m.html#a9762f0cec409986e01d4d35043d7462b">IHM</a>
+</li>
 <li>connecterSignauxSlots()
 : <a class="el" href="class_i_h_m.html#a805627d1eb56b48b44aba2fee8996127">IHM</a>
 </li>
 <li>Course()
-: <a class="el" href="class_course.html#a31e38c7032a7312f99fb85de0bcc097f">Course</a>
+: <a class="el" href="class_course.html#a6b959ccf15d9ceed9e9c14a701561982">Course</a>
+</li>
+<li>estPartieFinie()
+: <a class="el" href="class_i_h_m.html#ac8dd0ce48e3233e219bfa8d6588b0f14">IHM</a>
 </li>
 <li>IHM()
 : <a class="el" href="class_i_h_m.html#a84bd9f469337c5c1a9bf3a949cd8b561">IHM</a>
@@ -109,6 +118,9 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>initialiserWidgets()
 : <a class="el" href="class_i_h_m.html#a043e9d172dfafc776269a0e91b94c594">IHM</a>
 </li>
+<li>installerModeSimulation()
+: <a class="el" href="class_i_h_m.html#aa86efc771efc13c02a20ee55558ad38d">IHM</a>
+</li>
 <li>instancierWidgets()
 : <a class="el" href="class_i_h_m.html#a98c00ec71e9b3ad3c1f3f93ed8f15ddc">IHM</a>
 </li>
@@ -117,6 +129,12 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 </li>
 <li>positionnerWidgets()
 : <a class="el" href="class_i_h_m.html#ad7eb31275e8188e98ef8c87475f202fa">IHM</a>
+</li>
+<li>randInt()
+: <a class="el" href="class_i_h_m.html#aa8382134012c322dc05c298a2f7bdacf">IHM</a>
+</li>
+<li>simulerAvancementCheval()
+: <a class="el" href="class_i_h_m.html#af800723bc452273c6f852d497a12303c">IHM</a>
 </li>
 <li>Statistiques()
 : <a class="el" href="class_statistiques.html#a99c00468ae9c05d6d83a97e92ff86e96">Statistiques</a>
@@ -137,7 +155,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Dimanche 9 Avril 2023 20:11:48 pour Projet jolly-jumpi par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Vendredi 26 Mai 2023 11:31:09 pour jolly-jumpi par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
   </ul>
 </div>
 </body>

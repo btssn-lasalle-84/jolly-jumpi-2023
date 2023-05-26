@@ -3,9 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Projet jolly-jumpi:  Fichier source de statistiques.h</title>
+<title>jolly-jumpi:  Fichier source de statistiques.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,8 +26,8 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Projet jolly-jumpi
-   &#160;<span id="projectnumber">0.1</span>
+   <div id="projectname">jolly-jumpi
+   &#160;<span id="projectnumber">0.2</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2023</div>
   </td>
@@ -36,10 +36,10 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Généré par Doxygen 1.9.1 -->
+<!-- Généré par Doxygen 1.8.17 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -92,35 +92,37 @@ $(document).ready(function(){initNavTree('statistiques_8h_source.html',''); init
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define STATISTIQUES_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;QObject&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="class_statistiques.html">    6</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_statistiques.html">Statistiques</a> : <span class="keyword">public</span> <a class="code" href="class_q_object.html">QObject</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    Q_OBJECT</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;QVector&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="class_statistiques.html">    7</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_statistiques.html">Statistiques</a> : <span class="keyword">public</span> <a class="code" href="class_q_object.html">QObject</a> {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;  Q_OBJECT</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="class_statistiques.html#a3feed03c16c544bc22556244b5eb4661">   11</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_statistiques.html#a3feed03c16c544bc22556244b5eb4661">tempsDeLaPartie</a>;</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_statistiques.html#ac946b677b38e450ee61d9da5a4447d9a">   12</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_statistiques.html#ac946b677b38e450ee61d9da5a4447d9a">nombreBallesRentrees</a>; <span class="comment">//devrait etre un vecteur car plusieurs joueurs et plusieurs couleurs de trou</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="class_statistiques.html#a99c00468ae9c05d6d83a97e92ff86e96">Statistiques</a>(<a class="code" href="class_q_object.html">QObject</a>* parent = <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="class_statistiques.html#a0b3904d9f448c4eb3c88074932c25051">~Statistiques</a>();</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;};</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// STATISTIQUES_H</span></div>
-<div class="ttc" id="aclass_q_object_html"><div class="ttname"><a href="class_q_object.html">QObject</a></div></div>
-<div class="ttc" id="aclass_statistiques_html"><div class="ttname"><a href="class_statistiques.html">Statistiques</a></div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8h_source.html#l00006">statistiques.h:7</a></div></div>
-<div class="ttc" id="aclass_statistiques_html_a0b3904d9f448c4eb3c88074932c25051"><div class="ttname"><a href="class_statistiques.html#a0b3904d9f448c4eb3c88074932c25051">Statistiques::~Statistiques</a></div><div class="ttdeci">~Statistiques()</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8cpp_source.html#l00010">statistiques.cpp:10</a></div></div>
-<div class="ttc" id="aclass_statistiques_html_a3feed03c16c544bc22556244b5eb4661"><div class="ttname"><a href="class_statistiques.html#a3feed03c16c544bc22556244b5eb4661">Statistiques::tempsDeLaPartie</a></div><div class="ttdeci">unsigned int tempsDeLaPartie</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8h_source.html#l00011">statistiques.h:11</a></div></div>
-<div class="ttc" id="aclass_statistiques_html_a99c00468ae9c05d6d83a97e92ff86e96"><div class="ttname"><a href="class_statistiques.html#a99c00468ae9c05d6d83a97e92ff86e96">Statistiques::Statistiques</a></div><div class="ttdeci">Statistiques(QObject *parent=nullptr)</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8cpp_source.html#l00006">statistiques.cpp:6</a></div></div>
-<div class="ttc" id="aclass_statistiques_html_ac946b677b38e450ee61d9da5a4447d9a"><div class="ttname"><a href="class_statistiques.html#ac946b677b38e450ee61d9da5a4447d9a">Statistiques::nombreBallesRentrees</a></div><div class="ttdeci">unsigned int nombreBallesRentrees</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8h_source.html#l00012">statistiques.h:12</a></div></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="class_statistiques.html#a3feed03c16c544bc22556244b5eb4661">   11</a></span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="class_statistiques.html#a3feed03c16c544bc22556244b5eb4661">tempsDeLaPartie</a>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_statistiques.html#a3fc0b4f39add97bf0081df061b20e5f0">   12</a></span>&#160;  QVector&lt;unsigned int&gt; <a class="code" href="class_statistiques.html#a3fc0b4f39add97bf0081df061b20e5f0">nombreDePointsMarques</a>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_statistiques.html#a4b3de74797bb86fdf09964030c678a37">   13</a></span>&#160;  QVector&lt;unsigned int&gt; <a class="code" href="class_statistiques.html#a4b3de74797bb86fdf09964030c678a37">nombreBallesRentrees</a>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <a class="code" href="class_statistiques.html#a99c00468ae9c05d6d83a97e92ff86e96">Statistiques</a>(<a class="code" href="class_q_object.html">QObject</a> *parent = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <a class="code" href="class_statistiques.html#a0b3904d9f448c4eb3c88074932c25051">~Statistiques</a>();</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;};</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif // STATISTIQUES_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aclass_statistiques_html_a3feed03c16c544bc22556244b5eb4661"><div class="ttname"><a href="class_statistiques.html#a3feed03c16c544bc22556244b5eb4661">Statistiques::tempsDeLaPartie</a></div><div class="ttdeci">unsigned int tempsDeLaPartie</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8h_source.html#l00011">statistiques.h:11</a></div></div>
+<div class="ttc" id="aclass_statistiques_html_a0b3904d9f448c4eb3c88074932c25051"><div class="ttname"><a href="class_statistiques.html#a0b3904d9f448c4eb3c88074932c25051">Statistiques::~Statistiques</a></div><div class="ttdeci">~Statistiques()</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8cpp_source.html#l00010">statistiques.cpp:10</a></div></div>
+<div class="ttc" id="aclass_statistiques_html_a3fc0b4f39add97bf0081df061b20e5f0"><div class="ttname"><a href="class_statistiques.html#a3fc0b4f39add97bf0081df061b20e5f0">Statistiques::nombreDePointsMarques</a></div><div class="ttdeci">QVector&lt; unsigned int &gt; nombreDePointsMarques</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8h_source.html#l00012">statistiques.h:12</a></div></div>
+<div class="ttc" id="aclass_statistiques_html"><div class="ttname"><a href="class_statistiques.html">Statistiques</a></div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8h_source.html#l00007">statistiques.h:7</a></div></div>
+<div class="ttc" id="aclass_statistiques_html_a99c00468ae9c05d6d83a97e92ff86e96"><div class="ttname"><a href="class_statistiques.html#a99c00468ae9c05d6d83a97e92ff86e96">Statistiques::Statistiques</a></div><div class="ttdeci">Statistiques(QObject *parent=nullptr)</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8cpp_source.html#l00006">statistiques.cpp:6</a></div></div>
+<div class="ttc" id="aclass_statistiques_html_a4b3de74797bb86fdf09964030c678a37"><div class="ttname"><a href="class_statistiques.html#a4b3de74797bb86fdf09964030c678a37">Statistiques::nombreBallesRentrees</a></div><div class="ttdeci">QVector&lt; unsigned int &gt; nombreBallesRentrees</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8h_source.html#l00013">statistiques.h:13</a></div></div>
+<div class="ttc" id="aclass_q_object_html"><div class="ttname"><a href="class_q_object.html">QObject</a></div></div>
 <!-- HTML footer for doxygen 1.9.1-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_f5b24512a5a4fabafe00bdd1f2ffc501.html">jolly-jumpi</a></li><li class="navelem"><a class="el" href="statistiques_8h.html">statistiques.h</a></li>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Dimanche 9 Avril 2023 20:11:48 pour Projet jolly-jumpi par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Vendredi 26 Mai 2023 11:31:09 pour jolly-jumpi par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
   </ul>
 </div>
 </body>

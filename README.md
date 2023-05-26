@@ -7,9 +7,9 @@
 - [Le projet jolly-jumpi 2023](#le-projet-jolly-jumpi-2023)
   - [Documentation du code](#documentation-du-code)
   - [Versions](#versions)
+    - [0.2](#02)
     - [0.1](#01)
   - [Auteur](#auteur)
-
 
 ---
 
@@ -26,7 +26,15 @@ https://btssn-lasalle-84.github.io/jolly-jumpi-2023/
 
 ## Versions
 
+### 0.2
+
+![](Images/jira-tickets-v0.2.png)
+
+![](Images/screenshot-jollyjumpi-v0.2.png)
+
 ### 0.1
+
+![](Images/jira-tickets-v0.1.png)
 
 ![](Images/screenshot-jollyjumpi-v0.1.png)
 

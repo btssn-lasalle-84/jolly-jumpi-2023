@@ -14,12 +14,16 @@
    <string>JollyJumpi</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(78, 154, 6);</string>
+   <string notr="true">background-color: rgb(78, 140, 6);</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_4">
    <item>
     <widget class="QStackedWidget" name="pages">
      <widget class="QWidget" name="pageConnexion">
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/res/Images/background.jpg);
+background-color: rgb(78, 140, 6);</string>
+      </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <layout class="QVBoxLayout" name="verticalLayoutPageConnexion">
@@ -54,9 +58,24 @@
       </layout>
      </widget>
      <widget class="QWidget" name="pageCourse">
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/res/Images/background.jpg);
+background-color: rgb(78, 140, 6);</string>
+      </property>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayoutPageCourse"/>
+        <layout class="QGridLayout" name="gridLayout">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="ligneArrivee">
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
