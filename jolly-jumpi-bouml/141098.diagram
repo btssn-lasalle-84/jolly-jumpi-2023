@@ -1,0 +1,21 @@
+format 224
+
+classinstance 128426 class_ref 134826 // IHM
+  name ""   xyz 146 4 2000 life_line_z 2000
+durationcanvas 128554 classinstance_ref 128426 // :IHM
+  xyzwh 177 92 2010 11 92
+  overlappingdurationcanvas 128810
+    xyzwh 183 148 2020 11 25
+  end
+end
+reflexivemsg 128682 synchronous
+  to durationcanvas_ref 128554
+  yz 92 2015 msg operation_ref 143274 // "actualiserPositionChevaux(in numeroCheval : int, in deplacement : IHM::Trou) : void"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 189 65
+reflexivemsg 128938 synchronous
+  to durationcanvas_ref 128810
+  yz 148 2025 msg operation_ref 143402 // "avancerChevaux() : void"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 196 119
+end
