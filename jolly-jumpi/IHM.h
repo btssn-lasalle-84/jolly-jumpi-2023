@@ -10,6 +10,9 @@
  */
 
 #include <QtWidgets>
+#include <QApplication>
+#include <QScreen>
+#include <QRandomGenerator>
 
 /**
  * @def RASPBERRY_PI
@@ -79,6 +82,8 @@ class IHM : public QWidget
     QVector<QLabel*>      avatarsJoueurs;
     QVector<QPixmap*>     imagePlaceHolder;
     QVector<QLabel*>      placeHolder;
+    QScreen* screen;
+    QSize screenGeometry;
 
     void instancierWidgets();
     void initialiserWidgets();
