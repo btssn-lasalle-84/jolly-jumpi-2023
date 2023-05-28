@@ -21,7 +21,7 @@
     <widget class="QStackedWidget" name="pages">
      <widget class="QWidget" name="pageConnexion">
       <property name="styleSheet">
-       <string notr="true">background-image: url(:/res/Images/background.jpg);
+       <string notr="true">background-image: url(:/images/Images/background.jpg);
 background-color: rgb(78, 140, 6);</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -59,7 +59,7 @@ background-color: rgb(78, 140, 6);</string>
      </widget>
      <widget class="QWidget" name="pageCourse">
       <property name="styleSheet">
-       <string notr="true">background-image: url(:/res/Images/background.jpg);
+       <string notr="true">background-image: url(:/images/Images/background.jpg);
 background-color: rgb(78, 140, 6);</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_5">

@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/musiques">
+        <file>Musiques/point_marque_1.mp3</file>
+        <file>Musiques/musique_de_fond_1.wav</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file>Images/background.jpg</file>
+    </qresource>
+</RCC>

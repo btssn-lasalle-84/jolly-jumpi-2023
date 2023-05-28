@@ -13,6 +13,17 @@
 #include <QApplication>
 #include <QScreen>
 #include <QRandomGenerator>
+#include <QSoundEffect>
+#include <QAudioDevice>
+#include <QMediaDevices>
+
+/*#include <QMediaPlayer>
+#include <QAudioOutput>
+#include <QFile>
+#include <QAudioFormat>
+#include <QIODevice>
+#include <QSound>
+#include <QMediaPlaylist>*/
 
 /**
  * @def RASPBERRY_PI
