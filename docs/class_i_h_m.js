@@ -33,5 +33,7 @@ var class_i_h_m =
     [ "nbChevaux", "class_i_h_m.html#a805162037465a93a9f07b7e932a11243", null ],
     [ "placeHolder", "class_i_h_m.html#af82a7138e20a64966558b3a99c4f3b54", null ],
     [ "positionChevaux", "class_i_h_m.html#a1af3afa863f929adb0c4cb3b636323f8", null ],
+    [ "screen", "class_i_h_m.html#aedbf81f5f619e7a114aa3075192ed5c4", null ],
+    [ "screenGeometry", "class_i_h_m.html#a8699236281f2f567a7ceff171cadb6ef", null ],
     [ "ui", "class_i_h_m.html#afcc6fb0fd40813eacc9980419c04a5c1", null ]
 ];

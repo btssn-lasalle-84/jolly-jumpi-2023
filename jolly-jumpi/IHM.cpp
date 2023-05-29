@@ -18,7 +18,7 @@
 
 IHM::IHM(QWidget* parent) :
     QWidget(parent), ui(new Ui::IHM), positionChevaux(NB_CHEVAUX_MAX, 0),
-    nbChevaux(positionChevaux.size())
+    nbChevaux(positionChevaux.size()), screen(QGuiApplication::primaryScreen()), screenGeometry(screen->availableGeometry().size())
 {
     qDebug() << Q_FUNC_INFO << "nbChevaux" << nbChevaux;
 
@@ -92,9 +92,10 @@ void IHM::initialiserWidgets()
     for(int i = 0; i < imageAvatarsJoueurs.size(); i++)
     {
         *imageAvatarsJoueurs[i] = imageAvatarsJoueurs[i]->scaled(
-          QSize(qApp->desktop()->availableGeometry(this).width() * 0.1,
-                qApp->desktop()->availableGeometry(this).height() * 0.1));
+            QSize(screenGeometry.width() * 0.1,
+                  screenGeometry.height() * 0.1));
         avatarsJoueurs[i]->setPixmap(*imageAvatarsJoueurs[i]);
+
 
         ui->pages->widget(IHM::Page::Course)
           ->findChild<QGridLayout*>("gridLayout")
@@ -105,8 +106,8 @@ void IHM::initialiserWidgets()
           ->setRowStretch(imageAvatarsJoueurs.size(), 1);
 
         *imagePlaceHolder[i] = imagePlaceHolder[i]->scaled(
-          QSize(qApp->desktop()->availableGeometry(this).width() * 0.1,
-                qApp->desktop()->availableGeometry(this).height() * 0.1));
+            QSize(screenGeometry.width() * 0.1,
+                  screenGeometry.height() * 0.1));
         placeHolder[i]->setPixmap(*imagePlaceHolder[i]);
 
         ui->pages->widget(IHM::Page::Course)
@@ -133,12 +134,11 @@ void IHM::initialiserWidgets()
 void IHM::positionnerWidgets()
 {
     ui->pages->widget(IHM::Page::Course)
-      ->findChild<QGridLayout*>("gridLayout")
-      ->setContentsMargins(0,
-                           qApp->desktop()->availableGeometry(this).height() *
-                             0.14,
-                           0,
-                           0);
+        ->findChild<QGridLayout*>("gridLayout")
+        ->setContentsMargins(0,
+                             screenGeometry.height() * 0.14,
+                             0,
+                             0);
 }
 
 void IHM::connecterSignauxSlots()
@@ -150,8 +150,8 @@ void IHM::initialiserFenetre()
 #ifdef RASPBERRY_PI
     showFullScreen();
 #else
-    setFixedSize(qApp->desktop()->availableGeometry(this).width(),
-                 qApp->desktop()->availableGeometry(this).height());
+    setFixedSize(screenGeometry.width(),
+                 screenGeometry.height());
     // showMaximized();
 #endif
 
@@ -186,14 +186,14 @@ void IHM::installerModeSimulation()
 
 int IHM::randInt(int min, int max)
 {
-    return qrand() % ((max + 1) - min) + min;
+    return ((QRandomGenerator::global()->bounded(min, max + 1)) + min);
 }
 #endif
 
 void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
 {
-    qDebug() << Q_FUNC_INFO << "Cheval" << numeroCheval << "deplacement"
-             << int(deplacement) << "Position" << positionChevaux[numeroCheval];
+    qDebug() << Q_FUNC_INFO << "Le cheval numéro" << numeroCheval+1 << ", qui était positionné à la case" << positionChevaux[numeroCheval] << "a avancé de"
+             << int(deplacement);
 
     positionChevaux[numeroCheval] =
       positionChevaux[numeroCheval] + int(deplacement);
@@ -201,6 +201,7 @@ void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
     {
         positionChevaux[numeroCheval] = DISTANCE_MAX;
     }
+    qDebug() << Q_FUNC_INFO << "Il est maintenant case" << positionChevaux[numeroCheval];
     avancerChevaux();
 }
 
