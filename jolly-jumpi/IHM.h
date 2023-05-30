@@ -35,7 +35,7 @@
  * @def MODE_SIMULATION
  * @brief Pour le mode simulation avec les touches de clavier
  */
-#define MODE_SIMULATION
+//#define MODE_SIMULATION
 
 /**
  * @def NB_CHEVAUX_MAX
