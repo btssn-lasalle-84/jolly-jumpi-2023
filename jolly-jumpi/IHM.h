@@ -14,9 +14,9 @@
 #include <QScreen>
 #include <QRandomGenerator>
 #include <QSoundEffect>
-#include <QAudioDevice>
-#include <QMediaDevices>
 
+//#include <QAudioDevice>
+//#include <QMediaDevices>
 /*#include <QMediaPlayer>
 #include <QAudioOutput>
 #include <QFile>
@@ -93,8 +93,8 @@ class IHM : public QWidget
     QVector<QLabel*>      avatarsJoueurs;
     QVector<QPixmap*>     imagePlaceHolder;
     QVector<QLabel*>      placeHolder;
-    QScreen* screen;
-    QSize screenGeometry;
+    QScreen*              screen;
+    QSize                 screenGeometry;
 
     void instancierWidgets();
     void initialiserWidgets();
