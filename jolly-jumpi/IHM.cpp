@@ -32,77 +32,11 @@ IHM::IHM(QWidget* parent) :
     afficherPageCourse();
 #endif
 
-    //Essai de la méthode 1
-
-    /*player->setAudioOutput(audioOutput);
-    player->setSource(QUrl::fromLocalFile("/musiques/Musiques/musique_de_fond_1.mp3"));
-    audioOutput->setVolume(50);
-    player->play();*/
-
-
-    //Essai de la méthode 2
-
-    /*QFile sourceFile;   // class member.
-    QAudioOutput* audio; // class member.
-    {
-        sourceFile.setFileName("qrc:/musiques/Musiques/musique_de_fond_1.mp3");
-        sourceFile.open(QIODevice::ReadOnly);
-
-        QAudioDeviceInfo info(QAudioDeviceInfo::defaultOutputDevice());
-        if (!info.isFormatSupported(format)) {
-            qWarning() << "Raw audio format not supported by backend, cannot play audio.";
-            return;
-        }
-
-        audio = new QAudioOutput(format, this);
-        connect(audio, SIGNAL(stateChanged(QAudio::State)), this, SLOT(handleStateChanged(QAudio::State)));
-        audio->start(&sourceFile);
-    }*/
-
-    //Essai de la méthode 3
-
-    /*QMediaPlayer * musique = new QMediaPlayer;
-    QAudioOutput * sortieAudio = new QAudioOutput;
-
-    QString musiqueDeFond="qrc:/musiques/Musiques/musique_de_fond_1.mp3";
-    musique->setSource(QUrl(musiqueDeFond));
-    QFileInfo fileinfo(musiqueDeFond);
-
-    musique->setAudioOutput("Speakers (Realtek(R) Audio)");
-    musique->setSource(QUrl("musiqueDeFond"));
-    sortieAudio->setVolume(100);
-    musique->play();
-    QAudioDeviceInfo info(QAudioDeviceInfo::defaultOutputDevice());*/
-
-    //Essai de la méthode 4
-
-    //QSound::play("qrc:/musiques/Musiques/musique_de_fond_1.mp3");
-
-    //Essai de la méthode 5
-
-    /*QMediaPlayer player;
-    QMediaPlaylist *playlist = new QMediaPlaylist();
-
-    playlist->addMedia(QUrl::fromLocalFile("qrc:/musiques/Musiques/musique_de_fond_1.wav"));
-    playlist->setCurrentIndex(0);
-    playlist->setPlaybackMode(QMediaPlaylist::Loop);
-
-    player.setPlaylist(playlist);
-    player.setVolume(100);
-    player.play();*/
-
-    //Essai de la méthode 6: cette fois pas d'erreur mais j'entend aucun son ?
-
     QSoundEffect musique;
     musique.setSource(QUrl::fromLocalFile("qrc:/musiques/Musiques/musique_de_fond_1.wav"));
     musique.setLoopCount(QSoundEffect::Infinite);
     musique.setVolume(1.0f);
     musique.play();
-
-    const auto devices = QMediaDevices::audioOutputs();
-
-    for (const QAudioDevice &device : devices)
-        qDebug() << Q_FUNC_INFO << "Sortie audio: " << device.description();
 
     qDebug() << Q_FUNC_INFO << "Musique joue ?" << musique.isPlaying();
 }
