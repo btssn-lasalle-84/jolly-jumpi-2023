@@ -35,7 +35,7 @@
  * @def MODE_SIMULATION
  * @brief Pour le mode simulation avec les touches de clavier
  */
-//#define MODE_SIMULATION
+#define MODE_SIMULATION
 
 /**
  * @def NB_CHEVAUX_MAX
@@ -55,6 +55,8 @@
  * @brief La distance max en nombre de cases
  */
 #define DISTANCE_MAX 10
+
+#define MUSIQUE_DE_FOND ":/musiques/Musiques/musique_de_fond_1.wav"
 
 namespace Ui
 {
@@ -101,6 +103,7 @@ class IHM : public QWidget
     void positionnerWidgets();
     void connecterSignauxSlots();
     void initialiserFenetre();
+    void initialiserMusiqueDeFond();
     bool estPartieFinie();
 #ifdef MODE_SIMULATION
     void installerModeSimulation();
@@ -112,6 +115,7 @@ class IHM : public QWidget
     void afficherPageConnexion();
     void afficherPageCourse();
     void actualiserPositionChevaux(int numeroCheval, Trou deplacement);
+    void demarrerCourse();
     void avancerChevaux();
 #ifdef MODE_SIMULATION
     void simulerAvancementCheval();
