@@ -13,6 +13,17 @@
 #include <QApplication>
 #include <QScreen>
 #include <QRandomGenerator>
+#include <QSoundEffect>
+
+//#include <QAudioDevice>
+//#include <QMediaDevices>
+/*#include <QMediaPlayer>
+#include <QAudioOutput>
+#include <QFile>
+#include <QAudioFormat>
+#include <QIODevice>
+#include <QSound>
+#include <QMediaPlaylist>*/
 
 /**
  * @def RASPBERRY_PI
@@ -44,6 +55,8 @@
  * @brief La distance max en nombre de cases
  */
 #define DISTANCE_MAX 10
+
+#define MUSIQUE_DE_FOND ":/musiques/Musiques/musique_de_fond_1.wav"
 
 namespace Ui
 {
@@ -82,14 +95,15 @@ class IHM : public QWidget
     QVector<QLabel*>      avatarsJoueurs;
     QVector<QPixmap*>     imagePlaceHolder;
     QVector<QLabel*>      placeHolder;
-    QScreen* screen;
-    QSize screenGeometry;
+    QScreen*              screen;
+    QSize                 screenGeometry;
 
     void instancierWidgets();
     void initialiserWidgets();
     void positionnerWidgets();
     void connecterSignauxSlots();
     void initialiserFenetre();
+    void initialiserMusiqueDeFond();
     bool estPartieFinie();
 #ifdef MODE_SIMULATION
     void installerModeSimulation();
@@ -101,6 +115,7 @@ class IHM : public QWidget
     void afficherPageConnexion();
     void afficherPageCourse();
     void actualiserPositionChevaux(int numeroCheval, Trou deplacement);
+    void demarrerCourse();
     void avancerChevaux();
 #ifdef MODE_SIMULATION
     void simulerAvancementCheval();

@@ -18,7 +18,8 @@
 
 IHM::IHM(QWidget* parent) :
     QWidget(parent), ui(new Ui::IHM), positionChevaux(NB_CHEVAUX_MAX, 0),
-    nbChevaux(positionChevaux.size()), screen(QGuiApplication::primaryScreen()), screenGeometry(screen->availableGeometry().size())
+    nbChevaux(positionChevaux.size()), screen(QGuiApplication::primaryScreen()),
+    screenGeometry(screen->availableGeometry().size())
 {
     qDebug() << Q_FUNC_INFO << "nbChevaux" << nbChevaux;
 
@@ -29,8 +30,9 @@ IHM::IHM(QWidget* parent) :
     initialiserFenetre();
 #ifdef MODE_SIMULATION
     installerModeSimulation();
-    afficherPageCourse();
 #endif
+
+    initialiserMusiqueDeFond();
 }
 
 /**
@@ -75,7 +77,7 @@ void IHM::afficherPageCourse()
 void IHM::instancierWidgets()
 {
     ui->setupUi(this);
-
+    qDebug() << Q_FUNC_INFO;
     for(int i = 0; i < nbChevaux; i++)
     {
         imageAvatarsJoueurs.push_back(
@@ -89,13 +91,12 @@ void IHM::instancierWidgets()
 
 void IHM::initialiserWidgets()
 {
+    qDebug() << Q_FUNC_INFO;
     for(int i = 0; i < imageAvatarsJoueurs.size(); i++)
     {
         *imageAvatarsJoueurs[i] = imageAvatarsJoueurs[i]->scaled(
-            QSize(screenGeometry.width() * 0.1,
-                  screenGeometry.height() * 0.1));
+          QSize(screenGeometry.width() * 0.1, screenGeometry.height() * 0.1));
         avatarsJoueurs[i]->setPixmap(*imageAvatarsJoueurs[i]);
-
 
         ui->pages->widget(IHM::Page::Course)
           ->findChild<QGridLayout*>("gridLayout")
@@ -106,8 +107,7 @@ void IHM::initialiserWidgets()
           ->setRowStretch(imageAvatarsJoueurs.size(), 1);
 
         *imagePlaceHolder[i] = imagePlaceHolder[i]->scaled(
-            QSize(screenGeometry.width() * 0.1,
-                  screenGeometry.height() * 0.1));
+          QSize(screenGeometry.width() * 0.1, screenGeometry.height() * 0.1));
         placeHolder[i]->setPixmap(*imagePlaceHolder[i]);
 
         ui->pages->widget(IHM::Page::Course)
@@ -133,12 +133,10 @@ void IHM::initialiserWidgets()
 
 void IHM::positionnerWidgets()
 {
+    qDebug() << Q_FUNC_INFO;
     ui->pages->widget(IHM::Page::Course)
-        ->findChild<QGridLayout*>("gridLayout")
-        ->setContentsMargins(0,
-                             screenGeometry.height() * 0.14,
-                             0,
-                             0);
+      ->findChild<QGridLayout*>("gridLayout")
+      ->setContentsMargins(0, screenGeometry.height() * 0.14, 0, 0);
 }
 
 void IHM::connecterSignauxSlots()
@@ -150,12 +148,21 @@ void IHM::initialiserFenetre()
 #ifdef RASPBERRY_PI
     showFullScreen();
 #else
-    setFixedSize(screenGeometry.width(),
-                 screenGeometry.height());
+    setFixedSize(screenGeometry.width(), screenGeometry.height());
     // showMaximized();
 #endif
 
     afficherPageConnexion();
+}
+
+void IHM::initialiserMusiqueDeFond()
+{
+    QSoundEffect musique;
+    musique.setSource(QUrl::fromLocalFile(MUSIQUE_DE_FOND));
+    musique.setLoopCount(QSoundEffect::Infinite);
+    musique.setVolume(1.0f);
+    musique.play();
+    qDebug() << Q_FUNC_INFO << "isPlaying" << musique.isPlaying();
 }
 
 bool IHM::estPartieFinie()
@@ -164,17 +171,20 @@ bool IHM::estPartieFinie()
     {
         if(positionChevaux[i] == DISTANCE_MAX)
         {
-            qDebug() << Q_FUNC_INFO << "true";
+            qDebug() << Q_FUNC_INFO << "DISTANCE_MAX"
+                     << "true";
             return true;
         }
     }
-    qDebug() << Q_FUNC_INFO << "false";
+    qDebug() << Q_FUNC_INFO << "DISTANCE_MAX"
+             << "false";
     return false;
 }
 
 #ifdef MODE_SIMULATION
 void IHM::installerModeSimulation()
 {
+    qDebug() << Q_FUNC_INFO;
     QAction* actionAvancementCheval = new QAction(this);
     actionAvancementCheval->setShortcut(QKeySequence(Qt::Key_Right));
     addAction(actionAvancementCheval);
@@ -182,6 +192,10 @@ void IHM::installerModeSimulation()
             SIGNAL(triggered()),
             this,
             SLOT(simulerAvancementCheval()));
+    QAction* demarrage = new QAction(this);
+    demarrage->setShortcut(QKeySequence(Qt::Key_S)); // START
+    addAction(demarrage);
+    connect(demarrage, SIGNAL(triggered()), this, SLOT(demarrerCourse()));
 }
 
 int IHM::randInt(int min, int max)
@@ -192,7 +206,9 @@ int IHM::randInt(int min, int max)
 
 void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
 {
-    qDebug() << Q_FUNC_INFO << "Le cheval numéro" << numeroCheval+1 << ", qui était positionné à la case" << positionChevaux[numeroCheval] << "a avancé de"
+    qDebug() << Q_FUNC_INFO << "Le cheval numéro" << numeroCheval + 1
+             << ", qui était positionné à la case"
+             << positionChevaux[numeroCheval] << "a avancé de"
              << int(deplacement);
 
     positionChevaux[numeroCheval] =
@@ -201,8 +217,17 @@ void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
     {
         positionChevaux[numeroCheval] = DISTANCE_MAX;
     }
-    qDebug() << Q_FUNC_INFO << "Il est maintenant case" << positionChevaux[numeroCheval];
+    qDebug() << Q_FUNC_INFO << "Il est maintenant case"
+             << positionChevaux[numeroCheval];
     avancerChevaux();
+}
+
+void IHM::demarrerCourse()
+{
+    if(ui->pages->currentIndex() == IHM::Page::Connexion)
+    {
+        afficherPageCourse();
+    }
 }
 
 void IHM::avancerChevaux()

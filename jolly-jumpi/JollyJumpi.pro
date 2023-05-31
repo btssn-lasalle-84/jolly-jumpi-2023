@@ -1,4 +1,5 @@
-QT       += core gui
+QT       += core gui \
+         multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -24,7 +25,7 @@ FORMS += \
 CONFIG(release, debug|release):DEFINES+=QT_NO_DEBUG_OUTPUT
 
 RESOURCES += \
-    background.qrc
+    res.qrc
 
 
 COPIES += images
