@@ -212,7 +212,7 @@ void IHM::installerModeSimulation()
             SLOT(ouvrirPageAvantCourse()));
 
     QAction* demarrerCourse = new QAction(this);
-    demarrerCourse->setShortcut(QKeySequence(Qt::Key_1)); // START
+    demarrerCourse->setShortcut(QKeySequence(Qt::Key_1));
     addAction(demarrerCourse);
     connect(demarrerCourse, SIGNAL(triggered()), this, SLOT(demarrerCourse()));
 
@@ -227,7 +227,10 @@ void IHM::installerModeSimulation()
     QAction* retourAccueil = new QAction(this);
     retourAccueil->setShortcut(QKeySequence(Qt::Key_3));
     addAction(retourAccueil);
-    connect(retourAccueil, SIGNAL(triggered()), this, SLOT(quitterProgramme()));
+    connect(retourAccueil,
+            SIGNAL(triggered()),
+            this,
+            SLOT(afficherPageConnexion()));
 }
 
 int IHM::randInt(int min, int max)
