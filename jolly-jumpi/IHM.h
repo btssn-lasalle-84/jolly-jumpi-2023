@@ -14,16 +14,7 @@
 #include <QScreen>
 #include <QRandomGenerator>
 #include <QSoundEffect>
-
-//#include <QAudioDevice>
-//#include <QMediaDevices>
-/*#include <QMediaPlayer>
-#include <QAudioOutput>
-#include <QFile>
-#include <QAudioFormat>
-#include <QIODevice>
-#include <QSound>
-#include <QMediaPlaylist>*/
+#include <QTimer>
 
 /**
  * @def RASPBERRY_PI
@@ -80,6 +71,7 @@ class IHM : public QWidget
         AvantCourse,
         Course,
         Parametres,
+        Statistiques,
         NbPages
     };
     enum Trou
@@ -99,6 +91,9 @@ class IHM : public QWidget
     QVector<QLabel*>      placeHolder;
     QScreen*              screen;
     QSize                 screenGeometry;
+    QTimer*               timer;
+    unsigned int          chronometre;
+    unsigned int          dureeDeLaPartie;
 
     void instancierWidgets();
     void initialiserWidgets();
@@ -107,6 +102,7 @@ class IHM : public QWidget
     void initialiserFenetre();
     void initialiserMusiqueDeFond();
     bool estPartieFinie();
+    void terminerPartie();
 #ifdef MODE_SIMULATION
     void installerModeSimulation();
     int  randInt(int min, int max);
@@ -118,12 +114,16 @@ class IHM : public QWidget
     void afficherPageAvantCourse();
     void afficherPageCourse();
     void afficherPageParametres();
+    void afficherPageStatistiques();
+    void chronometrer();
     void actualiserPositionChevaux(int numeroCheval, Trou deplacement);
     void demarrerCourse();
     void ouvrirPageAvantCourse();
     void accederParametres();
     void quitterProgramme();
+    void afficherStatistiques();
     void avancerChevaux();
+    void demarrerCompteARebours();
 #ifdef MODE_SIMULATION
     void simulerAvancementCheval();
 #endif
