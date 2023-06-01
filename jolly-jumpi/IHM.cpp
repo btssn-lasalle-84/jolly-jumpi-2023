@@ -74,6 +74,16 @@ void IHM::afficherPageCourse()
     afficherPage(IHM::Page::Course);
 }
 
+void IHM::afficherPageParametres()
+{
+    afficherPage(IHM::Page::Parametres);
+}
+
+void IHM::afficherPageAvantCourse()
+{
+    afficherPage(IHM::Page::AvantCourse);
+}
+
 void IHM::instancierWidgets()
 {
     ui->setupUi(this);
@@ -192,10 +202,35 @@ void IHM::installerModeSimulation()
             SIGNAL(triggered()),
             this,
             SLOT(simulerAvancementCheval()));
+
     QAction* demarrage = new QAction(this);
     demarrage->setShortcut(QKeySequence(Qt::Key_S)); // START
     addAction(demarrage);
-    connect(demarrage, SIGNAL(triggered()), this, SLOT(demarrerCourse()));
+    connect(demarrage,
+            SIGNAL(triggered()),
+            this,
+            SLOT(ouvrirPageAvantCourse()));
+
+    QAction* demarrerCourse = new QAction(this);
+    demarrerCourse->setShortcut(QKeySequence(Qt::Key_1));
+    addAction(demarrerCourse);
+    connect(demarrerCourse, SIGNAL(triggered()), this, SLOT(demarrerCourse()));
+
+    QAction* selectionnerParametres = new QAction(this);
+    selectionnerParametres->setShortcut(QKeySequence(Qt::Key_2));
+    addAction(selectionnerParametres);
+    connect(selectionnerParametres,
+            SIGNAL(triggered()),
+            this,
+            SLOT(accederParametres())); // TODO
+
+    QAction* retourAccueil = new QAction(this);
+    retourAccueil->setShortcut(QKeySequence(Qt::Key_3));
+    addAction(retourAccueil);
+    connect(retourAccueil,
+            SIGNAL(triggered()),
+            this,
+            SLOT(afficherPageConnexion()));
 }
 
 int IHM::randInt(int min, int max)
@@ -224,9 +259,33 @@ void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
 
 void IHM::demarrerCourse()
 {
-    if(ui->pages->currentIndex() == IHM::Page::Connexion)
+    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
     {
         afficherPageCourse();
+    }
+}
+
+void IHM::ouvrirPageAvantCourse()
+{
+    if(ui->pages->currentIndex() == IHM::Page::Connexion)
+    {
+        afficherPageAvantCourse();
+    }
+}
+
+void IHM::accederParametres()
+{
+    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
+    {
+        afficherPageParametres();
+    }
+}
+
+void IHM::quitterProgramme()
+{
+    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
+    {
+        afficherPageConnexion();
     }
 }
 

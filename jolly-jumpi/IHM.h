@@ -77,7 +77,9 @@ class IHM : public QWidget
     enum Page
     {
         Connexion,
+        AvantCourse,
         Course,
+        Parametres,
         NbPages
     };
     enum Trou
@@ -113,9 +115,14 @@ class IHM : public QWidget
   public slots:
     void afficherPage(IHM::Page page);
     void afficherPageConnexion();
+    void afficherPageAvantCourse();
     void afficherPageCourse();
+    void afficherPageParametres();
     void actualiserPositionChevaux(int numeroCheval, Trou deplacement);
     void demarrerCourse();
+    void ouvrirPageAvantCourse();
+    void accederParametres();
+    void quitterProgramme();
     void avancerChevaux();
 #ifdef MODE_SIMULATION
     void simulerAvancementCheval();
