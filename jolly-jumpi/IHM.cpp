@@ -220,7 +220,17 @@ void IHM::demarrerCompteARebours()
     QTimer::singleShot(5000, this, [this]() {
         qDebug() << Q_FUNC_INFO << "Compte à rebours" << chronometre;
         afficherPageAvantCourse();
+        reinitialiserPartie();
     });
+}
+
+void IHM::reinitialiserPartie()
+{
+    for(int i = 0; i < nbChevaux; i++)
+    {
+        positionChevaux[i] = 0;
+    }
+    avancerChevaux();
 }
 
 #ifdef MODE_SIMULATION
