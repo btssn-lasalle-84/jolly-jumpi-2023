@@ -215,15 +215,12 @@ void IHM::terminerPartie()
 
 void IHM::demarrerCompteARebours()
 {
-    for(chronometre = 0; chronometre < 5;)
-    {
-        timer = new QTimer(this);
-        timer->setInterval(1000);
-        connect(timer, SIGNAL(timeout()), this, SLOT(chronometrer()));
+    chronometre = 0;
+    // afficher "Fin de la partie dans chonometre secondes"
+    QTimer::singleShot(5000, this, [this]() {
         qDebug() << Q_FUNC_INFO << "Compte à rebours" << chronometre;
-        // afficher "Fin de la partie dans chonometre secondes"
-    }
-    afficherPageAvantCourse();
+        afficherPageAvantCourse();
+    });
 }
 
 #ifdef MODE_SIMULATION
