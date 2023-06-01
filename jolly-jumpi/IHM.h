@@ -47,6 +47,12 @@
  */
 #define DISTANCE_MAX 10
 
+/**
+ * @def ATTENTE_FIN_COURSE
+ * @brief La durée d'attente en ms à la fin d'une course
+ */
+#define ATTENTE_FIN_COURSE 5000
+
 #define MUSIQUE_DE_FOND ":/musiques/Musiques/musique_de_fond_1.wav"
 
 namespace Ui
@@ -94,15 +100,18 @@ class IHM : public QWidget
     QTimer*               timer;
     unsigned int          chronometre;
     unsigned int          dureeDeLaPartie;
+    bool                  course;
 
     void instancierWidgets();
     void initialiserWidgets();
     void positionnerWidgets();
+    void initialiserChronometre();
     void connecterSignauxSlots();
     void initialiserFenetre();
     void initialiserMusiqueDeFond();
-    bool estPartieFinie();
-    void terminerPartie();
+    void initialiserCourse();
+    bool estCourseFinie();
+    void terminerCourse();
 #ifdef MODE_SIMULATION
     void installerModeSimulation();
     int  randInt(int min, int max);
@@ -123,7 +132,7 @@ class IHM : public QWidget
     void quitterProgramme();
     void afficherStatistiques();
     void avancerChevaux();
-    void demarrerCompteARebours();
+    void attendreFinCourse();
 #ifdef MODE_SIMULATION
     void simulerAvancementCheval();
 #endif

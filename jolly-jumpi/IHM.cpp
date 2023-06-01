@@ -20,22 +20,20 @@ IHM::IHM(QWidget* parent) :
     QWidget(parent), ui(new Ui::IHM), positionChevaux(NB_CHEVAUX_MAX, 0),
     nbChevaux(positionChevaux.size()), screen(QGuiApplication::primaryScreen()),
     screenGeometry(screen->availableGeometry().size()), chronometre(0),
-    dureeDeLaPartie(0)
+    dureeDeLaPartie(0), course(false)
 {
     qDebug() << Q_FUNC_INFO << "nbChevaux" << nbChevaux;
 
     instancierWidgets();
     initialiserWidgets();
     positionnerWidgets();
+    initialiserChronometre();
     connecterSignauxSlots();
     initialiserFenetre();
 #ifdef MODE_SIMULATION
     installerModeSimulation();
 #endif
     initialiserMusiqueDeFond();
-    timer = new QTimer(this);
-    timer->setInterval(1000);
-    connect(timer, SIGNAL(timeout()), this, SLOT(chronometrer()));
 }
 
 /**
@@ -157,8 +155,15 @@ void IHM::positionnerWidgets()
       ->setContentsMargins(0, screenGeometry.height() * 0.14, 0, 0);
 }
 
+void IHM::initialiserChronometre()
+{
+    timer = new QTimer(this);
+    timer->setInterval(1000);
+}
+
 void IHM::connecterSignauxSlots()
 {
+    connect(timer, SIGNAL(timeout()), this, SLOT(chronometrer()));
 }
 
 void IHM::initialiserFenetre()
@@ -183,12 +188,18 @@ void IHM::initialiserMusiqueDeFond()
     qDebug() << Q_FUNC_INFO << "isPlaying" << musique.isPlaying();
 }
 
-void IHM::chronometrer()
+void IHM::initialiserCourse()
 {
-    chronometre += 1;
+    for(int i = 0; i < nbChevaux; i++)
+    {
+        positionChevaux[i] = 0;
+    }
+    timer->start();
+    avancerChevaux();
+    course = true;
 }
 
-bool IHM::estPartieFinie()
+bool IHM::estCourseFinie()
 {
     for(int i = 0; i < nbChevaux; i++)
     {
@@ -204,33 +215,20 @@ bool IHM::estPartieFinie()
     return false;
 }
 
-void IHM::terminerPartie()
+void IHM::terminerCourse()
 {
     dureeDeLaPartie = chronometre;
-    qDebug() << Q_FUNC_INFO
-             << "Durée de la partie (en secondes):" << dureeDeLaPartie;
+    timer->stop();
+    course = false;
+    qDebug() << Q_FUNC_INFO << "dureeDeLaPartie" << dureeDeLaPartie;
 
-    demarrerCompteARebours();
+    QTimer::singleShot(ATTENTE_FIN_COURSE, this, SLOT(attendreFinCourse()));
 }
 
-void IHM::demarrerCompteARebours()
+void IHM::attendreFinCourse()
 {
     chronometre = 0;
-    // afficher "Fin de la partie dans chonometre secondes"
-    QTimer::singleShot(5000, this, [this]() {
-        qDebug() << Q_FUNC_INFO << "Compte à rebours" << chronometre;
-        afficherPageAvantCourse();
-        reinitialiserPartie();
-    });
-}
-
-void IHM::reinitialiserPartie()
-{
-    for(int i = 0; i < nbChevaux; i++)
-    {
-        positionChevaux[i] = 0;
-    }
-    avancerChevaux();
+    afficherPageAvantCourse();
 }
 
 #ifdef MODE_SIMULATION
@@ -254,7 +252,7 @@ void IHM::installerModeSimulation()
             SLOT(ouvrirPageAvantCourse()));
 
     QAction* demarrerCourse = new QAction(this);
-    demarrerCourse->setShortcut(QKeySequence(Qt::Key_1)); // START
+    demarrerCourse->setShortcut(QKeySequence(Qt::Key_1));
     addAction(demarrerCourse);
     connect(demarrerCourse, SIGNAL(triggered()), this, SLOT(demarrerCourse()));
 
@@ -276,8 +274,8 @@ void IHM::demarrerCourse()
 {
     if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
     {
+        initialiserCourse();
         afficherPageCourse();
-        timer->start();
     }
 }
 
@@ -330,8 +328,8 @@ void IHM::avancerChevaux()
           ->findChild<QGridLayout*>("gridLayout")
           ->setRowStretch(imageAvatarsJoueurs.size(), 1);
     }
-    if(estPartieFinie())
-        terminerPartie();
+    if(estCourseFinie())
+        terminerCourse();
 }
 
 #ifdef MODE_SIMULATION
@@ -353,13 +351,20 @@ int IHM::randInt(int min, int max)
 }
 #endif
 
+void IHM::chronometrer()
+{
+    chronometre += 1;
+}
+
 void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
 {
+    if(!course)
+        return;
     qDebug() << Q_FUNC_INFO << "Le cheval numéro" << numeroCheval + 1
              << ", qui était positionné à la case"
              << positionChevaux[numeroCheval] << "a avancé de"
              << int(deplacement);
-    qDebug() << Q_FUNC_INFO << "Chronomètre:" << chronometre;
+    qDebug() << Q_FUNC_INFO << "chronometre" << chronometre;
 
     positionChevaux[numeroCheval] =
       positionChevaux[numeroCheval] + int(deplacement);
@@ -367,6 +372,7 @@ void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
     {
         positionChevaux[numeroCheval] = DISTANCE_MAX;
     }
+
     qDebug() << Q_FUNC_INFO << "Il est maintenant case"
              << positionChevaux[numeroCheval];
     avancerChevaux();
