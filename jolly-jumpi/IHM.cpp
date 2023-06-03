@@ -217,10 +217,24 @@ bool IHM::estCourseFinie()
 
 void IHM::terminerCourse()
 {
+    determinerClassement();
     indexStats=joueurGagnant;
     afficherStats(indexStats);
     timer->stop();
     QTimer::singleShot(ATTENTE_FIN_COURSE, this, SLOT(attendreFinCourse()));
+}
+
+void IHM::determinerClassement()
+{
+    std::vector<unsigned int> classement;
+    classement.reserve(positionChevaux.size());
+    std::copy(positionChevaux.begin(), positionChevaux.end(), std::back_inserter(classement));
+    std::sort(classement.begin(), classement.end(), std::greater<unsigned int>());
+
+    qDebug() << "Classement des chevaux :";
+        for (const auto& position : classement) {
+        qDebug() << "Position :" << position;
+    }
 }
 
 void IHM::afficherStats(unsigned int indexStats)
@@ -417,19 +431,6 @@ void IHM::avancerChevaux()
         terminerCourse();
 }
 
-#ifdef MODE_SIMULATION
-void IHM::simulerAvancementCheval()
-{
-    if(ui->pages->currentIndex() == IHM::Page::Course)
-    {
-        Trou trous[NB_COULEURS_TROU] = { JAUNE, BLEU, ROUGE };
-        int  numeroCheval            = randInt(0, NB_CHEVAUX_MAX - 1);
-        int  trou                    = randInt(0, NB_COULEURS_TROU - 1);
-        actualiserPositionChevaux(numeroCheval, trous[trou]);
-    }
-}
-#endif
-
 int IHM::randInt(int min, int max)
 {
     return ((QRandomGenerator::global()->bounded(min, max + 1)) + min);
@@ -458,7 +459,7 @@ void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
     qDebug() << Q_FUNC_INFO << "nombreTirs" << nombreTirs[numeroCheval] << "nombrePoints" << nombrePoints[numeroCheval];
 
     positionChevaux[numeroCheval] =
-      positionChevaux[numeroCheval] + int(deplacement);
+        positionChevaux[numeroCheval] + int(deplacement);
     if(positionChevaux[numeroCheval] > DISTANCE_MAX)
     {
         positionChevaux[numeroCheval] = DISTANCE_MAX;
@@ -468,3 +469,16 @@ void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
              << positionChevaux[numeroCheval];
     avancerChevaux();
 }
+
+#ifdef MODE_SIMULATION
+void IHM::simulerAvancementCheval()
+{
+    if(ui->pages->currentIndex() == IHM::Page::Course)
+    {
+        Trou trous[NB_COULEURS_TROU] = { JAUNE, BLEU, ROUGE };
+        int  numeroCheval            = randInt(0, NB_CHEVAUX_MAX - 1);
+        int  trou                    = randInt(0, NB_COULEURS_TROU - 1);
+        actualiserPositionChevaux(numeroCheval, trous[trou]);
+    }
+}
+#endif

@@ -15,6 +15,7 @@
 #include <QRandomGenerator>
 #include <QSoundEffect>
 #include <QTimer>
+#include <algorithm>
 
 /**
  * @def RASPBERRY_PI
@@ -91,6 +92,7 @@ class IHM : public QWidget
     Ui::IHM*              ui;
     int                   nbChevaux;
     QVector<unsigned int> positionChevaux;
+    QVector<unsigned int> classement;
     unsigned int          joueurGagnant;
     QVector<QPixmap*>     imageAvatarsJoueurs;
     QVector<QLabel*>      avatarsJoueurs;
@@ -118,6 +120,7 @@ class IHM : public QWidget
     void initialiserCourse();
     bool estCourseFinie();
     void terminerCourse();
+    void determinerClassement();
     void afficherStats(unsigned int indexStats);
     void afficherStatsJoueurSuivant();
     void afficherDureePartie();
