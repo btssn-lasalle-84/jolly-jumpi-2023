@@ -19,8 +19,8 @@
 IHM::IHM(QWidget* parent) :
     QWidget(parent), ui(new Ui::IHM), positionChevaux(NB_CHEVAUX_MAX, 0),
     nbChevaux(positionChevaux.size()), screen(QGuiApplication::primaryScreen()),
-    screenGeometry(screen->availableGeometry().size()), chronometre(0),
-    dureeDeLaPartie(0), course(false)
+    screenGeometry(screen->availableGeometry().size()), chronometre(0.00),
+    dureeDeLaPartie(0.00), course(false)
 {
     qDebug() << Q_FUNC_INFO << "nbChevaux" << nbChevaux;
 
@@ -158,7 +158,7 @@ void IHM::positionnerWidgets()
 void IHM::initialiserChronometre()
 {
     timer = new QTimer(this);
-    timer->setInterval(1000);
+    timer->setInterval(10);
 }
 
 void IHM::connecterSignauxSlots()
@@ -363,7 +363,7 @@ int IHM::randInt(int min, int max)
 
 void IHM::chronometrer()
 {
-    chronometre += 1;
+    chronometre += 0.01;
 }
 
 void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)

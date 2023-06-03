@@ -98,8 +98,8 @@ class IHM : public QWidget
     QScreen*              screen;
     QSize                 screenGeometry;
     QTimer*               timer;
-    unsigned int          chronometre;
-    unsigned int          dureeDeLaPartie;
+    float          chronometre;
+    float          dureeDeLaPartie;
     bool                  course;
 
     void instancierWidgets();
