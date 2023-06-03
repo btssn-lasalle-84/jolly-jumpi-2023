@@ -19,7 +19,7 @@
 IHM::IHM(QWidget* parent) :
     QWidget(parent), ui(new Ui::IHM), nbChevaux(NB_CHEVAUX_MAX), positionChevaux(nbChevaux, 0), screen(QGuiApplication::primaryScreen()),
     screenGeometry(screen->availableGeometry().size()), chronometre(0.00),
-    dureeDeLaPartie(0.00), pointsParSeconde(0.00), pointsParTir(0.00), nombreTirs(nbChevaux, 0), course(false)
+    dureeDeLaPartie(0.00), pointsParSeconde(0.00), pointsParTir(0.00), nombreTirs(nbChevaux, 0), nombrePoints(nbChevaux, 0), course(false)
 {
     qDebug() << Q_FUNC_INFO << "nbChevaux" << nbChevaux;
 
@@ -220,6 +220,8 @@ void IHM::terminerCourse()
     afficherDureePartie();
     afficherPointsParSeconde();
     afficherNombrePointsParTir();
+    afficherGagnant();
+    timer->stop();
     QTimer::singleShot(ATTENTE_FIN_COURSE, this, SLOT(attendreFinCourse()));
 }
 
@@ -227,8 +229,7 @@ void IHM::afficherDureePartie()
 {
     dureeDeLaPartie = chronometre;
     ui->pages->widget(IHM::Page::Statistiques)
-        ->findChild<QLabel*>("temps")->setText(QString::number(dureeDeLaPartie) + " secondes");
-    timer->stop();
+        ->findChild<QLabel*>("temps")->setText(QString::number(dureeDeLaPartie, 'f', 2) + " secondes");
     qDebug() << Q_FUNC_INFO << "dureeDeLaPartie" << dureeDeLaPartie;
 }
 
@@ -236,19 +237,24 @@ void IHM::afficherPointsParSeconde()
 {
     pointsParSeconde = (DISTANCE_MAX / dureeDeLaPartie);
     ui->pages->widget(IHM::Page::Statistiques)
-        ->findChild<QLabel*>("pps")->setText(QString::number(pointsParSeconde, 'f', 2) + " points par seconde"); //affiche que les deux premières décimales de pointsParSeconde
-    timer->stop();
+        ->findChild<QLabel*>("pps")->setText(QString::number(pointsParSeconde, 'f', 2) + " points par seconde");
     qDebug() << Q_FUNC_INFO << "pointsParSeconde" << pointsParSeconde;
 }
 
 
 void IHM::afficherNombrePointsParTir()
 {
-    pointsParTir = (DISTANCE_MAX / nombreTirs[joueurGagnant]);
+    pointsParTir = (nombrePoints[joueurGagnant] / nombreTirs[joueurGagnant]);
     ui->pages->widget(IHM::Page::Statistiques)
-        ->findChild<QLabel*>("ppt")->setText(QString::number(pointsParTir, 'f', 2) + " points par tir"); //affiche que les deux premières décimales de pointsParTir
-    timer->stop();
+        ->findChild<QLabel*>("ppt")->setText(QString::number(pointsParTir, 'f', 2) + " points par tir");
     qDebug() << Q_FUNC_INFO << "pointsParTir" << pointsParTir;
+}
+
+void IHM::afficherGagnant()
+{
+    joueurGagnant++;
+    ui->pages->widget(IHM::Page::Statistiques)
+        ->findChild<QLabel*>("gagnant")->setText("Gagnant: joueur " + QString::number(joueurGagnant));
 }
 
 void IHM::attendreFinCourse()
@@ -396,6 +402,7 @@ void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
     if(!course)
         return;
     ++nombreTirs[numeroCheval];
+    nombrePoints[numeroCheval] += deplacement;
     qDebug() << Q_FUNC_INFO << "Le cheval numéro" << numeroCheval + 1
              << ", qui était positionné à la case"
              << positionChevaux[numeroCheval] << "a avancé de"
