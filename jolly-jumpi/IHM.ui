@@ -168,7 +168,7 @@ background-color: rgb(78, 140, 6);</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QLabel" name="gagnant">
+         <widget class="QLabel" name="position">
           <property name="enabled">
            <bool>true</bool>
           </property>

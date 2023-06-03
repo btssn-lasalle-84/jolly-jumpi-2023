@@ -18,7 +18,7 @@
 
 IHM::IHM(QWidget* parent) :
     QWidget(parent), ui(new Ui::IHM), nbChevaux(NB_CHEVAUX_MAX), positionChevaux(nbChevaux, 0), screen(QGuiApplication::primaryScreen()),
-    screenGeometry(screen->availableGeometry().size()), chronometre(0.00),
+    screenGeometry(screen->availableGeometry().size()), chronometre(0.00), indexStats(1),
     dureeDeLaPartie(0.00), pointsParSeconde(0.00), pointsParTir(0.00), nombreTirs(nbChevaux, 0), nombrePoints(nbChevaux, 0), course(false)
 {
     qDebug() << Q_FUNC_INFO << "nbChevaux" << nbChevaux;
@@ -217,25 +217,32 @@ bool IHM::estCourseFinie()
 
 void IHM::terminerCourse()
 {
-    afficherDureePartie();
-    afficherPointsParSeconde();
-    afficherNombrePointsParTir();
-    afficherGagnant();
+    indexStats=joueurGagnant;
+    afficherStats(indexStats);
     timer->stop();
     QTimer::singleShot(ATTENTE_FIN_COURSE, this, SLOT(attendreFinCourse()));
 }
 
+void IHM::afficherStats(unsigned int indexStats)
+{
+    //if (indexStats == 1)
+    afficherDureePartie();
+    afficherPosition(indexStats);
+    afficherPointsParSeconde();
+    afficherNombrePointsParTir();
+}
+
 void IHM::afficherDureePartie()
 {
-    dureeDeLaPartie = chronometre;
-    ui->pages->widget(IHM::Page::Statistiques)
-        ->findChild<QLabel*>("temps")->setText(QString::number(dureeDeLaPartie, 'f', 2) + " secondes");
-    qDebug() << Q_FUNC_INFO << "dureeDeLaPartie" << dureeDeLaPartie;
+        dureeDeLaPartie = chronometre;
+        ui->pages->widget(IHM::Page::Statistiques)
+            ->findChild<QLabel*>("temps")->setText(QString::number(dureeDeLaPartie, 'f', 2) + " secondes");
+        qDebug() << Q_FUNC_INFO << "dureeDeLaPartie" << dureeDeLaPartie;
 }
 
 void IHM::afficherPointsParSeconde()
 {
-    pointsParSeconde = (DISTANCE_MAX / dureeDeLaPartie);
+    pointsParSeconde = (positionChevaux[indexStats] / dureeDeLaPartie);
     ui->pages->widget(IHM::Page::Statistiques)
         ->findChild<QLabel*>("pps")->setText(QString::number(pointsParSeconde, 'f', 2) + " points par seconde");
     qDebug() << Q_FUNC_INFO << "pointsParSeconde" << pointsParSeconde;
@@ -244,17 +251,38 @@ void IHM::afficherPointsParSeconde()
 
 void IHM::afficherNombrePointsParTir()
 {
-    pointsParTir = (nombrePoints[joueurGagnant] / nombreTirs[joueurGagnant]);
+    qDebug() << Q_FUNC_INFO << "indexStats" << indexStats;
+    --indexStats;
+    qDebug() << Q_FUNC_INFO << "nombrePoints" << nombrePoints[indexStats] << "nombreTirs" << nombreTirs[indexStats];
+
+    pointsParTir = (nombrePoints[indexStats] / nombreTirs[indexStats]);
     ui->pages->widget(IHM::Page::Statistiques)
         ->findChild<QLabel*>("ppt")->setText(QString::number(pointsParTir, 'f', 2) + " points par tir");
     qDebug() << Q_FUNC_INFO << "pointsParTir" << pointsParTir;
+    ++joueurGagnant;
 }
 
-void IHM::afficherGagnant()
+void IHM::afficherPosition(unsigned int indexStats)
 {
-    joueurGagnant++;
-    ui->pages->widget(IHM::Page::Statistiques)
-        ->findChild<QLabel*>("gagnant")->setText("Gagnant: joueur " + QString::number(joueurGagnant));
+    switch(indexStats){
+    case 1:
+        ui->pages->widget(IHM::Page::Statistiques)
+            ->findChild<QLabel*>("position")->setText("Gagnant: joueur " + QString::number(indexStats));
+    break;
+    case 2:
+        ui->pages->widget(IHM::Page::Statistiques)
+            ->findChild<QLabel*>("position")->setText("Deuxième: joueur " + QString::number(indexStats)); // à remplacer par la position
+        break;
+    case 3:
+        ui->pages->widget(IHM::Page::Statistiques)
+            ->findChild<QLabel*>("position")->setText("Troisième: joueur " + QString::number(indexStats)); // à remplacer par la position
+        break;
+    default:
+        //afficherStats(0);
+        ui->pages->widget(IHM::Page::Statistiques)
+            ->findChild<QLabel*>("position")->setText("Gagnant: joueur " + QString::number(++joueurGagnant));
+        break;
+    }
 }
 
 void IHM::attendreFinCourse()
@@ -309,6 +337,11 @@ void IHM::installerModeSimulation()
     quitterStatistiques->setShortcut(QKeySequence(Qt::Key_Q));
     addAction(quitterStatistiques);
     connect(quitterStatistiques, SIGNAL(triggered()), this, SLOT(quitterStatistiques()));
+
+    QAction* afficherStatsJoueurSuivant = new QAction(this);
+    afficherStatsJoueurSuivant->setShortcut(QKeySequence(Qt::Key_Up));
+    addAction(afficherStatsJoueurSuivant);
+    connect(afficherStatsJoueurSuivant, SIGNAL(triggered()), this, SLOT(afficherStatsJoueurSuivant()));
 }
 
 void IHM::demarrerCourse()
@@ -349,6 +382,17 @@ void IHM::quitterStatistiques()
     if(ui->pages->currentIndex() == IHM::Page::Statistiques)
     {
         afficherPageAvantCourse();
+    }
+}
+
+void IHM::afficherStatsJoueurSuivant()
+{
+    if(ui->pages->currentIndex() == IHM::Page::Statistiques)
+    {
+        qDebug() << Q_FUNC_INFO;
+        ++indexStats;
+        afficherStats(indexStats);
+        afficherPageStatistiques();
     }
 }
 
@@ -403,11 +447,15 @@ void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
         return;
     ++nombreTirs[numeroCheval];
     nombrePoints[numeroCheval] += deplacement;
+    if (nombrePoints[numeroCheval] >= DISTANCE_MAX)
+        nombrePoints[numeroCheval] = DISTANCE_MAX;
     qDebug() << Q_FUNC_INFO << "Le cheval numéro" << numeroCheval + 1
              << ", qui était positionné à la case"
              << positionChevaux[numeroCheval] << "a avancé de"
              << int(deplacement);
     qDebug() << Q_FUNC_INFO << "chronometre" << chronometre;
+
+    qDebug() << Q_FUNC_INFO << "nombreTirs" << nombreTirs[numeroCheval] << "nombrePoints" << nombrePoints[numeroCheval];
 
     positionChevaux[numeroCheval] =
       positionChevaux[numeroCheval] + int(deplacement);

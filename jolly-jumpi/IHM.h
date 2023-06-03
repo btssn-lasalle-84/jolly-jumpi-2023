@@ -100,6 +100,7 @@ class IHM : public QWidget
     QSize                 screenGeometry;
     QTimer*               timer;
     float                 chronometre;
+    unsigned int          indexStats;
     float                 dureeDeLaPartie;
     float                 pointsParSeconde;
     float                 pointsParTir;
@@ -117,7 +118,10 @@ class IHM : public QWidget
     void initialiserCourse();
     bool estCourseFinie();
     void terminerCourse();
+    void afficherStats(unsigned int indexStats);
+    void afficherStatsJoueurSuivant();
     void afficherDureePartie();
+    void afficherPosition(unsigned int indexStats);
     void afficherPointsParSeconde();
     void afficherNombrePointsParTir();
     void afficherGagnant();
