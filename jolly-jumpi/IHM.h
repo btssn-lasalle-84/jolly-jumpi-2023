@@ -98,8 +98,9 @@ class IHM : public QWidget
     QScreen*              screen;
     QSize                 screenGeometry;
     QTimer*               timer;
-    float          chronometre;
-    float          dureeDeLaPartie;
+    float                 chronometre;
+    float                 dureeDeLaPartie;
+    float                 pointsParSeconde;
     bool                  course;
 
     void instancierWidgets();
@@ -112,6 +113,8 @@ class IHM : public QWidget
     void initialiserCourse();
     bool estCourseFinie();
     void terminerCourse();
+    void afficherDureePartie();
+    void afficherPointsParSeconde();
 #ifdef MODE_SIMULATION
     void installerModeSimulation();
     int  randInt(int min, int max);

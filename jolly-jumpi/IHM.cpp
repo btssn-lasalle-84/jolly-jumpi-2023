@@ -217,13 +217,27 @@ bool IHM::estCourseFinie()
 
 void IHM::terminerCourse()
 {
+    afficherDureePartie();
+    afficherPointsParSeconde();
+    QTimer::singleShot(ATTENTE_FIN_COURSE, this, SLOT(attendreFinCourse()));
+}
+
+void IHM::afficherDureePartie()
+{
     dureeDeLaPartie = chronometre;
     ui->pages->widget(IHM::Page::Statistiques)
         ->findChild<QLabel*>("temps")->setText(QString::number(dureeDeLaPartie) + " secondes");
     timer->stop();
     qDebug() << Q_FUNC_INFO << "dureeDeLaPartie" << dureeDeLaPartie;
+}
 
-    QTimer::singleShot(ATTENTE_FIN_COURSE, this, SLOT(attendreFinCourse()));
+void IHM::afficherPointsParSeconde()
+{
+    pointsParSeconde = (DISTANCE_MAX / dureeDeLaPartie);
+    ui->pages->widget(IHM::Page::Statistiques)
+        ->findChild<QLabel*>("pps")->setText(QString::number(pointsParSeconde, 'f', 2) + " points par seconde"); //affiche que les deux premières décimales de pointsParSeconde
+    timer->stop();
+    qDebug() << Q_FUNC_INFO << "dureeDeLaPartie" << dureeDeLaPartie;
 }
 
 void IHM::attendreFinCourse()
