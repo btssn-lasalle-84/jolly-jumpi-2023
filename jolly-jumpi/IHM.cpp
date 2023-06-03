@@ -219,7 +219,6 @@ void IHM::terminerCourse()
 {
     dureeDeLaPartie = chronometre;
     timer->stop();
-    course = false;
     qDebug() << Q_FUNC_INFO << "dureeDeLaPartie" << dureeDeLaPartie;
 
     QTimer::singleShot(ATTENTE_FIN_COURSE, this, SLOT(attendreFinCourse()));
@@ -228,7 +227,8 @@ void IHM::terminerCourse()
 void IHM::attendreFinCourse()
 {
     chronometre = 0;
-    afficherPageAvantCourse();
+    course = false;
+    afficherPageStatistiques();
 }
 
 #ifdef MODE_SIMULATION
@@ -271,6 +271,11 @@ void IHM::installerModeSimulation()
             SIGNAL(triggered()),
             this,
             SLOT(afficherPageConnexion()));
+
+    QAction* quitterStatistiques = new QAction(this);
+    quitterStatistiques->setShortcut(QKeySequence(Qt::Key_Q));
+    addAction(quitterStatistiques);
+    connect(quitterStatistiques, SIGNAL(triggered()), this, SLOT(quitterStatistiques()));
 }
 
 void IHM::demarrerCourse()
@@ -306,11 +311,11 @@ void IHM::quitterProgramme()
     }
 }
 
-void IHM::afficherStatistiques()
+void IHM::quitterStatistiques()
 {
-    if(ui->pages->currentIndex() == IHM::Page::Course)
+    if(ui->pages->currentIndex() == IHM::Page::Statistiques)
     {
-        afficherPageStatistiques();
+        afficherPageAvantCourse();
     }
 }
 

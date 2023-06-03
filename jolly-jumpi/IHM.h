@@ -76,8 +76,8 @@ class IHM : public QWidget
         Connexion,
         AvantCourse,
         Course,
-        Parametres,
         Statistiques,
+        Parametres,
         NbPages
     };
     enum Trou
@@ -130,7 +130,7 @@ class IHM : public QWidget
     void ouvrirPageAvantCourse();
     void accederParametres();
     void quitterProgramme();
-    void afficherStatistiques();
+    void quitterStatistiques();
     void avancerChevaux();
     void attendreFinCourse();
 #ifdef MODE_SIMULATION
