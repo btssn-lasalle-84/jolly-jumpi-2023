@@ -89,8 +89,9 @@ class IHM : public QWidget
 
   private:
     Ui::IHM*              ui;
+    unsigned int          nbChevaux;
     QVector<unsigned int> positionChevaux;
-    int                   nbChevaux;
+    unsigned int          joueurGagnant;
     QVector<QPixmap*>     imageAvatarsJoueurs;
     QVector<QLabel*>      avatarsJoueurs;
     QVector<QPixmap*>     imagePlaceHolder;
@@ -101,6 +102,8 @@ class IHM : public QWidget
     float                 chronometre;
     float                 dureeDeLaPartie;
     float                 pointsParSeconde;
+    float                 pointsParTir;
+    QVector<unsigned int> nombreTirs;
     bool                  course;
 
     void instancierWidgets();
@@ -115,6 +118,7 @@ class IHM : public QWidget
     void terminerCourse();
     void afficherDureePartie();
     void afficherPointsParSeconde();
+    void afficherNombrePointsParTir();
 #ifdef MODE_SIMULATION
     void installerModeSimulation();
     int  randInt(int min, int max);

@@ -17,10 +17,9 @@
  */
 
 IHM::IHM(QWidget* parent) :
-    QWidget(parent), ui(new Ui::IHM), positionChevaux(NB_CHEVAUX_MAX, 0),
-    nbChevaux(positionChevaux.size()), screen(QGuiApplication::primaryScreen()),
+    QWidget(parent), ui(new Ui::IHM), nbChevaux(NB_CHEVAUX_MAX), positionChevaux(nbChevaux, 0), screen(QGuiApplication::primaryScreen()),
     screenGeometry(screen->availableGeometry().size()), chronometre(0.00),
-    dureeDeLaPartie(0.00), course(false)
+    dureeDeLaPartie(0.00), pointsParSeconde(0.00), pointsParTir(0.00), nombreTirs(nbChevaux, 0), course(false)
 {
     qDebug() << Q_FUNC_INFO << "nbChevaux" << nbChevaux;
 
@@ -205,8 +204,9 @@ bool IHM::estCourseFinie()
     {
         if(positionChevaux[i] == DISTANCE_MAX)
         {
+            joueurGagnant = i;
             qDebug() << Q_FUNC_INFO << "DISTANCE_MAX"
-                     << "true";
+                     << "true" << "joueurGagnant" << joueurGagnant;
             return true;
         }
     }
@@ -219,6 +219,7 @@ void IHM::terminerCourse()
 {
     afficherDureePartie();
     afficherPointsParSeconde();
+    afficherNombrePointsParTir();
     QTimer::singleShot(ATTENTE_FIN_COURSE, this, SLOT(attendreFinCourse()));
 }
 
@@ -237,7 +238,17 @@ void IHM::afficherPointsParSeconde()
     ui->pages->widget(IHM::Page::Statistiques)
         ->findChild<QLabel*>("pps")->setText(QString::number(pointsParSeconde, 'f', 2) + " points par seconde"); //affiche que les deux premières décimales de pointsParSeconde
     timer->stop();
-    qDebug() << Q_FUNC_INFO << "dureeDeLaPartie" << dureeDeLaPartie;
+    qDebug() << Q_FUNC_INFO << "pointsParSeconde" << pointsParSeconde;
+}
+
+
+void IHM::afficherNombrePointsParTir()
+{
+    pointsParTir = (DISTANCE_MAX / nombreTirs[joueurGagnant]);
+    ui->pages->widget(IHM::Page::Statistiques)
+        ->findChild<QLabel*>("ppt")->setText(QString::number(pointsParTir, 'f', 2) + " points par tir"); //affiche que les deux premières décimales de pointsParTir
+    timer->stop();
+    qDebug() << Q_FUNC_INFO << "pointsParTir" << pointsParTir;
 }
 
 void IHM::attendreFinCourse()
@@ -384,6 +395,7 @@ void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
 {
     if(!course)
         return;
+    ++nombreTirs[numeroCheval];
     qDebug() << Q_FUNC_INFO << "Le cheval numéro" << numeroCheval + 1
              << ", qui était positionné à la case"
              << positionChevaux[numeroCheval] << "a avancé de"
