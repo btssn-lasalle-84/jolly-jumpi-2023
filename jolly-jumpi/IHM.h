@@ -14,16 +14,7 @@
 #include <QScreen>
 #include <QRandomGenerator>
 #include <QSoundEffect>
-
-//#include <QAudioDevice>
-//#include <QMediaDevices>
-/*#include <QMediaPlayer>
-#include <QAudioOutput>
-#include <QFile>
-#include <QAudioFormat>
-#include <QIODevice>
-#include <QSound>
-#include <QMediaPlaylist>*/
+#include <QTimer>
 
 /**
  * @def RASPBERRY_PI
@@ -56,6 +47,12 @@
  */
 #define DISTANCE_MAX 10
 
+/**
+ * @def ATTENTE_FIN_COURSE
+ * @brief La durée d'attente en ms à la fin d'une course
+ */
+#define ATTENTE_FIN_COURSE 5000
+
 #define MUSIQUE_DE_FOND ":/musiques/Musiques/musique_de_fond_1.wav"
 
 namespace Ui
@@ -80,6 +77,7 @@ class IHM : public QWidget
         AvantCourse,
         Course,
         Parametres,
+        Statistiques,
         NbPages
     };
     enum Trou
@@ -99,14 +97,21 @@ class IHM : public QWidget
     QVector<QLabel*>      placeHolder;
     QScreen*              screen;
     QSize                 screenGeometry;
+    QTimer*               timer;
+    unsigned int          chronometre;
+    unsigned int          dureeDeLaPartie;
+    bool                  course;
 
     void instancierWidgets();
     void initialiserWidgets();
     void positionnerWidgets();
+    void initialiserChronometre();
     void connecterSignauxSlots();
     void initialiserFenetre();
     void initialiserMusiqueDeFond();
-    bool estPartieFinie();
+    void initialiserCourse();
+    bool estCourseFinie();
+    void terminerCourse();
 #ifdef MODE_SIMULATION
     void installerModeSimulation();
     int  randInt(int min, int max);
@@ -118,12 +123,16 @@ class IHM : public QWidget
     void afficherPageAvantCourse();
     void afficherPageCourse();
     void afficherPageParametres();
+    void afficherPageStatistiques();
+    void chronometrer();
     void actualiserPositionChevaux(int numeroCheval, Trou deplacement);
     void demarrerCourse();
     void ouvrirPageAvantCourse();
     void accederParametres();
     void quitterProgramme();
+    void afficherStatistiques();
     void avancerChevaux();
+    void attendreFinCourse();
 #ifdef MODE_SIMULATION
     void simulerAvancementCheval();
 #endif

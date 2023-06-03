@@ -19,19 +19,20 @@
 IHM::IHM(QWidget* parent) :
     QWidget(parent), ui(new Ui::IHM), positionChevaux(NB_CHEVAUX_MAX, 0),
     nbChevaux(positionChevaux.size()), screen(QGuiApplication::primaryScreen()),
-    screenGeometry(screen->availableGeometry().size())
+    screenGeometry(screen->availableGeometry().size()), chronometre(0),
+    dureeDeLaPartie(0), course(false)
 {
     qDebug() << Q_FUNC_INFO << "nbChevaux" << nbChevaux;
 
     instancierWidgets();
     initialiserWidgets();
     positionnerWidgets();
+    initialiserChronometre();
     connecterSignauxSlots();
     initialiserFenetre();
 #ifdef MODE_SIMULATION
     installerModeSimulation();
 #endif
-
     initialiserMusiqueDeFond();
 }
 
@@ -82,6 +83,11 @@ void IHM::afficherPageParametres()
 void IHM::afficherPageAvantCourse()
 {
     afficherPage(IHM::Page::AvantCourse);
+}
+
+void IHM::afficherPageStatistiques()
+{
+    afficherPage(IHM::Page::Statistiques);
 }
 
 void IHM::instancierWidgets()
@@ -149,8 +155,15 @@ void IHM::positionnerWidgets()
       ->setContentsMargins(0, screenGeometry.height() * 0.14, 0, 0);
 }
 
+void IHM::initialiserChronometre()
+{
+    timer = new QTimer(this);
+    timer->setInterval(1000);
+}
+
 void IHM::connecterSignauxSlots()
 {
+    connect(timer, SIGNAL(timeout()), this, SLOT(chronometrer()));
 }
 
 void IHM::initialiserFenetre()
@@ -175,7 +188,18 @@ void IHM::initialiserMusiqueDeFond()
     qDebug() << Q_FUNC_INFO << "isPlaying" << musique.isPlaying();
 }
 
-bool IHM::estPartieFinie()
+void IHM::initialiserCourse()
+{
+    for(int i = 0; i < nbChevaux; i++)
+    {
+        positionChevaux[i] = 0;
+    }
+    timer->start();
+    avancerChevaux();
+    course = true;
+}
+
+bool IHM::estCourseFinie()
 {
     for(int i = 0; i < nbChevaux; i++)
     {
@@ -189,6 +213,22 @@ bool IHM::estPartieFinie()
     qDebug() << Q_FUNC_INFO << "DISTANCE_MAX"
              << "false";
     return false;
+}
+
+void IHM::terminerCourse()
+{
+    dureeDeLaPartie = chronometre;
+    timer->stop();
+    course = false;
+    qDebug() << Q_FUNC_INFO << "dureeDeLaPartie" << dureeDeLaPartie;
+
+    QTimer::singleShot(ATTENTE_FIN_COURSE, this, SLOT(attendreFinCourse()));
+}
+
+void IHM::attendreFinCourse()
+{
+    chronometre = 0;
+    afficherPageAvantCourse();
 }
 
 #ifdef MODE_SIMULATION
@@ -233,34 +273,11 @@ void IHM::installerModeSimulation()
             SLOT(afficherPageConnexion()));
 }
 
-int IHM::randInt(int min, int max)
-{
-    return ((QRandomGenerator::global()->bounded(min, max + 1)) + min);
-}
-#endif
-
-void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
-{
-    qDebug() << Q_FUNC_INFO << "Le cheval numéro" << numeroCheval + 1
-             << ", qui était positionné à la case"
-             << positionChevaux[numeroCheval] << "a avancé de"
-             << int(deplacement);
-
-    positionChevaux[numeroCheval] =
-      positionChevaux[numeroCheval] + int(deplacement);
-    if(positionChevaux[numeroCheval] > DISTANCE_MAX)
-    {
-        positionChevaux[numeroCheval] = DISTANCE_MAX;
-    }
-    qDebug() << Q_FUNC_INFO << "Il est maintenant case"
-             << positionChevaux[numeroCheval];
-    avancerChevaux();
-}
-
 void IHM::demarrerCourse()
 {
     if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
     {
+        initialiserCourse();
         afficherPageCourse();
     }
 }
@@ -289,6 +306,14 @@ void IHM::quitterProgramme()
     }
 }
 
+void IHM::afficherStatistiques()
+{
+    if(ui->pages->currentIndex() == IHM::Page::Course)
+    {
+        afficherPageStatistiques();
+    }
+}
+
 void IHM::avancerChevaux()
 {
     for(int i = 0; i < nbChevaux; i++)
@@ -306,14 +331,52 @@ void IHM::avancerChevaux()
           ->findChild<QGridLayout*>("gridLayout")
           ->setRowStretch(imageAvatarsJoueurs.size(), 1);
     }
+    if(estCourseFinie())
+        terminerCourse();
 }
 
 #ifdef MODE_SIMULATION
 void IHM::simulerAvancementCheval()
 {
-    Trou trous[NB_COULEURS_TROU] = { JAUNE, BLEU, ROUGE };
-    int  numeroCheval            = randInt(0, NB_CHEVAUX_MAX - 1);
-    int  trou                    = randInt(0, NB_COULEURS_TROU - 1);
-    actualiserPositionChevaux(numeroCheval, trous[trou]);
+    if(ui->pages->currentIndex() == IHM::Page::Course)
+    {
+        Trou trous[NB_COULEURS_TROU] = { JAUNE, BLEU, ROUGE };
+        int  numeroCheval            = randInt(0, NB_CHEVAUX_MAX - 1);
+        int  trou                    = randInt(0, NB_COULEURS_TROU - 1);
+        actualiserPositionChevaux(numeroCheval, trous[trou]);
+    }
 }
 #endif
+
+int IHM::randInt(int min, int max)
+{
+    return ((QRandomGenerator::global()->bounded(min, max + 1)) + min);
+}
+#endif
+
+void IHM::chronometrer()
+{
+    chronometre += 1;
+}
+
+void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
+{
+    if(!course)
+        return;
+    qDebug() << Q_FUNC_INFO << "Le cheval numéro" << numeroCheval + 1
+             << ", qui était positionné à la case"
+             << positionChevaux[numeroCheval] << "a avancé de"
+             << int(deplacement);
+    qDebug() << Q_FUNC_INFO << "chronometre" << chronometre;
+
+    positionChevaux[numeroCheval] =
+      positionChevaux[numeroCheval] + int(deplacement);
+    if(positionChevaux[numeroCheval] > DISTANCE_MAX)
+    {
+        positionChevaux[numeroCheval] = DISTANCE_MAX;
+    }
+
+    qDebug() << Q_FUNC_INFO << "Il est maintenant case"
+             << positionChevaux[numeroCheval];
+    avancerChevaux();
+}
