@@ -206,7 +206,7 @@ bool IHM::estCourseFinie()
         {
             joueurGagnant = i;
             qDebug() << Q_FUNC_INFO << "DISTANCE_MAX"
-                     << "true" << "joueurGagnant" << joueurGagnant;
+                     << "true" << "joueurGagnant" << (joueurGagnant+1);
             return true;
         }
     }
@@ -226,15 +226,17 @@ void IHM::terminerCourse()
 
 void IHM::determinerClassement()
 {
-    std::vector<unsigned int> classement;
+    // Je veux aussi afficher le numéro du joueur mais c'est trop compliqué, j'abandonne pour l'instant
+
+    /*std::vector<unsigned int> classement;
     classement.reserve(positionChevaux.size());
     std::copy(positionChevaux.begin(), positionChevaux.end(), std::back_inserter(classement));
     std::sort(classement.begin(), classement.end(), std::greater<unsigned int>());
 
     qDebug() << "Classement des chevaux :";
         for (const auto& position : classement) {
-        qDebug() << "Position :" << position;
-    }
+        qDebug() << "Position du joueur numéro" << position;
+    }*/
 }
 
 void IHM::afficherStats(unsigned int indexStats)
@@ -266,36 +268,22 @@ void IHM::afficherPointsParSeconde()
 void IHM::afficherNombrePointsParTir()
 {
     qDebug() << Q_FUNC_INFO << "indexStats" << indexStats;
-    --indexStats;
     qDebug() << Q_FUNC_INFO << "nombrePoints" << nombrePoints[indexStats] << "nombreTirs" << nombreTirs[indexStats];
 
     pointsParTir = (nombrePoints[indexStats] / nombreTirs[indexStats]);
     ui->pages->widget(IHM::Page::Statistiques)
         ->findChild<QLabel*>("ppt")->setText(QString::number(pointsParTir, 'f', 2) + " points par tir");
     qDebug() << Q_FUNC_INFO << "pointsParTir" << pointsParTir;
-    ++joueurGagnant;
 }
 
 void IHM::afficherPosition(unsigned int indexStats)
 {
-    switch(indexStats){
-    case 1:
+    if (indexStats==joueurGagnant)
+                ui->pages->widget(IHM::Page::Statistiques)
+                    ->findChild<QLabel*>("position")->setText("Gagnant: joueur " + QString::number(joueurGagnant+1));
+    else{
         ui->pages->widget(IHM::Page::Statistiques)
-            ->findChild<QLabel*>("position")->setText("Gagnant: joueur " + QString::number(indexStats));
-    break;
-    case 2:
-        ui->pages->widget(IHM::Page::Statistiques)
-            ->findChild<QLabel*>("position")->setText("Deuxième: joueur " + QString::number(indexStats)); // à remplacer par la position
-        break;
-    case 3:
-        ui->pages->widget(IHM::Page::Statistiques)
-            ->findChild<QLabel*>("position")->setText("Troisième: joueur " + QString::number(indexStats)); // à remplacer par la position
-        break;
-    default:
-        //afficherStats(0);
-        ui->pages->widget(IHM::Page::Statistiques)
-            ->findChild<QLabel*>("position")->setText("Gagnant: joueur " + QString::number(++joueurGagnant));
-        break;
+            ->findChild<QLabel*>("position")->setText("Joueur " + QString::number(indexStats+1));
     }
 }
 
