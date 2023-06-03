@@ -218,6 +218,8 @@ bool IHM::estCourseFinie()
 void IHM::terminerCourse()
 {
     dureeDeLaPartie = chronometre;
+    ui->pages->widget(IHM::Page::Statistiques)
+        ->findChild<QLabel*>("temps")->setText(QString::number(dureeDeLaPartie) + " secondes");
     timer->stop();
     qDebug() << Q_FUNC_INFO << "dureeDeLaPartie" << dureeDeLaPartie;
 

@@ -20,7 +20,7 @@
    <item>
     <widget class="QStackedWidget" name="pages">
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="pageConnexion">
       <property name="styleSheet">
@@ -203,7 +203,7 @@ background-color: rgb(78, 140, 6);</string>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_7">
+           <layout class="QVBoxLayout" name="statistiques">
             <item>
              <widget class="QLabel" name="temps">
               <property name="font">
