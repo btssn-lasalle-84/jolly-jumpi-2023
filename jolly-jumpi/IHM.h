@@ -108,6 +108,7 @@ class IHM : public QWidget
     float                 pointsParTir;
     QVector<unsigned int> nombreTirs;
     QVector<unsigned int> nombrePoints;
+    unsigned int          pourcentCompletion;
     bool                  course;
 
     void instancierWidgets();
@@ -122,9 +123,9 @@ class IHM : public QWidget
     void terminerCourse();
     void determinerClassement();
     void afficherStats(unsigned int indexStats);
-    void afficherStatsJoueurSuivant();
     void afficherDureePartie();
-    void afficherPosition(unsigned int indexStats);
+    void afficherPositionFinale(unsigned int indexStats);
+    void afficherNumeroJoueur(unsigned int indexStats);
     void afficherPointsParSeconde();
     void afficherNombrePointsParTir();
     void afficherGagnant();
@@ -140,6 +141,7 @@ class IHM : public QWidget
     void afficherPageCourse();
     void afficherPageParametres();
     void afficherPageStatistiques();
+    void afficherStatsJoueurSuivant();
     void chronometrer();
     void actualiserPositionChevaux(int numeroCheval, Trou deplacement);
     void demarrerCourse();
