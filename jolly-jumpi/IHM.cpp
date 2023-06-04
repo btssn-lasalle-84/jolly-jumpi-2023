@@ -252,10 +252,11 @@ void IHM::determinerClassement()
 
 int IHM::determinerJoueurSuivant()
 {
-    if(positionClassement > nbChevaux)
+    if(positionClassement >= nbChevaux)
     {
         qDebug() << Q_FUNC_INFO;
-        return AUCUN_JOUEUR;
+        positionClassement = 1;
+        return joueurGagnant;
     }
     for(int numeroJoueur = 0; numeroJoueur < classement.size(); numeroJoueur++)
     {
@@ -270,6 +271,7 @@ int IHM::determinerJoueurSuivant()
 
 void IHM::afficherResultats()
 {
+    qDebug() << Q_FUNC_INFO;
     afficherDureePartie();
     afficherPositionFinale(joueurGagnant);
     afficherNumeroJoueur(joueurGagnant);
@@ -279,15 +281,24 @@ void IHM::afficherResultats()
 
 void IHM::afficherResultatJoueurSuivant()
 {
-    int joueurSuivant = determinerJoueurSuivant();
-    qDebug() << Q_FUNC_INFO << "positionClassement" << positionClassement
+    if(ui->pages->currentIndex() == IHM::Page::Statistiques)
+    {
+        int joueurSuivant = determinerJoueurSuivant();
+        qDebug() << Q_FUNC_INFO << "positionClassement" << positionClassement
              << "joueurSuivant" << joueurSuivant;
-    afficherClassement(positionClassement);
-    afficherPositionFinale(joueurSuivant);
-    afficherNumeroJoueur(joueurSuivant);
-    afficherPointsParSeconde(joueurSuivant);
-    afficherNombrePointsParTir(joueurSuivant);
-    positionClassement++;
+        if (positionClassement == joueurGagnant)
+        {
+            afficherResultats();
+            joueurSuivant++;
+            return;
+        }
+        afficherClassement(positionClassement);
+        afficherPositionFinale(joueurSuivant);
+        afficherNumeroJoueur(joueurSuivant);
+        afficherPointsParSeconde(joueurSuivant);
+        afficherNombrePointsParTir(joueurSuivant);
+        positionClassement++;
+    }
 }
 
 void IHM::afficherDureePartie()
@@ -385,8 +396,7 @@ void IHM::afficherNumeroJoueur(int numeroJoueur)
           ->findChild<QLabel*>("position")
           ->setText("Joueur " +
                     QString::number(numeroJoueur +
-                                    1)); // à remplacer par la position quand
-                                         // determinerClassement() fonctionnera
+                                                  1));
     }
 }
 
