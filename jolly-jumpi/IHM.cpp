@@ -293,7 +293,7 @@ void IHM::afficherNombrePointsParTir()
 
     pointsParTir = (nombrePoints[indexStats] / nombreTirs[indexStats]);
     ui->pages->widget(IHM::Page::Statistiques)
-        ->findChild<QLabel*>("ppt")->setText(QString::number(pointsParTir, 'f', 2) + " points par tir");
+        ->findChild<QLabel*>("ppt")->setText(QString::number(pointsParTir) + " points par tir");
     qDebug() << Q_FUNC_INFO << "pointsParTir" << pointsParTir;
     }
     else

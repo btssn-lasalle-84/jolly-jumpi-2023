@@ -105,7 +105,7 @@ class IHM : public QWidget
     unsigned int          indexStats;
     float                 dureeDeLaPartie;
     float                 pointsParSeconde;
-    float                 pointsParTir;
+    unsigned int          pointsParTir;
     QVector<unsigned int> nombreTirs;
     QVector<unsigned int> nombrePoints;
     unsigned int          pourcentCompletion;
