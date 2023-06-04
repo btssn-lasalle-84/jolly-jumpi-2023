@@ -93,17 +93,6 @@ void IHM::afficherPageStatistiques()
     afficherPage(IHM::Page::Statistiques);
 }
 
-void IHM::afficherResultatJoueurSuivant()
-{
-    int joueurSuivant = determinerJoueurSuivant();
-    qDebug() << Q_FUNC_INFO << "positionClassement" << positionClassement
-             << "joueurSuivant" << joueurSuivant;
-    afficherPositionFinale(joueurSuivant);
-    afficherNumeroJoueur(joueurSuivant);
-    afficherPointsParSeconde(joueurSuivant);
-    afficherNombrePointsParTir(joueurSuivant);
-}
-
 void IHM::instancierWidgets()
 {
     ui->setupUi(this);
@@ -264,11 +253,18 @@ void IHM::determinerClassement()
 int IHM::determinerJoueurSuivant()
 {
     if(positionClassement > nbChevaux)
+    {
+        qDebug() << Q_FUNC_INFO;
         return AUCUN_JOUEUR;
-    /**
-     * @todo Retourner le numero de joueur en fonction de la position au
-     * classement
-     */
+    }
+    for(int numeroJoueur = 0; numeroJoueur < classement.size(); numeroJoueur++)
+    {
+        if (classement[positionClassement] == positionChevaux[numeroJoueur])
+        {
+            qDebug() << Q_FUNC_INFO << "numeroJoueur" << numeroJoueur;
+            return numeroJoueur;
+        }
+    }
     return AUCUN_JOUEUR;
 }
 
@@ -281,12 +277,32 @@ void IHM::afficherResultats()
     afficherNombrePointsParTir(joueurGagnant);
 }
 
+void IHM::afficherResultatJoueurSuivant()
+{
+    int joueurSuivant = determinerJoueurSuivant();
+    qDebug() << Q_FUNC_INFO << "positionClassement" << positionClassement
+             << "joueurSuivant" << joueurSuivant;
+    afficherClassement(positionClassement);
+    afficherPositionFinale(joueurSuivant);
+    afficherNumeroJoueur(joueurSuivant);
+    afficherPointsParSeconde(joueurSuivant);
+    afficherNombrePointsParTir(joueurSuivant);
+    positionClassement++;
+}
+
 void IHM::afficherDureePartie()
 {
     ui->pages->widget(IHM::Page::Statistiques)
       ->findChild<QLabel*>("duree")
       ->setText(QString::number(dureeDeLaPartie, 'f', 2) + " secondes");
     qDebug() << Q_FUNC_INFO << "dureeDeLaPartie" << dureeDeLaPartie;
+}
+
+void IHM::afficherClassement(int positionClassement)
+{
+    ui->pages->widget(IHM::Page::Statistiques)
+        ->findChild<QLabel*>("duree")
+        ->setText(QString::number(positionClassement+1) + "e position");
 }
 
 void IHM::afficherPositionFinale(int numeroJoueur)

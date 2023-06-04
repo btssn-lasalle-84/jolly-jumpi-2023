@@ -126,6 +126,7 @@ class IHM : public QWidget
     int  determinerJoueurSuivant();
     void afficherResultats();
     void afficherDureePartie();
+    void afficherClassement(int joueurSuivant);
     void afficherPositionFinale(int numeroJoueur);
     void afficherNumeroJoueur(int numeroJoueur);
     void afficherPointsParSeconde(int numeroJoueur);
