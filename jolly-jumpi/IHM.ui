@@ -68,7 +68,7 @@
         <rect>
          <x>570</x>
          <y>200</y>
-         <width>731</width>
+         <width>1290</width>
          <height>621</height>
         </rect>
        </property>
@@ -80,6 +80,7 @@
             <property name="font">
              <font>
               <pointsize>40</pointsize>
+              <weight>50</weight>
               <bold>false</bold>
              </font>
             </property>
@@ -162,8 +163,8 @@ background-color: rgb(78, 140, 6);</string>
         <rect>
          <x>9</x>
          <y>19</y>
-         <width>1871</width>
-         <height>1031</height>
+         <width>2258</width>
+         <height>1087</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -204,6 +205,24 @@ background-color: rgb(78, 140, 6);</string>
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
            <layout class="QVBoxLayout" name="statistiques">
+            <item>
+             <widget class="QLabel" name="duree">
+              <property name="font">
+               <font>
+                <pointsize>40</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color: rgb(255, 255, 255);</string>
+              </property>
+              <property name="text">
+               <string>17.59 secondes</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
             <item>
              <widget class="QLabel" name="temps">
               <property name="font">

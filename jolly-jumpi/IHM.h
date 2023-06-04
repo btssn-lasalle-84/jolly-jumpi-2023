@@ -54,6 +54,8 @@
  */
 #define ATTENTE_FIN_COURSE 5000
 
+#define AUCUN_JOUEUR -1
+
 #define MUSIQUE_DE_FOND ":/musiques/Musiques/musique_de_fond_1.wav"
 
 namespace Ui
@@ -93,7 +95,8 @@ class IHM : public QWidget
     int                   nbChevaux;
     QVector<unsigned int> positionChevaux;
     QVector<unsigned int> classement;
-    unsigned int          joueurGagnant;
+    int                   joueurGagnant;
+    int                   positionClassement;
     QVector<QPixmap*>     imageAvatarsJoueurs;
     QVector<QLabel*>      avatarsJoueurs;
     QVector<QPixmap*>     imagePlaceHolder;
@@ -102,14 +105,12 @@ class IHM : public QWidget
     QSize                 screenGeometry;
     QTimer*               timer;
     float                 chronometre;
-    unsigned int          indexStats;
     float                 dureeDeLaPartie;
-    float                 pointsParSeconde;
-    unsigned int          pointsParTir;
+
     QVector<unsigned int> nombreTirs;
     QVector<unsigned int> nombrePoints;
-    unsigned int          pourcentCompletion;
-    bool                  course;
+    // unsigned int          pourcentCompletion;
+    bool course;
 
     void instancierWidgets();
     void initialiserWidgets();
@@ -122,12 +123,13 @@ class IHM : public QWidget
     bool estCourseFinie();
     void terminerCourse();
     void determinerClassement();
-    void afficherStats(unsigned int indexStats);
+    int  determinerJoueurSuivant();
+    void afficherResultats();
     void afficherDureePartie();
-    void afficherPositionFinale(unsigned int indexStats);
-    void afficherNumeroJoueur(unsigned int indexStats);
-    void afficherPointsParSeconde();
-    void afficherNombrePointsParTir();
+    void afficherPositionFinale(int numeroJoueur);
+    void afficherNumeroJoueur(int numeroJoueur);
+    void afficherPointsParSeconde(int numeroJoueur);
+    void afficherNombrePointsParTir(int numeroJoueur);
     void afficherGagnant();
 #ifdef MODE_SIMULATION
     void installerModeSimulation();
@@ -141,7 +143,7 @@ class IHM : public QWidget
     void afficherPageCourse();
     void afficherPageParametres();
     void afficherPageStatistiques();
-    void afficherStatsJoueurSuivant();
+    void afficherResultatJoueurSuivant();
     void chronometrer();
     void actualiserPositionChevaux(int numeroCheval, Trou deplacement);
     void demarrerCourse();
