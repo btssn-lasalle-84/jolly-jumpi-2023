@@ -15,6 +15,7 @@
 #include <QRandomGenerator>
 #include <QSoundEffect>
 #include <QTimer>
+#include <algorithm>
 
 /**
  * @def RASPBERRY_PI
@@ -53,6 +54,8 @@
  */
 #define ATTENTE_FIN_COURSE 5000
 
+#define AUCUN_JOUEUR -1
+
 #define MUSIQUE_DE_FOND ":/musiques/Musiques/musique_de_fond_1.wav"
 
 namespace Ui
@@ -76,8 +79,8 @@ class IHM : public QWidget
         Connexion,
         AvantCourse,
         Course,
-        Parametres,
         Statistiques,
+        Parametres,
         NbPages
     };
     enum Trou
@@ -89,8 +92,11 @@ class IHM : public QWidget
 
   private:
     Ui::IHM*              ui;
-    QVector<unsigned int> positionChevaux;
     int                   nbChevaux;
+    QVector<unsigned int> positionChevaux;
+    QVector<unsigned int> classement;
+    int                   joueurGagnant;
+    int                   positionClassement;
     QVector<QPixmap*>     imageAvatarsJoueurs;
     QVector<QLabel*>      avatarsJoueurs;
     QVector<QPixmap*>     imagePlaceHolder;
@@ -98,8 +104,10 @@ class IHM : public QWidget
     QScreen*              screen;
     QSize                 screenGeometry;
     QTimer*               timer;
-    unsigned int          chronometre;
-    unsigned int          dureeDeLaPartie;
+    float                 chronometre;
+    float                 dureeDeLaPartie;
+    QVector<unsigned int> nombreTirs;
+    QVector<unsigned int> nombrePoints;
     bool                  course;
 
     void instancierWidgets();
@@ -112,6 +120,16 @@ class IHM : public QWidget
     void initialiserCourse();
     bool estCourseFinie();
     void terminerCourse();
+    void determinerClassement();
+    int  determinerJoueurSuivant();
+    void afficherResultats();
+    void afficherDureePartie();
+    void afficherClassement(int joueurSuivant);
+    void afficherPositionFinale(int numeroJoueur);
+    void afficherNumeroJoueur(int numeroJoueur);
+    void afficherPointsParSeconde(int numeroJoueur);
+    void afficherNombrePointsParTir(int numeroJoueur);
+    void afficherGagnant();
 #ifdef MODE_SIMULATION
     void installerModeSimulation();
     int  randInt(int min, int max);
@@ -124,13 +142,14 @@ class IHM : public QWidget
     void afficherPageCourse();
     void afficherPageParametres();
     void afficherPageStatistiques();
+    void afficherResultatJoueurSuivant();
     void chronometrer();
     void actualiserPositionChevaux(int numeroCheval, Trou deplacement);
     void demarrerCourse();
     void ouvrirPageAvantCourse();
     void accederParametres();
     void quitterProgramme();
-    void afficherStatistiques();
+    void quitterStatistiques();
     void avancerChevaux();
     void attendreFinCourse();
 #ifdef MODE_SIMULATION
