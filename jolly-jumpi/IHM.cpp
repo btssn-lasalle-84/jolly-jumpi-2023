@@ -258,9 +258,14 @@ int IHM::determinerJoueurSuivant()
         positionClassement = 1;
         return joueurGagnant;
     }
+    /**
+     * @fixme Il y a un risque de confusion avec les joueurs à égalité. Ne
+     * faudrait-il pas effacer la valeur de positionChevaux[numeroJoueur]
+     * lorsqu'il a été déjà classé ? Avec DISTANCE_MAX+1 par exemple ?
+     */
     for(int numeroJoueur = 0; numeroJoueur < classement.size(); numeroJoueur++)
     {
-        if (classement[positionClassement] == positionChevaux[numeroJoueur])
+        if(classement[positionClassement - 1] == positionChevaux[numeroJoueur])
         {
             qDebug() << Q_FUNC_INFO << "numeroJoueur" << numeroJoueur;
             return numeroJoueur;
@@ -271,12 +276,14 @@ int IHM::determinerJoueurSuivant()
 
 void IHM::afficherResultats()
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << "positionClassement" << positionClassement
+             << "joueurSuivant" << joueurSuivant;
     afficherDureePartie();
     afficherPositionFinale(joueurGagnant);
     afficherNumeroJoueur(joueurGagnant);
     afficherPointsParSeconde(joueurGagnant);
     afficherNombrePointsParTir(joueurGagnant);
+    positionClassement = 2;
 }
 
 void IHM::afficherResultatJoueurSuivant()
@@ -285,13 +292,7 @@ void IHM::afficherResultatJoueurSuivant()
     {
         int joueurSuivant = determinerJoueurSuivant();
         qDebug() << Q_FUNC_INFO << "positionClassement" << positionClassement
-             << "joueurSuivant" << joueurSuivant;
-        if (positionClassement == joueurGagnant)
-        {
-            afficherResultats();
-            joueurSuivant++;
-            return;
-        }
+                 << "joueurSuivant" << joueurSuivant;
         afficherClassement(positionClassement);
         afficherPositionFinale(joueurSuivant);
         afficherNumeroJoueur(joueurSuivant);
@@ -312,8 +313,8 @@ void IHM::afficherDureePartie()
 void IHM::afficherClassement(int positionClassement)
 {
     ui->pages->widget(IHM::Page::Statistiques)
-        ->findChild<QLabel*>("duree")
-        ->setText(QString::number(positionClassement+1) + "e position");
+      ->findChild<QLabel*>("duree")
+      ->setText(QString::number(positionClassement) + "e position");
 }
 
 void IHM::afficherPositionFinale(int numeroJoueur)
@@ -394,9 +395,7 @@ void IHM::afficherNumeroJoueur(int numeroJoueur)
     {
         ui->pages->widget(IHM::Page::Statistiques)
           ->findChild<QLabel*>("position")
-          ->setText("Joueur " +
-                    QString::number(numeroJoueur +
-                                                  1));
+          ->setText("Joueur " + QString::number(numeroJoueur + 1));
     }
 }
 

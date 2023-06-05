@@ -106,11 +106,9 @@ class IHM : public QWidget
     QTimer*               timer;
     float                 chronometre;
     float                 dureeDeLaPartie;
-
     QVector<unsigned int> nombreTirs;
     QVector<unsigned int> nombrePoints;
-    // unsigned int          pourcentCompletion;
-    bool course;
+    bool                  course;
 
     void instancierWidgets();
     void initialiserWidgets();
