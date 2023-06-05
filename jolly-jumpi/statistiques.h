@@ -17,7 +17,6 @@ class Statistiques : public IHM
     class IHM *ihm;
 
     int                   nbChevaux;
-    QVector<unsigned int> positionChevaux2; //Pour le calcul de position dans les stats
     QVector<unsigned int> classement;
     int                   positionClassement;
     float                 dureeDeLaPartie;
