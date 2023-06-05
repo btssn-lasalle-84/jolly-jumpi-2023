@@ -6,6 +6,8 @@
  * @version 0.1
  */
 
+#include "course.h"
+#include "statistiques.h"
 #include "IHM.h"
 #include "ui_IHM.h"
 
@@ -17,21 +19,14 @@
  */
 
 IHM::IHM(QWidget* parent) :
-    QWidget(parent), ui(new Ui::IHM), nbChevaux(NB_CHEVAUX_MAX),
-    positionChevaux(nbChevaux, 0), classement(nbChevaux, 0),
-    joueurGagnant(AUCUN_JOUEUR), positionClassement(0),
+    QWidget(parent), course(new class Course()),
+    stats(new class Statistiques()), ui(new Ui::IHM),
     screen(QGuiApplication::primaryScreen()),
-    screenGeometry(screen->availableGeometry().size()), chronometre(0.0),
-    dureeDeLaPartie(0.0), nombreTirs(nbChevaux, 0), nombrePoints(nbChevaux, 0),
-    course(false)
+    screenGeometry(screen->availableGeometry().size())
 {
-    qDebug() << Q_FUNC_INFO << "nbChevaux" << nbChevaux;
-
     instancierWidgets();
     initialiserWidgets();
     positionnerWidgets();
-    initialiserChronometre();
-    connecterSignauxSlots();
     initialiserFenetre();
 #ifdef MODE_SIMULATION
     installerModeSimulation();
@@ -97,7 +92,7 @@ void IHM::instancierWidgets()
 {
     ui->setupUi(this);
     qDebug() << Q_FUNC_INFO;
-    for(int i = 0; i < nbChevaux; i++)
+    for(int i = 0; i < course->getNbChevaux(); i++)
     {
         imageAvatarsJoueurs.push_back(
           new QPixmap("Images/cheval" + QString::number(i + 1) + ".png"));
@@ -131,7 +126,7 @@ void IHM::initialiserWidgets()
 
         ui->pages->widget(IHM::Page::Course)
           ->findChild<QGridLayout*>("gridLayout")
-          ->addWidget(placeHolder[i], nbChevaux, i, Qt::AlignTop);
+          ->addWidget(placeHolder[i], course->getNbChevaux(), i, Qt::AlignTop);
 
         ui->pages->widget(IHM::Page::Course)
           ->findChild<QGridLayout*>("gridLayout")
@@ -158,17 +153,6 @@ void IHM::positionnerWidgets()
       ->setContentsMargins(0, screenGeometry.height() * 0.14, 0, 0);
 }
 
-void IHM::initialiserChronometre()
-{
-    timer = new QTimer(this);
-    timer->setInterval(10);
-}
-
-void IHM::connecterSignauxSlots()
-{
-    connect(timer, SIGNAL(timeout()), this, SLOT(chronometrer()));
-}
-
 void IHM::initialiserFenetre()
 {
 #ifdef RASPBERRY_PI
@@ -191,175 +175,109 @@ void IHM::initialiserMusiqueDeFond()
     qDebug() << Q_FUNC_INFO << "isPlaying" << musique.isPlaying();
 }
 
-void IHM::initialiserCourse()
+void IHM::demarrerCourse()
 {
-    joueurGagnant      = AUCUN_JOUEUR;
-    positionClassement = 0;
-    for(int i = 0; i < nbChevaux; i++)
+    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
     {
-        positionChevaux[i] = 0;
+        course->initialiserCourse();
+        afficherPageCourse();
     }
-    timer->start();
-    avancerChevaux();
-    course = true;
 }
 
-bool IHM::estCourseFinie()
+void IHM::ouvrirPageAvantCourse()
 {
-    for(int i = 0; i < nbChevaux; i++)
+    if(ui->pages->currentIndex() == IHM::Page::Connexion)
     {
-        if(positionChevaux[i] == DISTANCE_MAX)
-        {
-            joueurGagnant = i;
-            qDebug() << Q_FUNC_INFO << "DISTANCE_MAX"
-                     << "true"
-                     << "joueurGagnant" << joueurGagnant;
-            return true;
-        }
+        afficherPageAvantCourse();
     }
-    qDebug() << Q_FUNC_INFO << "DISTANCE_MAX"
-             << "false";
-    return false;
 }
 
-void IHM::terminerCourse()
+void IHM::accederParametres()
 {
-    course          = false;
-    dureeDeLaPartie = chronometre;
-    determinerClassement();
-    afficherResultats();
-    timer->stop();
-    QTimer::singleShot(ATTENTE_FIN_COURSE, this, SLOT(attendreFinCourse()));
-}
-
-void IHM::determinerClassement()
-{
-    if(joueurGagnant == AUCUN_JOUEUR)
-        return;
-    qDebug() << Q_FUNC_INFO << "positionChevaux" << positionChevaux;
-    /**
-     * @see QMap
-     */
-    classement.clear();
-    classement = positionChevaux;
-    std::sort(classement.begin(),
-              classement.end(),
-              std::greater<unsigned int>());
-    positionClassement = 1;
-    qDebug() << Q_FUNC_INFO << "classement" << classement;
-    qDebug() << Q_FUNC_INFO << "joueurGagnant" << joueurGagnant;
-}
-
-int IHM::determinerJoueurSuivant()
-{
-    if(positionClassement > nbChevaux)
+    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
     {
-        qDebug() << Q_FUNC_INFO;
-        afficherResultats();
-        positionClassement = 1;
-        return joueurGagnant;
+        afficherPageParametres();
     }
-    for(int numeroJoueur = 0; numeroJoueur < classement.size(); numeroJoueur++)
-    {
-        if(classement[positionClassement - 1] == positionChevaux2[numeroJoueur])
-        {
-            qDebug() << Q_FUNC_INFO << "numeroJoueur" << numeroJoueur;
-            positionChevaux2[numeroJoueur] = DISTANCE_MAX + 1;
-            return numeroJoueur;
-        }
-    }
-    return AUCUN_JOUEUR;
 }
 
-void IHM::afficherResultats()
+void IHM::quitterProgramme()
+{
+    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
+    {
+        afficherPageConnexion();
+    }
+}
+
+void IHM::quitterStatistiques()
 {
     qDebug() << Q_FUNC_INFO;
-    afficherDureePartie();
-    afficherPositionFinale(joueurGagnant);
-    afficherNumeroJoueur(joueurGagnant);
-    afficherPointsParSeconde(joueurGagnant);
-    afficherNombrePointsParTir(joueurGagnant);
-    positionClassement = 2;
-    positionChevaux2 = positionChevaux; //Copie pour sauvegarder les valeurs de positionChevaux sinon ça crash
+    if(ui->pages->currentIndex() == IHM::Page::Statistiques)
+    {
+        afficherPageAvantCourse();
+    }
 }
 
 void IHM::afficherResultatJoueurSuivant()
 {
     if(ui->pages->currentIndex() == IHM::Page::Statistiques)
-    {
-        int joueurSuivant = determinerJoueurSuivant();
-        qDebug() << Q_FUNC_INFO << "positionClassement" << positionClassement
-                 << "joueurSuivant" << joueurSuivant;
-        afficherPositionFinale(joueurSuivant);
-        afficherClassement(positionClassement);
-        afficherNumeroJoueur(joueurSuivant);
-        afficherPointsParSeconde(joueurSuivant);
-        afficherNombrePointsParTir(joueurSuivant);
-        positionClassement++;
+        stats->afficherResultatJoueurSuivant();
+}
+
+void IHM::avancerChevaux()
+{
+    QVector<unsigned int> positionChevaux = course->getPositionChevaux();
+    QVector<unsigned int> classement = stats->getClassement();
+    for (int i = 0; i < course->getNbChevaux(); i++)
+{
+    avatarsJoueurs[i]->setPixmap(*imageAvatarsJoueurs[i]);
+    ui->pages->widget(IHM::Page::Course)
+        ->findChild<QGridLayout *>("gridLayout")
+        ->removeWidget(avatarsJoueurs[i]);
+
+    ui->pages->widget(IHM::Page::Course)
+        ->findChild<QGridLayout *>("gridLayout")
+        ->addWidget(avatarsJoueurs[i], i, positionChevaux[i], Qt::AlignTop);
+
+    ui->pages->widget(IHM::Page::Course)
+        ->findChild<QGridLayout *>("gridLayout")
+        ->setRowStretch(imageAvatarsJoueurs.size(), 1);
+
+    if (positionChevaux[i] == DISTANCE_MAX)
+        classement.push_back(i);
     }
+}
+
+bool IHM::estBonIndex()
+{
+    if(ui->pages->currentIndex() == IHM::Course && course)
+        return true;
+    return false;
 }
 
 void IHM::afficherDureePartie()
 {
+    float dureeDeLaPartie = stats->getDureeDeLaPartie();
     ui->pages->widget(IHM::Page::Statistiques)
-      ->findChild<QLabel*>("duree")
-      ->setText(QString::number(dureeDeLaPartie, 'f', 2) + " secondes");
+        ->findChild<QLabel*>("duree")
+        ->setText(QString::number(dureeDeLaPartie, 'f', 2) + " secondes");
     qDebug() << Q_FUNC_INFO << "dureeDeLaPartie" << dureeDeLaPartie;
 }
 
 void IHM::afficherClassement(int positionClassement)
 {
     ui->pages->widget(IHM::Page::Statistiques)
-      ->findChild<QLabel*>("duree")
-      ->setText(QString::number(positionClassement) + "e position");
+        ->findChild<QLabel*>("duree")
+        ->setText(QString::number(positionClassement) + "e position");
 }
 
-void IHM::afficherPositionFinale(int numeroJoueur)
-{
-    if(numeroJoueur == AUCUN_JOUEUR)
-        return;
-    unsigned int pourcentageCompletion =
-      (positionChevaux[numeroJoueur] * 100) / DISTANCE_MAX;
-    qDebug() << Q_FUNC_INFO << "numeroJoueur" << numeroJoueur
-             << "pourcentageCompletion" << pourcentageCompletion;
-    ui->pages->widget(IHM::Page::Statistiques)
-      ->findChild<QLabel*>("temps")
-      ->setText("Course finie à " + QString::number(pourcentageCompletion) +
-                "%");
-}
-
-void IHM::afficherPointsParSeconde(int numeroJoueur)
-{
-    if(numeroJoueur == AUCUN_JOUEUR)
-        return;
-    float pointsParSeconde = 0.0;
-
-    if(positionChevaux[numeroJoueur] != 0)
-    {
-        qDebug() << Q_FUNC_INFO << "positionChevaux[numeroJoueur]"
-                 << positionChevaux[numeroJoueur];
-        pointsParSeconde = (nombrePoints[numeroJoueur] / dureeDeLaPartie);
-        qDebug() << Q_FUNC_INFO << "numeroJoueur" << numeroJoueur
-                 << "pointsParSeconde" << pointsParSeconde;
-        ui->pages->widget(IHM::Page::Statistiques)
-          ->findChild<QLabel*>("pps")
-          ->setText(QString::number(pointsParSeconde, 'f', 2) +
-                    " points par seconde");
-    }
-    else
-    {
-        ui->pages->widget(IHM::Page::Statistiques)
-          ->findChild<QLabel*>("pps")
-          ->setText("0 point par seconde");
-    }
-}
-
-void IHM::afficherNombrePointsParTir(int numeroJoueur)
+void IHM::afficherNombrePointsParTir(unsigned int numeroJoueur)
 {
     if(numeroJoueur == AUCUN_JOUEUR)
         return;
     unsigned int pointsParTir = 0;
-
+    QVector<unsigned int> positionChevaux = course->getPositionChevaux();
+    QVector<unsigned int> nombrePoints = stats->getNombrePoints();
+    QVector<unsigned int> nombreTirs = stats->getNombreTirs();
     if(positionChevaux[numeroJoueur] != 0)
     {
         qDebug() << Q_FUNC_INFO << "numeroJoueur" << numeroJoueur
@@ -369,14 +287,57 @@ void IHM::afficherNombrePointsParTir(int numeroJoueur)
         qDebug() << Q_FUNC_INFO << "numeroJoueur" << numeroJoueur
                  << "pointsParTir" << pointsParTir;
         ui->pages->widget(IHM::Page::Statistiques)
-          ->findChild<QLabel*>("ppt")
-          ->setText(QString::number(pointsParTir) + " points par tir");
+            ->findChild<QLabel*>("ppt")
+            ->setText(QString::number(pointsParTir) + " points par tir");
     }
     else
     {
         ui->pages->widget(IHM::Page::Statistiques)
-          ->findChild<QLabel*>("ppt")
-          ->setText("0 point par tir");
+            ->findChild<QLabel*>("ppt")
+            ->setText("0 point par tir");
+    }
+}
+
+void IHM::afficherPositionFinale(int numeroJoueur)
+{
+    if(numeroJoueur == AUCUN_JOUEUR)
+        return;
+    QVector <unsigned int> positionChevaux = course->getPositionChevaux();
+    unsigned int pourcentageCompletion =
+        (positionChevaux[numeroJoueur] * 100) / DISTANCE_MAX;
+    qDebug() << Q_FUNC_INFO << "numeroJoueur" << numeroJoueur
+             << "pourcentageCompletion" << pourcentageCompletion;
+    ui->pages->widget(IHM::Page::Statistiques)
+        ->findChild<QLabel*>("temps")
+        ->setText("Course finie à " + QString::number(pourcentageCompletion) +
+                  "%");
+}
+
+void IHM::afficherPointsParSeconde(int numeroJoueur)
+{
+    if(numeroJoueur == AUCUN_JOUEUR)
+        return;
+    float pointsParSeconde = 0.0;
+    QVector<unsigned int> positionChevaux = course->getPositionChevaux();
+    QVector<unsigned int> nombrePoints = stats->getNombrePoints();
+    float dureeDeLaPartie = stats->getDureeDeLaPartie();
+    if(positionChevaux[numeroJoueur] != 0)
+    {
+        qDebug() << Q_FUNC_INFO << "positionChevaux[numeroJoueur]"
+                 << positionChevaux[numeroJoueur];
+        pointsParSeconde = (nombrePoints[numeroJoueur] / dureeDeLaPartie);
+        qDebug() << Q_FUNC_INFO << "numeroJoueur" << numeroJoueur
+                 << "pointsParSeconde" << pointsParSeconde;
+        ui->pages->widget(IHM::Page::Statistiques)
+            ->findChild<QLabel*>("pps")
+            ->setText(QString::number(pointsParSeconde, 'f', 2) +
+                      " points par seconde");
+    }
+    else
+    {
+        ui->pages->widget(IHM::Page::Statistiques)
+            ->findChild<QLabel*>("pps")
+            ->setText("0 point par seconde");
     }
 }
 
@@ -384,22 +345,21 @@ void IHM::afficherNumeroJoueur(int numeroJoueur)
 {
     if(numeroJoueur == AUCUN_JOUEUR)
         return;
-    if(numeroJoueur == joueurGagnant)
+    if(numeroJoueur == stats->getJoueurGagnant())
         ui->pages->widget(IHM::Page::Statistiques)
-          ->findChild<QLabel*>("position")
-          ->setText("Gagnant : joueur " + QString::number(joueurGagnant + 1));
+            ->findChild<QLabel*>("position")
+            ->setText("Gagnant : joueur " + QString::number(stats->getJoueurGagnant() + 1));
     else
     {
         ui->pages->widget(IHM::Page::Statistiques)
-          ->findChild<QLabel*>("position")
-          ->setText("Joueur " + QString::number(numeroJoueur + 1));
+            ->findChild<QLabel*>("position")
+            ->setText("Joueur " + QString::number(numeroJoueur + 1));
     }
 }
 
-void IHM::attendreFinCourse()
+void IHM::simulerAvancementCheval()
 {
-    chronometre = 0;
-    afficherPageStatistiques();
+    course->simulerAvancementCheval();
 }
 
 #ifdef MODE_SIMULATION
@@ -458,123 +418,5 @@ void IHM::installerModeSimulation()
             SIGNAL(triggered()),
             this,
             SLOT(afficherResultatJoueurSuivant()));
-}
-
-void IHM::demarrerCourse()
-{
-    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
-    {
-        initialiserCourse();
-        afficherPageCourse();
-    }
-}
-
-void IHM::ouvrirPageAvantCourse()
-{
-    if(ui->pages->currentIndex() == IHM::Page::Connexion)
-    {
-        afficherPageAvantCourse();
-    }
-}
-
-void IHM::accederParametres()
-{
-    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
-    {
-        afficherPageParametres();
-    }
-}
-
-void IHM::quitterProgramme()
-{
-    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
-    {
-        afficherPageConnexion();
-    }
-}
-
-void IHM::quitterStatistiques()
-{
-    qDebug() << Q_FUNC_INFO;
-    if(ui->pages->currentIndex() == IHM::Page::Statistiques)
-    {
-        afficherPageAvantCourse();
-    }
-}
-
-void IHM::avancerChevaux()
-{
-    for(int i = 0; i < nbChevaux; i++)
-    {
-        avatarsJoueurs[i]->setPixmap(*imageAvatarsJoueurs[i]);
-        ui->pages->widget(IHM::Page::Course)
-          ->findChild<QGridLayout*>("gridLayout")
-          ->removeWidget(avatarsJoueurs[i]);
-
-        ui->pages->widget(IHM::Page::Course)
-          ->findChild<QGridLayout*>("gridLayout")
-          ->addWidget(avatarsJoueurs[i], i, positionChevaux[i], Qt::AlignTop);
-
-        ui->pages->widget(IHM::Page::Course)
-          ->findChild<QGridLayout*>("gridLayout")
-          ->setRowStretch(imageAvatarsJoueurs.size(), 1);
-
-        if(positionChevaux[i] == DISTANCE_MAX)
-            classement.push_back(i);
-    }
-    if(estCourseFinie())
-        terminerCourse();
-}
-
-int IHM::randInt(int min, int max)
-{
-    return ((QRandomGenerator::global()->bounded(min, max + 1)) + min);
-}
-#endif
-
-void IHM::chronometrer()
-{
-    chronometre += 0.01;
-}
-
-void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
-{
-    if(!course)
-        return;
-    ++nombreTirs[numeroCheval];
-    nombrePoints[numeroCheval] += deplacement;
-    if(nombrePoints[numeroCheval] >= DISTANCE_MAX)
-        nombrePoints[numeroCheval] = DISTANCE_MAX;
-    qDebug() << Q_FUNC_INFO << "Le cheval numéro" << numeroCheval + 1
-             << ", qui était positionné à la case"
-             << positionChevaux[numeroCheval] << "a avancé de"
-             << int(deplacement);
-    qDebug() << Q_FUNC_INFO << "chronometre" << chronometre;
-
-    qDebug() << Q_FUNC_INFO << "nombreTirs" << nombreTirs[numeroCheval]
-             << "nombrePoints" << nombrePoints[numeroCheval];
-
-    positionChevaux[numeroCheval] =
-      positionChevaux[numeroCheval] + int(deplacement);
-    if(positionChevaux[numeroCheval] > DISTANCE_MAX)
-    {
-        positionChevaux[numeroCheval] = DISTANCE_MAX;
-    }
-
-    qDebug() << Q_FUNC_INFO << "Il est maintenant case"
-             << positionChevaux[numeroCheval];
-    avancerChevaux();
-}
-
-#ifdef MODE_SIMULATION
-void IHM::simulerAvancementCheval()
-{
-    if(ui->pages->currentIndex() == IHM::Page::Course && course)
-    {
-        Trou trous[NB_COULEURS_TROU] = { JAUNE, BLEU, ROUGE };
-        int  numeroCheval            = randInt(0, NB_CHEVAUX_MAX - 1);
-        int  trou                    = randInt(0, NB_COULEURS_TROU - 1);
-        actualiserPositionChevaux(numeroCheval, trous[trou]);
-    }
 }
 #endif
