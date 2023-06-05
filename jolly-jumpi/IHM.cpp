@@ -252,19 +252,27 @@ void IHM::determinerClassement()
 
 int IHM::determinerJoueurSuivant()
 {
-    if(positionClassement > nbChevaux)
+    static QVector<unsigned int> copiePositionChevaux;
+
+    if(positionClassement == 2)
+    {
+        copiePositionChevaux = positionChevaux;
+    }
+    else if(positionClassement > nbChevaux)
     {
         qDebug() << Q_FUNC_INFO;
         afficherResultats();
-        positionClassement = 1;
+        positionClassement   = 1;
+        copiePositionChevaux = positionChevaux;
         return joueurGagnant;
     }
     for(int numeroJoueur = 0; numeroJoueur < classement.size(); numeroJoueur++)
     {
-        if(classement[positionClassement - 1] == positionChevaux2[numeroJoueur])
+        if(classement[positionClassement - 1] ==
+           copiePositionChevaux[numeroJoueur])
         {
             qDebug() << Q_FUNC_INFO << "numeroJoueur" << numeroJoueur;
-            positionChevaux2[numeroJoueur] = DISTANCE_MAX + 1;
+            copiePositionChevaux[numeroJoueur] = DISTANCE_MAX + 1;
             return numeroJoueur;
         }
     }
@@ -273,14 +281,13 @@ int IHM::determinerJoueurSuivant()
 
 void IHM::afficherResultats()
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << "joueurGagnant" << joueurGagnant;
     afficherDureePartie();
     afficherPositionFinale(joueurGagnant);
     afficherNumeroJoueur(joueurGagnant);
     afficherPointsParSeconde(joueurGagnant);
     afficherNombrePointsParTir(joueurGagnant);
     positionClassement = 2;
-    positionChevaux2 = positionChevaux; //Copie pour sauvegarder les valeurs de positionChevaux sinon ça crash
 }
 
 void IHM::afficherResultatJoueurSuivant()

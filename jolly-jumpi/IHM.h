@@ -94,7 +94,6 @@ class IHM : public QWidget
     Ui::IHM*              ui;
     int                   nbChevaux;
     QVector<unsigned int> positionChevaux;
-    QVector<unsigned int> positionChevaux2; //Pour le calcul de position dans les stats
     QVector<unsigned int> classement;
     int                   joueurGagnant;
     int                   positionClassement;
