@@ -202,19 +202,41 @@ void IHM::accederParametres()
 
 void IHM::quitterProgramme()
 {
-    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
+    static QVector<unsigned int> copiePositionChevaux;
+
+    if(positionClassement == 2)
     {
-        afficherPageConnexion();
+        copiePositionChevaux = positionChevaux;
+    }
+    else if(positionClassement > nbChevaux)
+    {
+        qDebug() << Q_FUNC_INFO;
+        afficherResultats();
+        positionClassement   = 1;
+        copiePositionChevaux = positionChevaux;
+        return joueurGagnant;
+    }
+    for(int numeroJoueur = 0; numeroJoueur < classement.size(); numeroJoueur++)
+    {
+        if(classement[positionClassement - 1] ==
+           copiePositionChevaux[numeroJoueur])
+        {
+            qDebug() << Q_FUNC_INFO << "numeroJoueur" << numeroJoueur;
+            copiePositionChevaux[numeroJoueur] = DISTANCE_MAX + 1;
+            return numeroJoueur;
+        }
     }
 }
 
 void IHM::quitterStatistiques()
 {
-    qDebug() << Q_FUNC_INFO;
-    if(ui->pages->currentIndex() == IHM::Page::Statistiques)
-    {
-        afficherPageAvantCourse();
-    }
+    qDebug() << Q_FUNC_INFO << "joueurGagnant" << joueurGagnant;
+    afficherDureePartie();
+    afficherPositionFinale(joueurGagnant);
+    afficherNumeroJoueur(joueurGagnant);
+    afficherPointsParSeconde(joueurGagnant);
+    afficherNombrePointsParTir(joueurGagnant);
+    positionClassement = 2;
 }
 
 void IHM::afficherResultatJoueurSuivant()
