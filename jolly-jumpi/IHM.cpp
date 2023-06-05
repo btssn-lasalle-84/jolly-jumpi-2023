@@ -252,7 +252,7 @@ void IHM::determinerClassement()
 
 int IHM::determinerJoueurSuivant()
 {
-    if(positionClassement >= nbChevaux)
+    if(positionClassement > nbChevaux)
     {
         qDebug() << Q_FUNC_INFO;
         positionClassement = 1;
@@ -276,8 +276,7 @@ int IHM::determinerJoueurSuivant()
 
 void IHM::afficherResultats()
 {
-    qDebug() << Q_FUNC_INFO << "positionClassement" << positionClassement
-             << "joueurSuivant" << joueurSuivant;
+    qDebug() << Q_FUNC_INFO;
     afficherDureePartie();
     afficherPositionFinale(joueurGagnant);
     afficherNumeroJoueur(joueurGagnant);
