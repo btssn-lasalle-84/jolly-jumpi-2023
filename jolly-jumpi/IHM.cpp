@@ -255,19 +255,16 @@ int IHM::determinerJoueurSuivant()
     if(positionClassement > nbChevaux)
     {
         qDebug() << Q_FUNC_INFO;
+        afficherResultats();
         positionClassement = 1;
         return joueurGagnant;
     }
-    /**
-     * @fixme Il y a un risque de confusion avec les joueurs à égalité. Ne
-     * faudrait-il pas effacer la valeur de positionChevaux[numeroJoueur]
-     * lorsqu'il a été déjà classé ? Avec DISTANCE_MAX+1 par exemple ?
-     */
     for(int numeroJoueur = 0; numeroJoueur < classement.size(); numeroJoueur++)
     {
-        if(classement[positionClassement - 1] == positionChevaux[numeroJoueur])
+        if(classement[positionClassement - 1] == positionChevaux2[numeroJoueur])
         {
             qDebug() << Q_FUNC_INFO << "numeroJoueur" << numeroJoueur;
+            positionChevaux2[numeroJoueur] = DISTANCE_MAX + 1;
             return numeroJoueur;
         }
     }
@@ -283,6 +280,7 @@ void IHM::afficherResultats()
     afficherPointsParSeconde(joueurGagnant);
     afficherNombrePointsParTir(joueurGagnant);
     positionClassement = 2;
+    positionChevaux2 = positionChevaux; //Copie pour sauvegarder les valeurs de positionChevaux sinon ça crash
 }
 
 void IHM::afficherResultatJoueurSuivant()
@@ -292,8 +290,8 @@ void IHM::afficherResultatJoueurSuivant()
         int joueurSuivant = determinerJoueurSuivant();
         qDebug() << Q_FUNC_INFO << "positionClassement" << positionClassement
                  << "joueurSuivant" << joueurSuivant;
-        afficherClassement(positionClassement);
         afficherPositionFinale(joueurSuivant);
+        afficherClassement(positionClassement);
         afficherNumeroJoueur(joueurSuivant);
         afficherPointsParSeconde(joueurSuivant);
         afficherNombrePointsParTir(joueurSuivant);
