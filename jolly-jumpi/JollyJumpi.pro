@@ -1,5 +1,6 @@
 QT       += core gui \
-         multimedia
+         multimedia \
+         bluetooth
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -10,12 +11,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     IHM.cpp \
+    bluetooth.cpp \
     course.cpp \
     main.cpp \
     statistiques.cpp
 
 HEADERS += \
     IHM.h \
+    bluetooth.h \
     course.h \
     statistiques.h
 
