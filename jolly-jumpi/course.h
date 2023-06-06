@@ -7,8 +7,11 @@
 #include <QDebug>
 #include <QLabel>
 
-#include "IHM.h"
-#include "Statistiques.h"
+/**
+ * @def MODE_SIMULATION
+ * @brief Pour le mode simulation avec les touches de clavier
+ */
+#define MODE_SIMULATION
 
 /**
  * @def NB_CHEVAUX_MAX
@@ -38,24 +41,27 @@
 enum Trou
 {
     JAUNE = 1,
-    BLEU = 3,
+    BLEU  = 3,
     ROUGE = 5
 };
 
-class Course : public IHM
+class Statistiques;
+class IHM;
+
+class Course : public QObject
 {
     Q_OBJECT
 
-private:
-    class Statistiques *stats;
-    class IHM *ihm;
+  private:
+    IHM*          ihm;
+    Statistiques* stats;
 
-    int nbChevaux;
-    int numeroCheval;
+    int                   nbChevaux;
+    int                   numeroCheval;
     QVector<unsigned int> positionChevaux;
-    QTimer *timer;
-    float chronometre;
-    bool course;
+    QTimer*               timer;
+    float                 chronometre;
+    bool                  course;
 
     void initialiserChronometre();
     bool estCourseFinie();
@@ -64,21 +70,21 @@ private:
     int randInt(int min, int max);
 #endif
 
-public:
-    Course();
+  public:
+    Course(IHM* ihm = 0);
     ~Course();
 
+    void                  setStatistiques(Statistiques* stats);
     QVector<unsigned int> getPositionChevaux() const;
-    int getNbChevaux() const;
-    void initialiserCourse();
+    int                   getNbChevaux() const;
+    void                  initialiserCourse();
 #ifdef MODE_SIMULATION
     void simulerAvancementCheval();
 #endif
 
-public slots:
+  public slots:
     void chronometrer();
     void avancerChevaux();
-
     void actualiserPositionChevaux(int numeroCheval, Trou deplacement);
 };
 

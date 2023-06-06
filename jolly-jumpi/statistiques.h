@@ -3,18 +3,19 @@
 
 #include <QObject>
 #include <QVector>
-#include <qDebug>
-#include "IHM.h"
 
 #define AUCUN_JOUEUR -1
 
-class Statistiques : public IHM
+class Course;
+class IHM;
+
+class Statistiques : public QObject
 {
     Q_OBJECT
 
   private:
-    class Course *course;
-    class IHM *ihm;
+    IHM*    ihm;
+    Course* course;
 
     int                   nbChevaux;
     QVector<unsigned int> classement;
@@ -27,14 +28,15 @@ class Statistiques : public IHM
     int determinerJoueurSuivant();
 
   public:
-    Statistiques();
+    Statistiques(IHM* ihm);
     ~Statistiques();
 
-    int getJoueurGagnant() const;
+    void                  setCourse(Course* course);
+    int                   getJoueurGagnant() const;
     QVector<unsigned int> getClassement() const;
     QVector<unsigned int> getNombreTirs() const;
     QVector<unsigned int> getNombrePoints() const;
-    float getDureeDeLaPartie() const;
+    float                 getDureeDeLaPartie() const;
 
     void setJoueurGagnant(int);
     void setPositionClassement(int);

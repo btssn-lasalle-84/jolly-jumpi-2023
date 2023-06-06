@@ -1,15 +1,24 @@
 #include "course.h"
 #include "statistiques.h"
+#include "IHM.h"
 
-Course::Course() : stats(new class Statistiques()), ihm(new class IHM()),
-    nbChevaux(NB_CHEVAUX_MAX), numeroCheval(0), positionChevaux(nbChevaux, 0),
-    chronometre(0.0), course(false)
+Course::Course(IHM* ihm) :
+    QObject(ihm), ihm(ihm), stats(nullptr), nbChevaux(NB_CHEVAUX_MAX),
+    numeroCheval(0), positionChevaux(nbChevaux, 0), chronometre(0.0),
+    course(false)
 {
+    qDebug() << Q_FUNC_INFO;
+    initialiserChronometre();
 }
 
 Course::~Course()
 {
-    delete stats;
+    qDebug() << Q_FUNC_INFO;
+}
+
+void Course::setStatistiques(Statistiques* stats)
+{
+    this->stats = stats;
 }
 
 QVector<unsigned int> Course::getPositionChevaux() const
@@ -38,7 +47,7 @@ void Course::initialiserCourse()
 {
     stats->setJoueurGagnant(AUCUN_JOUEUR);
     stats->setPositionClassement(0);
-    for (int i = 0; i < nbChevaux; i++)
+    for(int i = 0; i < nbChevaux; i++)
     {
         positionChevaux[i] = 0;
     }
@@ -49,9 +58,9 @@ void Course::initialiserCourse()
 
 bool Course::estCourseFinie()
 {
-    for (int i = 0; i < nbChevaux; i++)
+    for(int i = 0; i < nbChevaux; i++)
     {
-        if (positionChevaux[i] == DISTANCE_MAX)
+        if(positionChevaux[i] == DISTANCE_MAX)
         {
             stats->setJoueurGagnant(i);
             qDebug() << Q_FUNC_INFO << "DISTANCE_MAX"
@@ -72,26 +81,28 @@ void Course::terminerCourse()
     stats->determinerClassement();
     stats->afficherResultats();
     timer->stop();
-    QTimer::singleShot(ATTENTE_FIN_COURSE, this, SLOT(ihm->afficherPageStatistiques()));
+    QTimer::singleShot(ATTENTE_FIN_COURSE,
+                       ihm,
+                       SLOT(afficherPageStatistiques()));
     chronometre = 0;
 }
 
 void Course::avancerChevaux()
 {
     ihm->avancerChevaux();
-    if (estCourseFinie())
+    if(estCourseFinie())
         terminerCourse();
 }
 
 void Course::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
 {
-    if (!course)
+    if(!course)
         return;
-    QVector<unsigned int> nombreTirs = stats->getNombreTirs();
+    QVector<unsigned int> nombreTirs   = stats->getNombreTirs();
     QVector<unsigned int> nombrePoints = stats->getNombreTirs();
     stats->setNombreTirs(nombreTirs, numeroCheval);
     nombrePoints[numeroCheval] += deplacement;
-    if (nombrePoints[numeroCheval] >= DISTANCE_MAX)
+    if(nombrePoints[numeroCheval] >= DISTANCE_MAX)
         nombrePoints[numeroCheval] = DISTANCE_MAX;
     qDebug() << Q_FUNC_INFO << "Le cheval numéro" << numeroCheval + 1
              << ", qui était positionné à la case"
@@ -103,8 +114,8 @@ void Course::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
              << "nombrePoints" << nombrePoints[numeroCheval];
 
     positionChevaux[numeroCheval] =
-        positionChevaux[numeroCheval] + int(deplacement);
-    if (positionChevaux[numeroCheval] > DISTANCE_MAX)
+      positionChevaux[numeroCheval] + int(deplacement);
+    if(positionChevaux[numeroCheval] > DISTANCE_MAX)
     {
         positionChevaux[numeroCheval] = DISTANCE_MAX;
     }
@@ -117,11 +128,11 @@ void Course::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
 #ifdef MODE_SIMULATION
 void Course::simulerAvancementCheval()
 {
-    if (ihm->estBonIndex())
+    if(ihm->estBonIndex())
     {
-        Trou trous[NB_COULEURS_TROU] = {JAUNE, BLEU, ROUGE};
-        int numeroCheval = randInt(0, NB_CHEVAUX_MAX - 1);
-        int trou = randInt(0, NB_COULEURS_TROU - 1);
+        Trou trous[NB_COULEURS_TROU] = { JAUNE, BLEU, ROUGE };
+        int  numeroCheval            = randInt(0, NB_CHEVAUX_MAX - 1);
+        int  trou                    = randInt(0, NB_COULEURS_TROU - 1);
         actualiserPositionChevaux(numeroCheval, trous[trou]);
     }
 }
