@@ -20,7 +20,7 @@
    <item>
     <widget class="QStackedWidget" name="pages">
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="pageConnexion">
       <property name="styleSheet">
@@ -80,7 +80,6 @@
             <property name="font">
              <font>
               <pointsize>40</pointsize>
-              <weight>50</weight>
               <bold>false</bold>
              </font>
             </property>
