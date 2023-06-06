@@ -64,10 +64,14 @@ void Statistiques::setPositionClassement(int positionClassement)
     this->positionClassement = positionClassement;
 }
 
-void Statistiques::setNombreTirs(QVector<unsigned int> nombreTirs,
-                                 int                   numeroCheval)
+void Statistiques::setNombreTirs(int numeroCheval)
 {
     this->nombreTirs[numeroCheval] = nombreTirs[numeroCheval] + 1;
+}
+
+void Statistiques::setNombrePoints(int numeroCheval, int deplacement)
+{
+    this->nombrePoints[numeroCheval] = nombrePoints[numeroCheval] + deplacement;
 }
 
 void Statistiques::determinerClassement()

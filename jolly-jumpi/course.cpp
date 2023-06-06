@@ -98,9 +98,10 @@ void Course::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
 {
     if(!course)
         return;
+    stats->setNombreTirs(numeroCheval);
+    stats->setNombrePoints(numeroCheval, deplacement);
     QVector<unsigned int> nombreTirs   = stats->getNombreTirs();
     QVector<unsigned int> nombrePoints = stats->getNombreTirs();
-    stats->setNombreTirs(nombreTirs, numeroCheval);
     nombrePoints[numeroCheval] += deplacement;
     if(nombrePoints[numeroCheval] >= DISTANCE_MAX)
         nombrePoints[numeroCheval] = DISTANCE_MAX;

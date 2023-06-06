@@ -41,7 +41,8 @@ class Statistiques : public QObject
     void setJoueurGagnant(int);
     void setPositionClassement(int);
     void setDureeDeLaPartie(float);
-    void setNombreTirs(QVector<unsigned int>, int);
+    void setNombreTirs(int);
+    void setNombrePoints(int, int);
 
     void determinerClassement();
     void afficherResultats();
