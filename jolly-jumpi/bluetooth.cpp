@@ -53,7 +53,11 @@ void Bluetooth::connecterClient()
         return;
 
     connect(socket, SIGNAL(disconnected()), this, SLOT(deconnecterClient()));
-    connect(socket, SIGNAL(readyRead()), this, SLOT(lireDonnees()));
+    connect(socket, SIGNAL(readyRead()), this, SLOT(lireTrame()));
+    connect(socket,
+            SIGNAL(clientConnecte()),
+            this,
+            SLOT(envoyerTrameConnection()));
 
     emit clientConnecte();
 }
@@ -89,6 +93,21 @@ void Bluetooth::lireTrame()
     }
 }
 
+void Bluetooth::envoyerTrameConnection()
+{
+    // à faire
+}
+
+void Bluetooth::envoyerTrameDebutCourse()
+{
+    // à faire
+}
+
+void Bluetooth::envoyerTrameFinCourse()
+{
+    // à faire
+}
+
 bool Bluetooth::traiterTrame(QStringList infosTrame)
 {
     switch(infosTrame[1].toInt())
@@ -121,4 +140,25 @@ bool Bluetooth::traiterTrame(QStringList infosTrame)
     }
 
     return true;
+}
+
+void Bluetooth::abandonnerPartie()
+{
+    // course->terminerCourse();
+    // ihm->afficherPageConnexion();
+}
+
+void Bluetooth::validerSelection()
+{
+    // à faire
+}
+
+void Bluetooth::selectionnerSuivant()
+{
+    // à faire
+}
+
+void Bluetooth::selectionnerPrecedent()
+{
+    // à faire
 }

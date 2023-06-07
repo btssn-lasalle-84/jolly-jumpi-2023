@@ -21,7 +21,7 @@
  * @def RASPBERRY_PI
  * @brief Pour le mode plein écran sur la RPI
  */
-//#define RASPBERRY_PI
+#define RASPBERRY_PI
 
 #define MUSIQUE_DE_FOND ":/musiques/Musiques/musique_de_fond_1.wav"
 

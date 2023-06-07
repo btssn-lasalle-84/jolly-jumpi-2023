@@ -66,6 +66,13 @@ class Bluetooth : public QObject
   public slots:
     void connecterClient();
     void deconnecterClient();
+    void envoyerTrameConnection();
+    void envoyerTrameDebutCourse();
+    void envoyerTrameFinCourse();
+    void abandonnerPartie();
+    void validerSelection();
+    void selectionnerSuivant();
+    void selectionnerPrecedent();
 };
 
 #endif // BLUETOOTH_H

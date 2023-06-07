@@ -20,7 +20,8 @@
 
 IHM::IHM(QWidget* parent) :
     QWidget(parent), course(new Course(this)), stats(new Statistiques(this)),
-    bluetooth(new Bluetooth(this)), ui(new Ui::IHM), screen(QGuiApplication::primaryScreen()),
+    bluetooth(new Bluetooth(this)), ui(new Ui::IHM),
+    screen(QGuiApplication::primaryScreen()),
     screenGeometry(screen->availableGeometry().size())
 {
     qDebug() << Q_FUNC_INFO;
@@ -159,6 +160,7 @@ void IHM::positionnerWidgets()
 void IHM::initialiserFenetre()
 {
 #ifdef RASPBERRY_PI
+    setFixedSize(screenGeometry.width(), screenGeometry.height());
     showFullScreen();
 #else
     setFixedSize(screenGeometry.width(), screenGeometry.height());
@@ -398,7 +400,7 @@ void IHM::installerModeSimulation()
     connect(selectionnerParametres,
             SIGNAL(triggered()),
             this,
-            SLOT(accederParametres())); // TODO
+            SLOT(accederParametres()));
 
     QAction* retourAccueil = new QAction(this);
     retourAccueil->setShortcut(QKeySequence(Qt::Key_3));
