@@ -35,6 +35,7 @@ IHM::IHM(QWidget* parent) :
     installerModeSimulation();
 #endif
     initialiserMusiqueDeFond();
+    bluetooth->envoyerTrameConnection();
 }
 
 /**

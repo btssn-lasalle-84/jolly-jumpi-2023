@@ -30,17 +30,24 @@ static const QString serviceNom(QStringLiteral("jolly-jumpi")); // simulateur
 #define NUMERO_TROU    3
 #define COULEUR_ANNEAU 4
 
+class Course;
+class IHM;
+
 class Bluetooth : public QObject
 {
     Q_OBJECT
 
   private:
+    IHM*    ihm;
+    Course* course;
+
     QBluetoothLocalDevice peripheriqueLocal;
     QBluetoothServer*     serveur;
     QBluetoothSocket*     socket;
     QBluetoothServiceInfo serviceInfo;
     QString               nomPeripheriqueLocal;
     QString               adressePeripheriqueLocal;
+    bool                  estConnecte;
     QString               trame;
     QString               trames;
     QStringList           infosTrame;
@@ -48,16 +55,19 @@ class Bluetooth : public QObject
     void envoyerTrame(QString trame);
 
   public:
-    Bluetooth(QObject* parent = nullptr);
+    Bluetooth(IHM* ihm);
     ~Bluetooth();
 
     void demarrerCommunication();
     void initialiserCommunication();
+    void connecterSignauxSlots();
     void lireTrame();
     bool traiterTrame(QStringList infosTrame);
+    void envoyerTrameConnection();
+    void envoyerTrameDebutCourse();
+    void envoyerTrameFinCourse();
 
   signals:
-    void clientConnecte();
     void clientDeconnecte();
     void abandonPartie(QStringList infosTrame);
     void boutonStart(QStringList infosTrame);
@@ -68,13 +78,11 @@ class Bluetooth : public QObject
   public slots:
     void connecterClient();
     void deconnecterClient();
-    void envoyerTrameConnection();
-    void envoyerTrameDebutCourse();
-    void envoyerTrameFinCourse();
     void abandonnerPartie();
     void validerSelection();
     void selectionnerSuivant();
     void selectionnerPrecedent();
+    void avancerChevaux();
 };
 
 #endif // BLUETOOTH_H

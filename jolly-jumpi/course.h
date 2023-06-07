@@ -47,6 +47,7 @@ enum Trou
 
 class Statistiques;
 class IHM;
+class Bluetooth;
 
 class Course : public QObject
 {
@@ -55,6 +56,7 @@ class Course : public QObject
   private:
     IHM*          ihm;
     Statistiques* stats;
+    Bluetooth* bluetooth;
 
     int                   nbChevaux;
     int                   numeroCheval;
@@ -65,7 +67,6 @@ class Course : public QObject
 
     void initialiserChronometre();
     bool estCourseFinie();
-    void terminerCourse();
 #ifdef MODE_SIMULATION
     int randInt(int min, int max);
 #endif
@@ -81,11 +82,12 @@ class Course : public QObject
 #ifdef MODE_SIMULATION
     void simulerAvancementCheval();
 #endif
+    void terminerCourse();
 
   public slots:
     void chronometrer();
     void avancerChevaux();
-    void actualiserPositionChevaux(int numeroCheval, Trou deplacement);
+    void actualiserPositionChevaux(int numeroCheval, int deplacement);
 };
 
 #endif // COURSE_H

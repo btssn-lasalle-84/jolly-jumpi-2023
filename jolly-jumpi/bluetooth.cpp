@@ -1,9 +1,16 @@
 #include "bluetooth.h"
+#include "course.h"
+#include "IHM.h"
 
-Bluetooth::Bluetooth(QObject* parent) :
-    QObject(parent), serveur(nullptr), socket(nullptr)
+
+Bluetooth::Bluetooth(IHM* ihm) :
+    QObject(), ihm(ihm), course(nullptr), serveur(nullptr), socket(nullptr), estConnecte(false)
 {
     qDebug() << Q_FUNC_INFO;
+    demarrerCommunication();
+    initialiserCommunication();
+    connecterClient();
+    connecterSignauxSlots();
 }
 
 Bluetooth::~Bluetooth()
@@ -35,15 +42,34 @@ void Bluetooth::demarrerCommunication()
 
 void Bluetooth::initialiserCommunication()
 {
-    if(!peripheriqueLocal.isValid())
-        return;
-
+    if(peripheriqueLocal.isValid())
+    {
     peripheriqueLocal.powerOn();
     nomPeripheriqueLocal     = peripheriqueLocal.name();
     adressePeripheriqueLocal = peripheriqueLocal.address().toString();
     qDebug() << Q_FUNC_INFO << "nomPeripheriqueLocal" << nomPeripheriqueLocal
              << "adressePeripheriqueLocal" << adressePeripheriqueLocal;
     peripheriqueLocal.setHostMode(QBluetoothLocalDevice::HostConnectable);
+    }
+}
+
+void Bluetooth::connecterSignauxSlots()
+{
+    connect(socket, SIGNAL(abandonPartie(infosTrame)), this, SLOT(course->quitterPartie()));
+    connect(socket, SIGNAL(boutonStart(infosTrame)), this, SLOT(course->validerSelection()));
+    connect(socket, SIGNAL(encodeurDroite(infosTrame)), this, SLOT(course->selectionnerSuivant()));
+    connect(socket, SIGNAL(encodeurGauche(infosTrame)), this, SLOT(course->selectionnerPrecedent()));
+    connect(socket, SIGNAL(pointMarque(infosTrame)), this, SLOT(course->quitterPartie()));
+    connect(socket, SIGNAL(abandonPartie(infosTrame[NUMERO_TABLE].toInt(),
+                                         infosTrame[NUMERO_TROU].toInt(),
+                                         infosTrame[COULEUR_ANNEAU].toInt())), this, SLOT(course->avancerChevaux()));
+}
+
+void Bluetooth::avancerChevaux()
+{
+    int  numeroCheval            = (infosTrame[NUMERO_TABLE].toInt()) - 1;
+    int  trou                    = infosTrame[COULEUR_ANNEAU].toInt();
+    course->actualiserPositionChevaux(numeroCheval, trou);
 }
 
 void Bluetooth::connecterClient()
@@ -54,12 +80,6 @@ void Bluetooth::connecterClient()
 
     connect(socket, SIGNAL(disconnected()), this, SLOT(deconnecterClient()));
     connect(socket, SIGNAL(readyRead()), this, SLOT(lireTrame()));
-    connect(socket,
-            SIGNAL(clientConnecte()),
-            this,
-            SLOT(envoyerTrameConnection()));
-
-    emit clientConnecte();
 }
 
 void Bluetooth::deconnecterClient()
@@ -80,7 +100,7 @@ void Bluetooth::lireTrame()
 
     if(trame.startsWith(ENTETE_TRAME) && trame.endsWith(FIN_TRAME))
     {
-        QStringList trames = trame.split(FIN_TRAME, QString::SkipEmptyParts);
+        QStringList trames = trame.split(FIN_TRAME, Qt::SkipEmptyParts);
         qDebug() << Q_FUNC_INFO << trames;
 
         for(int i = 0; i < trames.count(); ++i)
@@ -95,26 +115,36 @@ void Bluetooth::lireTrame()
 
 void Bluetooth::envoyerTrame(QString trame)
 {
-    qDebug() << Q_FUNC_INFO << trame;
-    socket->write(trame.toLocal8Bit());
+    qDebug() << Q_FUNC_INFO << estConnecte;
+    if (estConnecte)
+    {
+        qDebug() << Q_FUNC_INFO << trame;
+        socket->write(trame.toLocal8Bit());
+    }
+    else
+        qDebug() << Q_FUNC_INFO << "Bluetooth non connecté";
 }
 
 void Bluetooth::envoyerTrameConnection()
 {
-    trame = ENTETE_TRAME + DELIMITEUR_TRAME + CONNECTE + DELIMITEUR_TRAME + FIN_TRAME;
-    envoyerTrame(trame);
+    qDebug() << Q_FUNC_INFO;
+    /*trame = ENTETE_TRAME + DELIMITEUR_TRAME + CONNECTE + DELIMITEUR_TRAME + FIN_TRAME;
+    envoyerTrame(trame);*/
 }
 
 void Bluetooth::envoyerTrameDebutCourse()
 {
-    trame = ENTETE_TRAME + DELIMITEUR_TRAME + DEBUT_COURSE + DELIMITEUR_TRAME + FIN_TRAME;
-    envoyerTrame(trame);
+    qDebug() << Q_FUNC_INFO;
+    /*trame = ENTETE_TRAME + DELIMITEUR_TRAME + DEBUT_COURSE + DELIMITEUR_TRAME + FIN_TRAME;
+    envoyerTrame(trame);*/
 }
 
 void Bluetooth::envoyerTrameFinCourse()
 {
-    trame = ENTETE_TRAME + DELIMITEUR_TRAME + FIN_COURSE + DELIMITEUR_TRAME + FIN_TRAME;
-    envoyerTrame(trame);
+    qDebug() << Q_FUNC_INFO;
+    /*QString trame = ENTETE_TRAME + DELIMITEUR_TRAME + FIN_COURSE + DELIMITEUR_TRAME + FIN_TRAME;
+    qDebug() << Q_FUNC_INFO << estConnecte;
+    envoyerTrame(trame);*/
 }
 
 bool Bluetooth::traiterTrame(QStringList infosTrame)
@@ -122,25 +152,25 @@ bool Bluetooth::traiterTrame(QStringList infosTrame)
     switch(infosTrame[1].toInt())
     {
         case ABANDON:
-            emit(abandonPartie(infosTrame));
+            emit abandonPartie(infosTrame);
             break;
 
         case START:
-            emit(boutonStart(infosTrame));
+            emit boutonStart(infosTrame);
             break;
 
         case DROITE:
-            emit(encodeurDroite(infosTrame));
+            emit encodeurDroite(infosTrame);
             break;
 
         case GAUCHE:
-            emit(encodeurGauche(infosTrame));
+            emit encodeurGauche(infosTrame);
             break;
 
         case TIR:
-            emit(pointMarque(infosTrame[NUMERO_TABLE].toInt(),
+            emit pointMarque(infosTrame[NUMERO_TABLE].toInt(),
                              infosTrame[NUMERO_TROU].toInt(),
-                             infosTrame[COULEUR_ANNEAU].toInt()));
+                             infosTrame[COULEUR_ANNEAU].toInt());
             break;
 
         default:
@@ -153,8 +183,11 @@ bool Bluetooth::traiterTrame(QStringList infosTrame)
 
 void Bluetooth::abandonnerPartie()
 {
-    // course->terminerCourse();
-    // ihm->afficherPageConnexion();
+    qDebug() << Q_FUNC_INFO;
+    /*
+    course->terminerCourse();
+    ihm->afficherPageConnexion();
+    */
 }
 
 void Bluetooth::validerSelection()

@@ -54,6 +54,7 @@ void Course::initialiserCourse()
     timer->start();
     avancerChevaux();
     course = true;
+    bluetooth->envoyerTrameDebutCourse();
 }
 
 bool Course::estCourseFinie()
@@ -85,6 +86,8 @@ void Course::terminerCourse()
                        ihm,
                        SLOT(afficherPageStatistiques()));
     chronometre = 0;
+    qDebug() << Q_FUNC_INFO;
+    bluetooth->envoyerTrameFinCourse();
 }
 
 void Course::avancerChevaux()
@@ -94,7 +97,7 @@ void Course::avancerChevaux()
         terminerCourse();
 }
 
-void Course::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
+void Course::actualiserPositionChevaux(int numeroCheval, int deplacement)
 {
     if(!course)
         return;
