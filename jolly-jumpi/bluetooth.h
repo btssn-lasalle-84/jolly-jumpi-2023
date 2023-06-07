@@ -12,11 +12,11 @@ static const QString serviceUuid(
 static const QString serviceNom(QStringLiteral("jolly-jumpi")); // simulateur
 // static const QString serviceNom(QStringLiteral("Jolly-Jumpi"));
 
-#define ENTETE_TRAME     "$JJ"
-#define FIN_TRAME        "\r\n"
-#define DELIMITEUR_TRAME ';'
+#define ENTETE_TRAME     QStringLiteral("$JJ")
+#define FIN_TRAME        QStringLiteral("\r\n")
+#define DELIMITEUR_TRAME QStringLiteral(";")
 
-#define CONNECTE     'c'
+#define CONNECTE     QStringLiteral("c")
 #define DEBUT_COURSE 'd'
 #define FIN_COURSE   'f'
 
@@ -44,6 +44,8 @@ class Bluetooth : public QObject
     QString               trame;
     QString               trames;
     QStringList           infosTrame;
+
+    void envoyerTrame(QString trame);
 
   public:
     Bluetooth(QObject* parent = nullptr);

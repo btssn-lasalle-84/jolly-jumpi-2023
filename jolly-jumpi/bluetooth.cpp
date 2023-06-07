@@ -93,19 +93,28 @@ void Bluetooth::lireTrame()
     }
 }
 
+void Bluetooth::envoyerTrame(QString trame)
+{
+    qDebug() << Q_FUNC_INFO << trame;
+    socket->write(trame.toLocal8Bit());
+}
+
 void Bluetooth::envoyerTrameConnection()
 {
-    // à faire
+    trame = ENTETE_TRAME + DELIMITEUR_TRAME + CONNECTE + DELIMITEUR_TRAME + FIN_TRAME;
+    envoyerTrame(trame);
 }
 
 void Bluetooth::envoyerTrameDebutCourse()
 {
-    // à faire
+    trame = ENTETE_TRAME + DELIMITEUR_TRAME + DEBUT_COURSE + DELIMITEUR_TRAME + FIN_TRAME;
+    envoyerTrame(trame);
 }
 
 void Bluetooth::envoyerTrameFinCourse()
 {
-    // à faire
+    trame = ENTETE_TRAME + DELIMITEUR_TRAME + FIN_COURSE + DELIMITEUR_TRAME + FIN_TRAME;
+    envoyerTrame(trame);
 }
 
 bool Bluetooth::traiterTrame(QStringList infosTrame)
