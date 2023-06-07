@@ -1,6 +1,6 @@
 #include "course.h"
-#include "statistiques.h"
 #include "IHM.h"
+#include "statistiques.h"
 
 Course::Course(IHM* ihm) :
     QObject(ihm), ihm(ihm), stats(nullptr), nbChevaux(NB_CHEVAUX_MAX),

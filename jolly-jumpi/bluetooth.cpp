@@ -1,7 +1,7 @@
 #include "bluetooth.h"
 
-Bluetooth::Bluetooth(QObject *parent) : QObject(parent),
-    serveur(nullptr), socket(nullptr)
+Bluetooth::Bluetooth(QObject* parent) :
+    QObject(parent), serveur(nullptr), socket(nullptr)
 {
     qDebug() << Q_FUNC_INFO;
 }
@@ -18,8 +18,10 @@ void Bluetooth::demarrerCommunication()
 
     if(serveur == nullptr)
     {
-        qDebug() << Q_FUNC_INFO << "peripheriqueLocal.isValid()" << peripheriqueLocal.isValid();
-        serveur = new QBluetoothServer(QBluetoothServiceInfo::RfcommProtocol, this);
+        qDebug() << Q_FUNC_INFO << "peripheriqueLocal.isValid()"
+                 << peripheriqueLocal.isValid();
+        serveur =
+          new QBluetoothServer(QBluetoothServiceInfo::RfcommProtocol, this);
         connect(serveur,
                 SIGNAL(newConnection()),
                 this,
@@ -37,8 +39,9 @@ void Bluetooth::initialiserCommunication()
         return;
 
     peripheriqueLocal.powerOn();
-    qDebug() << Q_FUNC_INFO << "nomPeripheriqueLocal" << peripheriqueLocal.name();
-             << "adressePeripheriqueLocal" << peripheriqueLocal.address().toString();
+    qDebug() << Q_FUNC_INFO << "nomPeripheriqueLocal"
+             << peripheriqueLocal.name() << "adressePeripheriqueLocal"
+             << peripheriqueLocal.address().toString();
     peripheriqueLocal.setHostMode(QBluetoothLocalDevice::HostConnectable);
 }
 

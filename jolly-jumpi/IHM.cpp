@@ -20,7 +20,7 @@
 
 IHM::IHM(QWidget* parent) :
     QWidget(parent), course(new Course(this)), stats(new Statistiques(this)),
-    ui(new Ui::IHM), screen(QGuiApplication::primaryScreen()),
+    bluetooth(new Bluetooth(this)), ui(new Ui::IHM), screen(QGuiApplication::primaryScreen()),
     screenGeometry(screen->availableGeometry().size())
 {
     qDebug() << Q_FUNC_INFO;

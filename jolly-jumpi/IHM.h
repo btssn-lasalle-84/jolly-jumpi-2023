@@ -15,6 +15,7 @@
 #include <QRandomGenerator>
 #include <QSoundEffect>
 #include "course.h"
+#include "bluetooth.h"
 
 /**
  * @def RASPBERRY_PI
@@ -30,6 +31,7 @@ class IHM;
 }
 
 class Statistiques;
+class Bluetooth;
 
 /**
  * @class IHM
@@ -55,6 +57,7 @@ class IHM : public QWidget
   private:
     Course*       course;
     Statistiques* stats;
+    Bluetooth*    bluetooth;
 
     Ui::IHM*          ui;
     QScreen*          screen;
