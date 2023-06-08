@@ -21,11 +21,11 @@
 #define DEBUT_COURSE QString("d")
 #define FIN_COURSE   QString("f")
 
-#define ABANDON QString("a")
-#define START   QString("s")
-#define DROITE  QString("d")
-#define GAUCHE  QString("g")
-#define TIR     QString("t")
+#define ABANDON 'a'
+#define START   's'
+#define DROITE  'd'
+#define GAUCHE  'g'
+#define TIR     't'
 
 #define TYPE_TRAME     1
 #define NUMERO_TABLE   2
