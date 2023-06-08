@@ -157,21 +157,27 @@ bool Bluetooth::traiterTrame(QString trame)
 {
     QStringList champsTrame = trame.split(DELIMITEUR_TRAME);
     qDebug() << Q_FUNC_INFO << "champsTrame" << champsTrame;
-    switch(champsTrame[TYPE_TRAME].toUInt())
+    switch(champsTrame[TYPE_TRAME].at(0).toLatin1())
     {
         case ABANDON:
+            qDebug() << Q_FUNC_INFO << "ABANDON";
             emit abandonPartie();
             break;
         case START:
+            qDebug() << Q_FUNC_INFO << "START";
             emit boutonStart();
             break;
         case DROITE:
+            qDebug() << Q_FUNC_INFO << "DROITE";
             emit encodeurDroite();
             break;
         case GAUCHE:
+            qDebug() << Q_FUNC_INFO << "GAUCHE";
             emit encodeurGauche();
             break;
-        case TIR: // $JJ;t;{numeroTable};{positionTrou};{couleurAnneau};\r\n
+        case TIR:
+            qDebug() << Q_FUNC_INFO << "TIR";
+            // $JJ;t;{numeroTable};{positionTrou};{couleurAnneau};\r\n
             emit pointMarque(champsTrame[NUMERO_TABLE].toInt(),
                              champsTrame[NUMERO_TROU].toInt()/*,
                              champsTrame[COULEUR_ANNEAU].toInt()*/);
