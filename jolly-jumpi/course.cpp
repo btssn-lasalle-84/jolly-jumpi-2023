@@ -3,9 +3,9 @@
 #include "statistiques.h"
 
 Course::Course(IHM* ihm) :
-    QObject(ihm), ihm(ihm), stats(nullptr), nbChevaux(NB_CHEVAUX_MAX),
-    numeroCheval(0), positionChevaux(nbChevaux, 0), chronometre(0.0),
-    course(false)
+    QObject(ihm), ihm(ihm), stats(nullptr), bluetooth(nullptr),
+    nbChevaux(NB_CHEVAUX_MAX), numeroCheval(0), positionChevaux(nbChevaux, 0),
+    chronometre(0.0), course(false)
 {
     qDebug() << Q_FUNC_INFO;
     initialiserChronometre();
@@ -19,6 +19,11 @@ Course::~Course()
 void Course::setStatistiques(Statistiques* stats)
 {
     this->stats = stats;
+}
+
+void Course::setBluetooth(Bluetooth* bluetooth)
+{
+    this->bluetooth = bluetooth;
 }
 
 QVector<unsigned int> Course::getPositionChevaux() const

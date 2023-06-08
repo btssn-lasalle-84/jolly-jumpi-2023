@@ -58,6 +58,7 @@ class IHM : public QWidget
     Course*       course;
     Statistiques* stats;
     Bluetooth*    bluetooth;
+    bool          connecte;
 
     Ui::IHM*          ui;
     QScreen*          screen;
@@ -90,6 +91,8 @@ class IHM : public QWidget
     void accederParametres();
     void quitterProgramme();
     void quitterStatistiques();
+    void gererEtatConnexion();
+    void gererEtatDeconnexion();
 #ifdef MODE_SIMULATION
     void simulerAvancementCheval();
 #endif
@@ -107,6 +110,7 @@ class IHM : public QWidget
     void afficherPositionFinale(int numeroJoueur);
     void afficherPointsParSeconde(int numeroJoueur);
     void afficherNumeroJoueur(int numeroJoueur);
+    bool estConnecte();
 };
 
 #endif // IHM_H

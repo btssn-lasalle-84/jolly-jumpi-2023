@@ -20,13 +20,18 @@
 
 IHM::IHM(QWidget* parent) :
     QWidget(parent), course(new Course(this)), stats(new Statistiques(this)),
-    bluetooth(new Bluetooth(this)), ui(new Ui::IHM),
+    bluetooth(new Bluetooth(this)), connecte(false), ui(new Ui::IHM),
     screen(QGuiApplication::primaryScreen()),
     screenGeometry(screen->availableGeometry().size())
 {
     qDebug() << Q_FUNC_INFO;
     course->setStatistiques(stats);
+    course->setBluetooth(bluetooth);
+    bluetooth->setCourse(course);
     stats->setCourse(course);
+
+    bluetooth->initialiserCommunication();
+    // bluetooth->connecter(ADRESSE_ESP32_SIMULATEUR);
     instancierWidgets();
     initialiserWidgets();
     positionnerWidgets();
@@ -35,7 +40,6 @@ IHM::IHM(QWidget* parent) :
     installerModeSimulation();
 #endif
     initialiserMusiqueDeFond();
-    bluetooth->envoyerTrameConnection();
 }
 
 /**
@@ -224,6 +228,19 @@ void IHM::quitterStatistiques()
     }
 }
 
+void IHM::gererEtatConnexion()
+{
+    qDebug() << Q_FUNC_INFO;
+    connecte = true;
+    bluetooth->envoyerTrameConnexion();
+}
+
+void IHM::gererEtatDeconnexion()
+{
+    qDebug() << Q_FUNC_INFO;
+    connecte = false;
+}
+
 void IHM::afficherResultatJoueurSuivant()
 {
     if(ui->pages->currentIndex() == IHM::Page::PageStatistiques)
@@ -363,6 +380,11 @@ void IHM::afficherNumeroJoueur(int numeroJoueur)
           ->findChild<QLabel*>("position")
           ->setText("Joueur " + QString::number(numeroJoueur + 1));
     }
+}
+
+bool IHM::estConnecte()
+{
+    return connecte;
 }
 
 #ifdef MODE_SIMULATION

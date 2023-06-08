@@ -2,30 +2,32 @@
 #define BLUETOOTH_H
 
 #include <QObject>
+#include <QString>
 #include <QtBluetooth>
 #include <QBluetoothLocalDevice>
 #include <QDebug>
 
-static const QString serviceUuid(
-  QStringLiteral("00001101-0000-1000-8000-00805f9b34fb")); // simulateur
+#define ADRESSE_ESP32_JOLLY_JUMPI QString("")
+#define NOM_ESP32_JOLLY_JUMPI     QString("JOLLY-JUMPI")
 
-static const QString serviceNom(QStringLiteral("jolly-jumpi")); // simulateur
-// static const QString serviceNom(QStringLiteral("Jolly-Jumpi"));
+#define ADRESSE_ESP32_SIMULATEUR QString("3C:71:BF:6A:F5:D2")
+#define NOM_ESP32_SIMULATEUR     QString("jolly-jumpi")
 
-#define ENTETE_TRAME     QStringLiteral("$JJ")
-#define FIN_TRAME        QStringLiteral("\r\n")
-#define DELIMITEUR_TRAME QStringLiteral(";")
+#define ENTETE_TRAME     QString("$JJ")
+#define FIN_TRAME        QString("\r\n")
+#define DELIMITEUR_TRAME QString(";")
 
-#define CONNECTE     QStringLiteral("c")
-#define DEBUT_COURSE 'd'
-#define FIN_COURSE   'f'
+#define CONNECTE     QString("c")
+#define DEBUT_COURSE QString("d")
+#define FIN_COURSE   QString("f")
 
-#define ABANDON 'a'
-#define START   's'
-#define DROITE  'd'
-#define GAUCHE  'g'
-#define TIR     't'
+#define ABANDON QString("a")
+#define START   QString("s")
+#define DROITE  QString("d")
+#define GAUCHE  QString("g")
+#define TIR     QString("t")
 
+#define TYPE_TRAME     1
 #define NUMERO_TABLE   2
 #define NUMERO_TROU    3
 #define COULEUR_ANNEAU 4
@@ -41,48 +43,41 @@ class Bluetooth : public QObject
     IHM*    ihm;
     Course* course;
 
-    QBluetoothLocalDevice peripheriqueLocal;
-    QBluetoothServer*     serveur;
-    QBluetoothSocket*     socket;
-    QBluetoothServiceInfo serviceInfo;
-    QString               nomPeripheriqueLocal;
-    QString               adressePeripheriqueLocal;
-    bool                  estConnecte;
-    QString               trame;
-    QString               trames;
-    QStringList           infosTrame;
+    QBluetoothLocalDevice           peripheriqueLocal;
+    QBluetoothDeviceInfo            peripheriqueDistant;
+    QBluetoothSocket*               socket;
+    QBluetoothDeviceDiscoveryAgent* agentDecouverteBluetooth;
+    QString                         nomPeripheriqueLocal;
+    QString                         adressePeripheriqueLocal;
+    QString                         donneesRecues;
 
+    bool traiterTrame(QString trame);
     void envoyerTrame(QString trame);
 
   public:
     Bluetooth(IHM* ihm);
     ~Bluetooth();
 
-    void demarrerCommunication();
+    void setCourse(Course* course);
     void initialiserCommunication();
     void connecterSignauxSlots();
-    void lireTrame();
-    bool traiterTrame(QStringList infosTrame);
-    void envoyerTrameConnection();
+    void deconnecter();
+    void envoyerTrameConnexion();
     void envoyerTrameDebutCourse();
     void envoyerTrameFinCourse();
 
-  signals:
-    void clientDeconnecte();
-    void abandonPartie(QStringList infosTrame);
-    void boutonStart(QStringList infosTrame);
-    void encodeurDroite(QStringList infosTrame);
-    void encodeurGauche(QStringList infosTrame);
-    void pointMarque(int numeroTable, int numeroTrou, int couleurAnneau);
-
   public slots:
-    void connecterClient();
-    void deconnecterClient();
-    void abandonnerPartie();
-    void validerSelection();
-    void selectionnerSuivant();
-    void selectionnerPrecedent();
-    void avancerChevaux();
+    void gererPeripherique(QBluetoothDeviceInfo peripherique);
+    void connecter();
+    void lireTrame();
+
+  signals:
+    void peripheriqueTrouve();
+    void abandonPartie();
+    void boutonStart();
+    void encodeurDroite();
+    void encodeurGauche();
+    void pointMarque(int numeroTable, int numeroTrou /*, int couleurAnneau*/);
 };
 
 #endif // BLUETOOTH_H

@@ -79,8 +79,12 @@
            <widget class="QLabel" name="option1">
             <property name="font">
              <font>
-              <pointsize>40</pointsize>
-              <bold>false</bold>
+              <family>Ubuntu Condensed</family>
+              <pointsize>60</pointsize>
+              <weight>75</weight>
+              <italic>false</italic>
+              <bold>true</bold>
+              <underline>false</underline>
              </font>
             </property>
             <property name="layoutDirection">
@@ -314,7 +318,7 @@ background-color: rgb(78, 140, 6);</string>
              <string>Joueur suivant</string>
             </property>
             <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
             </property>
            </widget>
           </item>

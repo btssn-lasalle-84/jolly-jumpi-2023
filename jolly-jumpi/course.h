@@ -56,7 +56,7 @@ class Course : public QObject
   private:
     IHM*          ihm;
     Statistiques* stats;
-    Bluetooth* bluetooth;
+    Bluetooth*    bluetooth;
 
     int                   nbChevaux;
     int                   numeroCheval;
@@ -76,18 +76,19 @@ class Course : public QObject
     ~Course();
 
     void                  setStatistiques(Statistiques* stats);
+    void                  setBluetooth(Bluetooth* bluetooth);
     QVector<unsigned int> getPositionChevaux() const;
     int                   getNbChevaux() const;
     void                  initialiserCourse();
 #ifdef MODE_SIMULATION
     void simulerAvancementCheval();
 #endif
-    void terminerCourse();
 
   public slots:
     void chronometrer();
     void avancerChevaux();
     void actualiserPositionChevaux(int numeroCheval, int deplacement);
+    void terminerCourse();
 };
 
 #endif // COURSE_H
