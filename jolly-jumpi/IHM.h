@@ -84,8 +84,7 @@ class IHM : public QWidget
     QVector<QLabel*>  placeHolder;
 
     int   optionSelectionne;
-    QFont police;
-    QFont policeSelectionne;
+    QFont police, policeStats, policeSelectionne;
 
     void instancierWidgets();
     void initialiserWidgets();

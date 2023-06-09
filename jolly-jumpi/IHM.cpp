@@ -24,6 +24,7 @@ IHM::IHM(QWidget* parent) :
     screen(QGuiApplication::primaryScreen()),
     screenGeometry(screen->availableGeometry().size()), optionSelectionne(0),
     police("Ubuntu Regular", 40, QFont::AnyStyle),
+    policeStats("Ubuntu Regular", 60, QFont::Bold),
     policeSelectionne("Ubuntu Condensed", 60, QFont::Bold)
 {
     qDebug() << Q_FUNC_INFO;
@@ -198,6 +199,7 @@ void IHM::demarrerCourse()
 
 void IHM::ouvrirPageAvantCourse()
 {
+    qDebug() << Q_FUNC_INFO;
     if(ui->pages->currentIndex() == IHM::Page::Connexion)
     {
         afficherPageAvantCourse();
@@ -536,14 +538,14 @@ void IHM::mettreEnEvidenceSelection()
             case MenuStatistiques::QuitterStatistiques:
 
                 ui->pages->widget(IHM::Page::PageStatistiques)
-                  ->findChild<QLabel*>("quitter")
-                  ->setFont(policeSelectionne);
+                  ->findChild<QLabel*>("a_quitter")
+                  ->setFont(policeStats);
 
                 break;
             case MenuStatistiques::JoueurSuivant:
                 ui->pages->widget(IHM::Page::PageStatistiques)
-                  ->findChild<QLabel*>("joueurSuivant")
-                  ->setFont(policeSelectionne);
+                  ->findChild<QLabel*>("b_joueurSuivant")
+                  ->setFont(policeStats);
                 break;
             default:
                 break;
@@ -565,40 +567,50 @@ void IHM::deselectionner()
       ->setFont(police);
 
     ui->pages->widget(IHM::Page::PageStatistiques)
-      ->findChild<QLabel*>("joueurSuivant")
+      ->findChild<QLabel*>("a_quitter")
       ->setFont(police);
+
     ui->pages->widget(IHM::Page::PageStatistiques)
-      ->findChild<QLabel*>("quitter")
+      ->findChild<QLabel*>("b_joueurSuivant")
       ->setFont(police);
 }
 
 void IHM::validerSelection()
 {
     qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
-    switch(optionSelectionne)
+    if(ui->pages->currentIndex() == IHM::Page::Connexion)
     {
-        case MenuAvantCourse::LancerPartie:
-            demarrerCourse();
-            break;
-        case MenuAvantCourse::AccederParametres:
-            accederParametres();
-            break;
-        case MenuAvantCourse::Quitter:
-            quitterProgramme();
-            break;
-        default:
-            break;
-    };
-
-    switch(optionSelectionne)
+        ouvrirPageAvantCourse();
+    }
+    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
     {
-        case MenuStatistiques::QuitterStatistiques:
-            quitterStatistiques();
-            break;
-        case MenuStatistiques::JoueurSuivant:
-            afficherResultatJoueurSuivant();
-            break;
-        default:
-            break;
-    };
+        switch(optionSelectionne)
+        {
+            case MenuAvantCourse::LancerPartie:
+                demarrerCourse();
+                break;
+            case MenuAvantCourse::AccederParametres:
+                accederParametres();
+                break;
+            case MenuAvantCourse::Quitter:
+                quitterProgramme();
+                break;
+            default:
+                break;
+        };
+    }
+    if(ui->pages->currentIndex() == IHM::Page::PageStatistiques)
+    {
+        switch(optionSelectionne)
+        {
+            case MenuStatistiques::QuitterStatistiques:
+                quitterStatistiques();
+                break;
+            case MenuStatistiques::JoueurSuivant:
+                afficherResultatJoueurSuivant();
+                break;
+            default:
+                break;
+        };
+    }
 }

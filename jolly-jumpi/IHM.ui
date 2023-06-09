@@ -287,7 +287,7 @@ background-color: rgb(78, 140, 6);</string>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QLabel" name="joueurSuivant">
+           <widget class="QLabel" name="a_quitter">
             <property name="font">
              <font>
               <pointsize>65</pointsize>
@@ -305,7 +305,7 @@ background-color: rgb(78, 140, 6);</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="quitter">
+           <widget class="QLabel" name="b_joueurSuivant">
             <property name="font">
              <font>
               <pointsize>65</pointsize>
