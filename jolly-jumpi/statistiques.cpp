@@ -7,7 +7,7 @@
 Statistiques::Statistiques(IHM* ihm) :
     QObject(ihm), ihm(ihm), course(nullptr), nbChevaux(NB_CHEVAUX_MAX),
     classement(nbChevaux, 0), positionClassement(0), dureeDeLaPartie(0.0),
-    nombreTirs(nbChevaux, 0), nombrePoints(nbChevaux, 0),
+    record(16.46), nombreTirs(nbChevaux, 0), nombrePoints(nbChevaux, 0),
     joueurGagnant(AUCUN_JOUEUR)
 {
     qDebug() << Q_FUNC_INFO;
@@ -49,6 +49,11 @@ float Statistiques::getDureeDeLaPartie() const
     return dureeDeLaPartie;
 }
 
+float Statistiques::getRecord() const
+{
+    return record;
+}
+
 void Statistiques::setJoueurGagnant(int joueurGagnant)
 {
     this->joueurGagnant = joueurGagnant;
@@ -57,6 +62,11 @@ void Statistiques::setJoueurGagnant(int joueurGagnant)
 void Statistiques::setDureeDeLaPartie(float chronometre)
 {
     this->dureeDeLaPartie = chronometre;
+}
+
+void Statistiques::setRecord(float chronometre)
+{
+    this->record = chronometre;
 }
 
 void Statistiques::setPositionClassement(int positionClassement)

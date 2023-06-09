@@ -50,6 +50,7 @@ class Bluetooth : public QObject
     QString                         nomPeripheriqueLocal;
     QString                         adressePeripheriqueLocal;
     QString                         donneesRecues;
+    bool                            abandon;
 
     bool traiterTrame(QString trame);
     void envoyerTrame(QString trame);
@@ -58,6 +59,7 @@ class Bluetooth : public QObject
     Bluetooth(IHM* ihm);
     ~Bluetooth();
 
+    bool getAbandon() const;
     void setCourse(Course* course);
     void initialiserCommunication();
     void connecterSignauxSlots();

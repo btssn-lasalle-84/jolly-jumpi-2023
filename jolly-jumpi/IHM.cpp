@@ -34,7 +34,6 @@ IHM::IHM(QWidget* parent) :
     stats->setCourse(course);
 
     bluetooth->initialiserCommunication();
-    // bluetooth->connecter(ADRESSE_ESP32_SIMULATEUR);
     instancierWidgets();
     initialiserWidgets();
     positionnerWidgets();
@@ -285,9 +284,12 @@ bool IHM::estBonIndex()
 void IHM::afficherDureePartie()
 {
     float dureeDeLaPartie = stats->getDureeDeLaPartie();
+    float record          = stats->getRecord();
     ui->pages->widget(IHM::Page::PageStatistiques)
       ->findChild<QLabel*>("duree")
-      ->setText(QString::number(dureeDeLaPartie, 'f', 2) + " secondes");
+      ->setText(
+        QString::number(dureeDeLaPartie, 'f', 2) +
+        " secondes (Meilleur score: " + QString::number(record, 'f', 2) + "s)");
     qDebug() << Q_FUNC_INFO << "dureeDeLaPartie" << dureeDeLaPartie;
 }
 

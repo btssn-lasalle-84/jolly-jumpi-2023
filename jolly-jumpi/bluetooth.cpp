@@ -3,7 +3,7 @@
 #include "IHM.h"
 
 Bluetooth::Bluetooth(IHM* ihm) :
-    QObject(), ihm(ihm), course(nullptr), socket(nullptr)
+    QObject(), ihm(ihm), course(nullptr), socket(nullptr), abandon(false)
 {
     qDebug() << Q_FUNC_INFO;
 }
@@ -11,6 +11,11 @@ Bluetooth::Bluetooth(IHM* ihm) :
 Bluetooth::~Bluetooth()
 {
     qDebug() << Q_FUNC_INFO;
+}
+
+bool Bluetooth::getAbandon() const
+{
+    return abandon;
 }
 
 void Bluetooth::setCourse(Course* course)
@@ -161,6 +166,7 @@ bool Bluetooth::traiterTrame(QString trame)
     {
         case ABANDON:
             qDebug() << Q_FUNC_INFO << "ABANDON";
+            abandon = true;
             emit abandonPartie();
             break;
         case START:
