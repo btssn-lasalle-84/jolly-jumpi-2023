@@ -20,7 +20,7 @@
    <item>
     <widget class="QStackedWidget" name="pages">
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="pageConnexion">
       <property name="styleSheet">
@@ -79,8 +79,12 @@
            <widget class="QLabel" name="option1">
             <property name="font">
              <font>
-              <pointsize>40</pointsize>
-              <bold>false</bold>
+              <family>Ubuntu Condensed</family>
+              <pointsize>60</pointsize>
+              <weight>75</weight>
+              <italic>false</italic>
+              <bold>true</bold>
+              <underline>false</underline>
              </font>
             </property>
             <property name="layoutDirection">
@@ -283,7 +287,7 @@ background-color: rgb(78, 140, 6);</string>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QLabel" name="joueurSuivant">
+           <widget class="QLabel" name="a_quitter">
             <property name="font">
              <font>
               <pointsize>65</pointsize>
@@ -301,7 +305,7 @@ background-color: rgb(78, 140, 6);</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="quitter">
+           <widget class="QLabel" name="b_joueurSuivant">
             <property name="font">
              <font>
               <pointsize>65</pointsize>
@@ -314,7 +318,7 @@ background-color: rgb(78, 140, 6);</string>
              <string>Joueur suivant</string>
             </property>
             <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
             </property>
            </widget>
           </item>

@@ -1,11 +1,11 @@
 #include "course.h"
-#include "statistiques.h"
 #include "IHM.h"
+#include "statistiques.h"
 
 Course::Course(IHM* ihm) :
-    QObject(ihm), ihm(ihm), stats(nullptr), nbChevaux(NB_CHEVAUX_MAX),
-    numeroCheval(0), positionChevaux(nbChevaux, 0), chronometre(0.0),
-    course(false)
+    QObject(ihm), ihm(ihm), stats(nullptr), bluetooth(nullptr),
+    nbChevaux(NB_CHEVAUX_MAX), numeroCheval(0), positionChevaux(nbChevaux, 0),
+    chronometre(0.0), course(false)
 {
     qDebug() << Q_FUNC_INFO;
     initialiserChronometre();
@@ -19,6 +19,11 @@ Course::~Course()
 void Course::setStatistiques(Statistiques* stats)
 {
     this->stats = stats;
+}
+
+void Course::setBluetooth(Bluetooth* bluetooth)
+{
+    this->bluetooth = bluetooth;
 }
 
 QVector<unsigned int> Course::getPositionChevaux() const
@@ -54,6 +59,7 @@ void Course::initialiserCourse()
     timer->start();
     avancerChevaux();
     course = true;
+    bluetooth->envoyerTrameDebutCourse();
 }
 
 bool Course::estCourseFinie()
@@ -85,6 +91,8 @@ void Course::terminerCourse()
                        ihm,
                        SLOT(afficherPageStatistiques()));
     chronometre = 0;
+    qDebug() << Q_FUNC_INFO;
+    bluetooth->envoyerTrameFinCourse();
 }
 
 void Course::avancerChevaux()
@@ -94,13 +102,14 @@ void Course::avancerChevaux()
         terminerCourse();
 }
 
-void Course::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
+void Course::actualiserPositionChevaux(int numeroCheval, int deplacement)
 {
     if(!course)
         return;
+    stats->setNombreTirs(numeroCheval);
+    stats->setNombrePoints(numeroCheval, deplacement);
     QVector<unsigned int> nombreTirs   = stats->getNombreTirs();
     QVector<unsigned int> nombrePoints = stats->getNombreTirs();
-    stats->setNombreTirs(nombreTirs, numeroCheval);
     nombrePoints[numeroCheval] += deplacement;
     if(nombrePoints[numeroCheval] >= DISTANCE_MAX)
         nombrePoints[numeroCheval] = DISTANCE_MAX;

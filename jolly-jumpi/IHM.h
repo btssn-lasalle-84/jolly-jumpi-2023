@@ -15,12 +15,13 @@
 #include <QRandomGenerator>
 #include <QSoundEffect>
 #include "course.h"
+#include "bluetooth.h"
 
 /**
  * @def RASPBERRY_PI
  * @brief Pour le mode plein écran sur la RPI
  */
-//#define RASPBERRY_PI
+#define RASPBERRY_PI
 
 #define MUSIQUE_DE_FOND ":/musiques/Musiques/musique_de_fond_1.wav"
 
@@ -30,6 +31,7 @@ class IHM;
 }
 
 class Statistiques;
+class Bluetooth;
 
 /**
  * @class IHM
@@ -52,9 +54,26 @@ class IHM : public QWidget
         NbPages
     };
 
+    enum MenuAvantCourse
+    {
+        LancerPartie,
+        AccederParametres,
+        Quitter,
+        NombreOptions
+    };
+
+    enum MenuStatistiques
+    {
+        QuitterStatistiques,
+        JoueurSuivant,
+        NbOptions
+    };
+
   private:
     Course*       course;
     Statistiques* stats;
+    Bluetooth*    bluetooth;
+    bool          connecte;
 
     Ui::IHM*          ui;
     QScreen*          screen;
@@ -63,6 +82,9 @@ class IHM : public QWidget
     QVector<QLabel*>  avatarsJoueurs;
     QVector<QPixmap*> imagePlaceHolder;
     QVector<QLabel*>  placeHolder;
+
+    int   optionSelectionne;
+    QFont police, policeStats, policeSelectionne;
 
     void instancierWidgets();
     void initialiserWidgets();
@@ -73,6 +95,7 @@ class IHM : public QWidget
     void installerModeSimulation();
 #endif
     void initialiserMusiqueDeFond();
+    void deselectionner();
 
   public slots:
     void afficherPage(IHM::Page page);
@@ -87,6 +110,13 @@ class IHM : public QWidget
     void accederParametres();
     void quitterProgramme();
     void quitterStatistiques();
+    void gererEtatConnexion();
+    void gererEtatDeconnexion();
+    void selectionnerSuivant();
+    void selectionnerPrecedent();
+    void changerSelection();
+    void mettreEnEvidenceSelection();
+    void validerSelection();
 #ifdef MODE_SIMULATION
     void simulerAvancementCheval();
 #endif
@@ -104,6 +134,7 @@ class IHM : public QWidget
     void afficherPositionFinale(int numeroJoueur);
     void afficherPointsParSeconde(int numeroJoueur);
     void afficherNumeroJoueur(int numeroJoueur);
+    bool estConnecte();
 };
 
 #endif // IHM_H
