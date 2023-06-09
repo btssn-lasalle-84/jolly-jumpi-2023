@@ -581,6 +581,7 @@ void IHM::validerSelection()
     if(ui->pages->currentIndex() == IHM::Page::Connexion)
     {
         ouvrirPageAvantCourse();
+        return;
     }
     if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
     {
