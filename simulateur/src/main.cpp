@@ -2,7 +2,7 @@
  * @file src/main.cpp
  * @brief Programme principal Jolly Jumpi 2023
  * @author Thierry Vaira
- * @version 0.12
+ * @version 1.0
  */
 #include <Arduino.h>
 #include <BluetoothSerial.h>
@@ -48,9 +48,15 @@ BluetoothSerial ESPBluetooth;
  */
 enum TypeTrame
 {
-    Inconnu = -1,
-    START   = 0,
-    STOP,
+    Inconnu  = -1,
+    CONNECTE = 0,
+    DEBUT_COURSE,
+    FIN_COURSE,
+    ABANDON,
+    VALIDATION,
+    ENCODEUR_DROITE,
+    ENCODEUR_GAUCHE,
+    TIR,
     NB_TRAMES
 };
 
@@ -78,8 +84,7 @@ enum CouleurTrou
 };
 
 const String nomsTrame[TypeTrame::NB_TRAMES] = {
-    "start",
-    "stop"
+    "c", "d", "f", "a", "s", "d", "g", "t"
 }; //!< nom des trames dans le protocole
 
 const String codeCouleur[CouleurTrou::NbCouleurs] = {
@@ -140,14 +145,14 @@ void envoyerTrameEncodeur(char sens)
     char trameEnvoi[64];
 
     // Format :
-    // Encodeur pressé : 	$JJ;ec;\r\n
-    // Encodeur droite : 	$JJ;ec;d;\r\n
-    // Encodeur gauche : 	$JJ;ec;g;\r\n
+    // Encodeur pressé : 	$JJ;s;\r\n
+    // Encodeur droite : 	$JJ;d;\r\n
+    // Encodeur gauche : 	$JJ;g;\r\n
 
     if(sens == 0x00)
-        sprintf((char*)trameEnvoi, "%s;ec;\r\n", entete.c_str());
+        sprintf((char*)trameEnvoi, "%s;s;\r\n", entete.c_str());
     else
-        sprintf((char*)trameEnvoi, "%s;ec;%c;\r\n", entete.c_str(), sens);
+        sprintf((char*)trameEnvoi, "%s;%c;\r\n", entete.c_str(), sens);
 
     ESPBluetooth.write((uint8_t*)trameEnvoi, strlen((char*)trameEnvoi));
 #ifdef DEBUG
@@ -166,9 +171,9 @@ void envoyerTrameBouton()
 {
     char trameEnvoi[64];
 
-    // Format : $JJ;bp;\r\n
+    // Format : $JJ;a;\r\n
 
-    sprintf((char*)trameEnvoi, "%s;bp;\r\n", entete.c_str());
+    sprintf((char*)trameEnvoi, "%s;a;\r\n", entete.c_str());
 
     ESPBluetooth.write((uint8_t*)trameEnvoi, strlen((char*)trameEnvoi));
 #ifdef DEBUG
@@ -187,10 +192,10 @@ void envoyerTrameTir(int numeroTable, int numeroTrou, CouleurTrou couleurTrou)
 {
     char trameEnvoi[64];
 
-    // Format : $JJ;tir;{numeroTable};{positionTrou};{couleurAnneau};\r\n
+    // Format : $JJ;t;{numeroTable};{positionTrou};{couleurAnneau};\r\n
 
     sprintf((char*)trameEnvoi,
-            "%s;tir;%d;%d;%d;\r\n",
+            "%s;t;%d;%d;%d;\r\n",
             entete.c_str(),
             numeroTable,
             numeroTrou,
@@ -509,7 +514,8 @@ void loop()
         {
             case Inconnu:
                 break;
-            case TypeTrame::START:
+            case TypeTrame::CONNECTE:
+            case TypeTrame::DEBUT_COURSE:
                 if(etatPartie == Finie)
                 {
                     reinitialiserAffichage();
@@ -525,7 +531,7 @@ void loop()
 #endif
                 }
                 break;
-            case TypeTrame::STOP:
+            case TypeTrame::FIN_COURSE:
                 if(etatPartie == EnCours)
                 {
                     reinitialiserAffichage();
