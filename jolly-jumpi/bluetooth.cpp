@@ -178,7 +178,7 @@ bool Bluetooth::traiterTrame(QString trame)
         case TIR:
             qDebug() << Q_FUNC_INFO << "TIR";
             // $JJ;t;{numeroTable};{positionTrou};{couleurAnneau};\r\n
-            emit pointMarque(champsTrame[NUMERO_TABLE].toInt(),
+            emit pointMarque(champsTrame[NUMERO_TABLE].toInt() -1,
                              champsTrame[NUMERO_TROU].toInt()/*,
                              champsTrame[COULEUR_ANNEAU].toInt()*/);
             break;
