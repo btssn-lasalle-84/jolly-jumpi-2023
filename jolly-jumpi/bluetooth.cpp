@@ -10,7 +10,7 @@ Bluetooth::Bluetooth(IHM* ihm) :
     qDebug() << Q_FUNC_INFO << "SIMULATEUR";
 #else
     adresseESP32 = ADRESSE_ESP32_JOLLY_JUMPI;
-    Debug() << Q_FUNC_INFO << "PAS SIMULATEUR";
+    qDebug() << Q_FUNC_INFO << "PAS SIMULATEUR";
 #endif
 }
 
