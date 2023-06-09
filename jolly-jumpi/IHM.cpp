@@ -540,13 +540,12 @@ void IHM::mettreEnEvidenceSelection()
             case MenuStatistiques::QuitterStatistiques:
 
                 ui->pages->widget(IHM::Page::PageStatistiques)
-                  ->findChild<QLabel*>("a_quitter")
+                  ->findChild<QLabel*>("b_quitter")
                   ->setFont(policeStats);
-
                 break;
             case MenuStatistiques::JoueurSuivant:
                 ui->pages->widget(IHM::Page::PageStatistiques)
-                  ->findChild<QLabel*>("b_joueurSuivant")
+                  ->findChild<QLabel*>("a_joueurSuivant")
                   ->setFont(policeStats);
                 break;
             default:
@@ -569,11 +568,11 @@ void IHM::deselectionner()
       ->setFont(police);
 
     ui->pages->widget(IHM::Page::PageStatistiques)
-      ->findChild<QLabel*>("a_quitter")
+      ->findChild<QLabel*>("b_quitter")
       ->setFont(police);
 
     ui->pages->widget(IHM::Page::PageStatistiques)
-      ->findChild<QLabel*>("b_joueurSuivant")
+      ->findChild<QLabel*>("a_joueurSuivant")
       ->setFont(police);
 }
 
