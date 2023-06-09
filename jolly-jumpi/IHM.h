@@ -54,6 +54,21 @@ class IHM : public QWidget
         NbPages
     };
 
+    enum MenuAvantCourse
+    {
+        LancerPartie,
+        AccederParametres,
+        Quitter,
+        NombreOptions
+    };
+
+    enum MenuStatistiques
+    {
+        QuitterStatistiques,
+        JoueurSuivant,
+        NbOptions
+    };
+
   private:
     Course*       course;
     Statistiques* stats;
@@ -68,6 +83,10 @@ class IHM : public QWidget
     QVector<QPixmap*> imagePlaceHolder;
     QVector<QLabel*>  placeHolder;
 
+    int   optionSelectionne;
+    QFont police;
+    QFont policeSelectionne;
+
     void instancierWidgets();
     void initialiserWidgets();
     void positionnerWidgets();
@@ -77,6 +96,7 @@ class IHM : public QWidget
     void installerModeSimulation();
 #endif
     void initialiserMusiqueDeFond();
+    void deselectionner();
 
   public slots:
     void afficherPage(IHM::Page page);
@@ -93,6 +113,11 @@ class IHM : public QWidget
     void quitterStatistiques();
     void gererEtatConnexion();
     void gererEtatDeconnexion();
+    void selectionnerSuivant();
+    void selectionnerPrecedent();
+    void changerSelection();
+    void mettreEnEvidenceSelection();
+    void validerSelection();
 #ifdef MODE_SIMULATION
     void simulerAvancementCheval();
 #endif

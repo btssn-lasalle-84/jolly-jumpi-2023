@@ -22,7 +22,9 @@ IHM::IHM(QWidget* parent) :
     QWidget(parent), course(new Course(this)), stats(new Statistiques(this)),
     bluetooth(new Bluetooth(this)), connecte(false), ui(new Ui::IHM),
     screen(QGuiApplication::primaryScreen()),
-    screenGeometry(screen->availableGeometry().size())
+    screenGeometry(screen->availableGeometry().size()), optionSelectionne(0),
+    police("Ubuntu Regular", 40, QFont::AnyStyle),
+    policeSelectionne("Ubuntu Condensed", 60, QFont::Bold)
 {
     qDebug() << Q_FUNC_INFO;
     course->setStatistiques(stats);
@@ -450,3 +452,153 @@ void IHM::installerModeSimulation()
             SLOT(afficherResultatJoueurSuivant()));
 }
 #endif
+
+void IHM::selectionnerSuivant()
+{
+    optionSelectionne += 1;
+    qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
+    changerSelection();
+}
+
+void IHM::selectionnerPrecedent()
+{
+    optionSelectionne -= 1;
+    qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
+    changerSelection();
+}
+
+void IHM::changerSelection()
+{
+    qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
+    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
+    {
+        if(optionSelectionne > (MenuAvantCourse::NombreOptions - 1))
+        {
+            optionSelectionne = 0;
+        }
+        if(optionSelectionne < 0)
+        {
+            optionSelectionne = (MenuAvantCourse::NombreOptions - 1);
+        }
+    }
+
+    if(ui->pages->currentIndex() == IHM::Page::PageStatistiques)
+    {
+        if(optionSelectionne > (MenuStatistiques::NbOptions - 1))
+        {
+            optionSelectionne = 0;
+        }
+        if(optionSelectionne < 0)
+        {
+            optionSelectionne = (MenuStatistiques::NbOptions - 1);
+        }
+    }
+    mettreEnEvidenceSelection();
+}
+
+void IHM::mettreEnEvidenceSelection()
+{
+    deselectionner();
+
+    qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
+    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
+    {
+        qDebug() << Q_FUNC_INFO << "currentIndex"
+                 << "AvantCourse";
+        switch(optionSelectionne)
+        {
+            case MenuAvantCourse::LancerPartie:
+                ui->pages->widget(IHM::Page::AvantCourse)
+                  ->findChild<QLabel*>("option1")
+                  ->setFont(policeSelectionne);
+                break;
+            case MenuAvantCourse::AccederParametres:
+                ui->pages->widget(IHM::Page::AvantCourse)
+                  ->findChild<QLabel*>("option2")
+                  ->setFont(policeSelectionne);
+                break;
+            case MenuAvantCourse::Quitter:
+                ui->pages->widget(IHM::Page::AvantCourse)
+                  ->findChild<QLabel*>("option3")
+                  ->setFont(policeSelectionne);
+                break;
+            default:
+                break;
+        };
+    }
+
+    if(ui->pages->currentIndex() == IHM::Page::PageStatistiques)
+    {
+        qDebug() << Q_FUNC_INFO << "currentIndex"
+                 << "Statistiques";
+        switch(optionSelectionne)
+        {
+            case MenuStatistiques::QuitterStatistiques:
+
+                ui->pages->widget(IHM::Page::PageStatistiques)
+                  ->findChild<QLabel*>("quitter")
+                  ->setFont(policeSelectionne);
+
+                break;
+            case MenuStatistiques::JoueurSuivant:
+                ui->pages->widget(IHM::Page::PageStatistiques)
+                  ->findChild<QLabel*>("joueurSuivant")
+                  ->setFont(policeSelectionne);
+                break;
+            default:
+                break;
+        };
+    }
+}
+
+void IHM::deselectionner()
+{
+    qDebug() << Q_FUNC_INFO;
+    ui->pages->widget(IHM::Page::AvantCourse)
+      ->findChild<QLabel*>("option1")
+      ->setFont(police);
+    ui->pages->widget(IHM::Page::AvantCourse)
+      ->findChild<QLabel*>("option2")
+      ->setFont(police);
+    ui->pages->widget(IHM::Page::AvantCourse)
+      ->findChild<QLabel*>("option3")
+      ->setFont(police);
+
+    ui->pages->widget(IHM::Page::PageStatistiques)
+      ->findChild<QLabel*>("joueurSuivant")
+      ->setFont(police);
+    ui->pages->widget(IHM::Page::PageStatistiques)
+      ->findChild<QLabel*>("quitter")
+      ->setFont(police);
+}
+
+void IHM::validerSelection()
+{
+    qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
+    switch(optionSelectionne)
+    {
+        case MenuAvantCourse::LancerPartie:
+            demarrerCourse();
+            break;
+        case MenuAvantCourse::AccederParametres:
+            accederParametres();
+            break;
+        case MenuAvantCourse::Quitter:
+            quitterProgramme();
+            break;
+        default:
+            break;
+    };
+
+    switch(optionSelectionne)
+    {
+        case MenuStatistiques::QuitterStatistiques:
+            quitterStatistiques();
+            break;
+        case MenuStatistiques::JoueurSuivant:
+            afficherResultatJoueurSuivant();
+            break;
+        default:
+            break;
+    };
+}
