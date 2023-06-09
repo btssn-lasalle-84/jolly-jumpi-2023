@@ -5,7 +5,13 @@
 Bluetooth::Bluetooth(IHM* ihm) :
     QObject(), ihm(ihm), course(nullptr), socket(nullptr), abandon(false)
 {
-    qDebug() << Q_FUNC_INFO;
+#ifdef SIMULATEUR
+    adresseESP32 = ADRESSE_ESP32_SIMULATEUR;
+    qDebug() << Q_FUNC_INFO << "SIMULATEUR";
+#else
+    adresseESP32 = ADRESSE_ESP32_JOLLY_JUMPI;
+    Debug() << Q_FUNC_INFO << "PAS SIMULATEUR";
+#endif
 }
 
 Bluetooth::~Bluetooth()
@@ -94,7 +100,7 @@ void Bluetooth::gererPeripherique(QBluetoothDeviceInfo peripherique)
 {
     qDebug() << Q_FUNC_INFO << "nom" << peripherique.name() << "adresse"
              << peripherique.address();
-    if(peripherique.address().toString() == ADRESSE_ESP32_JOLLY_JUMPI)
+    if(peripherique.address().toString() == adresseESP32)
     {
         peripheriqueDistant = peripherique;
         agentDecouverteBluetooth->stop();

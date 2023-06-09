@@ -20,7 +20,7 @@
    <item>
     <widget class="QStackedWidget" name="pages">
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="pageConnexion">
       <property name="styleSheet">
@@ -271,25 +271,7 @@ background-color: rgb(78, 140, 6);</string>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
-            <widget class="QLabel" name="b_joueurSuivant">
-             <property name="font">
-              <font>
-               <pointsize>65</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">color: rgb(255, 255, 255);</string>
-             </property>
-             <property name="text">
-              <string>Quitter</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="a_quitter">
+            <widget class="QLabel" name="a_joueurSuivant">
              <property name="font">
               <font>
                <pointsize>65</pointsize>
@@ -300,6 +282,24 @@ background-color: rgb(78, 140, 6);</string>
              </property>
              <property name="text">
               <string>Joueur suivant</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="b_quitter">
+             <property name="font">
+              <font>
+               <pointsize>65</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string>Quitter</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
