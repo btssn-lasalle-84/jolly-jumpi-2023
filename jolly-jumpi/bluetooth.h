@@ -7,8 +7,8 @@
 #include <QBluetoothLocalDevice>
 #include <QDebug>
 
-#define ADRESSE_ESP32_JOLLY_JUMPI QString("")
-#define NOM_ESP32_JOLLY_JUMPI     QString("JOLLY-JUMPI")
+#define ADRESSE_ESP32_JOLLY_JUMPI QString("08:3A:F2:6E:2C:22")
+#define NOM_ESP32_JOLLY_JUMPI     QString("Jolly-JumPi")
 
 #define ADRESSE_ESP32_SIMULATEUR QString("3C:71:BF:6A:F5:D2")
 #define NOM_ESP32_SIMULATEUR     QString("jolly-jumpi")

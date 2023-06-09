@@ -84,7 +84,7 @@ void Bluetooth::gererPeripherique(QBluetoothDeviceInfo peripherique)
 {
     qDebug() << Q_FUNC_INFO << "nom" << peripherique.name() << "adresse"
              << peripherique.address();
-    if(peripherique.address().toString() == ADRESSE_ESP32_SIMULATEUR)
+    if(peripherique.address().toString() == ADRESSE_ESP32_JOLLY_JUMPI)
     {
         peripheriqueDistant = peripherique;
         agentDecouverteBluetooth->stop();
@@ -178,9 +178,9 @@ bool Bluetooth::traiterTrame(QString trame)
         case TIR:
             qDebug() << Q_FUNC_INFO << "TIR";
             // $JJ;t;{numeroTable};{positionTrou};{couleurAnneau};\r\n
-            emit pointMarque(champsTrame[NUMERO_TABLE].toInt() -1,
-                             champsTrame[NUMERO_TROU].toInt()/*,
-                             champsTrame[COULEUR_ANNEAU].toInt()*/);
+            emit pointMarque(champsTrame[NUMERO_TABLE].toInt() - 1,
+                             /*champsTrame[NUMERO_TROU].toInt(),*/
+                             champsTrame[COULEUR_ANNEAU].toInt());
             break;
         default:
             qDebug() << Q_FUNC_INFO << "trame inconnue";
