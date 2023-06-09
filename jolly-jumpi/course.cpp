@@ -99,7 +99,10 @@ void Course::terminerCourse()
         stats->afficherResultats();
     }
     else
+    {
         ihm->afficherPageConnexion();
+        bluetooth->setAbandon(false);
+    }
     timer->stop();
     chronometre = 0;
     qDebug() << Q_FUNC_INFO;

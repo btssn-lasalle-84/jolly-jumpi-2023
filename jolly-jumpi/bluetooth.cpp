@@ -23,6 +23,11 @@ void Bluetooth::setCourse(Course* course)
     this->course = course;
 }
 
+void Bluetooth::setAbandon(bool abandon)
+{
+    this->abandon = abandon;
+}
+
 void Bluetooth::initialiserCommunication()
 {
     if(peripheriqueLocal.isValid())

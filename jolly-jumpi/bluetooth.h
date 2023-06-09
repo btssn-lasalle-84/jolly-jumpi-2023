@@ -61,6 +61,7 @@ class Bluetooth : public QObject
 
     bool getAbandon() const;
     void setCourse(Course* course);
+    void setAbandon(bool abandon);
     void initialiserCommunication();
     void connecterSignauxSlots();
     void deconnecter();
