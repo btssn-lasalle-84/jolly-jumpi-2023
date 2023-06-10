@@ -235,6 +235,9 @@ void IHM::gererEtatConnexion()
 {
     qDebug() << Q_FUNC_INFO;
     connecte = true;
+    ui->pages->widget(IHM::Page::Connexion)
+      ->findChild<QLabel*>("etatConnexion")
+      ->setText("Appuyez sur start");
     bluetooth->envoyerTrameConnexion();
 }
 

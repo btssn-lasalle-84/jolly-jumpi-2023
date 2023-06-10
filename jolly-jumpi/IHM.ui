@@ -20,7 +20,7 @@
    <item>
     <widget class="QStackedWidget" name="pages">
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="pageConnexion">
       <property name="styleSheet">
@@ -28,17 +28,18 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <layout class="QVBoxLayout" name="layout">
+        <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_8">
            <item>
-            <widget class="QLabel" name="label">
-             <property name="maximumSize">
-              <size>
-               <width>1677</width>
-               <height>1677</height>
-              </size>
-             </property>
+            <widget class="QLabel" name="b_logo">
              <property name="text">
               <string/>
              </property>
@@ -53,7 +54,35 @@
              </property>
             </widget>
            </item>
+           <item>
+            <widget class="QLabel" name="etatConnexion">
+             <property name="font">
+              <font>
+               <pointsize>90</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string>En attente de connexion...</string>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignHCenter|Qt::AlignTop</set>
+             </property>
+            </widget>
+           </item>
           </layout>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -73,7 +102,6 @@
              <property name="font">
               <font>
                <pointsize>40</pointsize>
-               <weight>50</weight>
                <bold>false</bold>
               </font>
              </property>
