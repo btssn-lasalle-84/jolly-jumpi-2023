@@ -49,8 +49,8 @@ class IHM : public QWidget
         Connexion,
         AvantCourse,
         PageCourse,
-        PageStatistiques,
         Parametres,
+        PageStatistiques,
         NbPages
     };
 
@@ -67,6 +67,15 @@ class IHM : public QWidget
         QuitterStatistiques,
         JoueurSuivant,
         NbOptions
+    };
+
+    enum MenuParametres
+    {
+        ChangerNombreJoueurs,
+        ChangerDureePartie,
+        ChangerModeDeJeu,
+        QuitterParametres,
+        NbOptionsParametres
     };
 
   private:
