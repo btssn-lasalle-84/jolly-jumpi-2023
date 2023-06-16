@@ -7,11 +7,12 @@
 #include <QBluetoothLocalDevice>
 #include <QDebug>
 
-#define ADRESSE_ESP32_JOLLY_JUMPI QString("")
-#define NOM_ESP32_JOLLY_JUMPI     QString("JOLLY-JUMPI")
+#define SIMULATEUR
 
-#define ADRESSE_ESP32_SIMULATEUR QString("3C:71:BF:6A:F5:D2")
-#define NOM_ESP32_SIMULATEUR     QString("jolly-jumpi")
+#define ADRESSE_ESP32_JOLLY_JUMPI QString("08:3A:F2:6E:2C:22")
+#define NOM_ESP32_JOLLY_JUMPI     QString("Jolly-JumPi")
+#define ADRESSE_ESP32_SIMULATEUR  QString("3C:71:BF:6A:F5:D2")
+#define NOM_ESP32_SIMULATEUR      QString("jolly-jumpi")
 
 #define ENTETE_TRAME     QString("$JJ")
 #define FIN_TRAME        QString("\r\n")
@@ -43,6 +44,8 @@ class Bluetooth : public QObject
     IHM*    ihm;
     Course* course;
 
+    QString                         adresseESP32;
+    QString                         nomESP32;
     QBluetoothLocalDevice           peripheriqueLocal;
     QBluetoothDeviceInfo            peripheriqueDistant;
     QBluetoothSocket*               socket;
@@ -50,6 +53,7 @@ class Bluetooth : public QObject
     QString                         nomPeripheriqueLocal;
     QString                         adressePeripheriqueLocal;
     QString                         donneesRecues;
+    bool                            abandon;
 
     bool traiterTrame(QString trame);
     void envoyerTrame(QString trame);
@@ -58,7 +62,9 @@ class Bluetooth : public QObject
     Bluetooth(IHM* ihm);
     ~Bluetooth();
 
+    bool getAbandon() const;
     void setCourse(Course* course);
+    void setAbandon(bool abandon);
     void initialiserCommunication();
     void connecterSignauxSlots();
     void deconnecter();

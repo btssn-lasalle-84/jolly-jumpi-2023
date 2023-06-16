@@ -83,13 +83,27 @@ bool Course::estCourseFinie()
 void Course::terminerCourse()
 {
     course = false;
-    stats->setDureeDeLaPartie(chronometre);
-    stats->determinerClassement();
-    stats->afficherResultats();
+    if(bluetooth->getAbandon() == false)
+    {
+        stats->setDureeDeLaPartie(chronometre);
+        if(stats->getRecord() > chronometre)
+        {
+            qDebug() << Q_FUNC_INFO << "record" << stats->getRecord()
+                     << "chronometre" << chronometre;
+            stats->setRecord(chronometre);
+        }
+        stats->determinerClassement();
+        QTimer::singleShot(ATTENTE_FIN_COURSE,
+                           ihm,
+                           SLOT(afficherPageStatistiques()));
+        stats->afficherResultats();
+    }
+    else
+    {
+        ihm->afficherPageConnexion();
+        bluetooth->setAbandon(false);
+    }
     timer->stop();
-    QTimer::singleShot(ATTENTE_FIN_COURSE,
-                       ihm,
-                       SLOT(afficherPageStatistiques()));
     chronometre = 0;
     qDebug() << Q_FUNC_INFO;
     bluetooth->envoyerTrameFinCourse();
@@ -106,6 +120,29 @@ void Course::actualiserPositionChevaux(int numeroCheval, int deplacement)
 {
     if(!course)
         return;
+
+    enum Trou
+    {
+        JAUNE = 1,
+        BLEU  = 3,
+        ROUGE = 5
+    };
+
+    switch(deplacement)
+    {
+        case 0:
+            deplacement = Trou::JAUNE;
+            break;
+        case 1:
+            deplacement = Trou::BLEU;
+            break;
+        case 2:
+            deplacement = Trou::ROUGE;
+            break;
+        default:
+            break;
+    }
+
     stats->setNombreTirs(numeroCheval);
     stats->setNombrePoints(numeroCheval, deplacement);
     QVector<unsigned int> nombreTirs   = stats->getNombreTirs();

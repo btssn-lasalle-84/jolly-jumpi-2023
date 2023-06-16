@@ -21,6 +21,7 @@ class Statistiques : public QObject
     QVector<unsigned int> classement;
     int                   positionClassement;
     float                 dureeDeLaPartie;
+    float                 record;
     QVector<unsigned int> nombreTirs;
     QVector<unsigned int> nombrePoints;
     int                   joueurGagnant;
@@ -37,10 +38,12 @@ class Statistiques : public QObject
     QVector<unsigned int> getNombreTirs() const;
     QVector<unsigned int> getNombrePoints() const;
     float                 getDureeDeLaPartie() const;
+    float                 getRecord() const;
 
     void setJoueurGagnant(int);
     void setPositionClassement(int);
     void setDureeDeLaPartie(float);
+    void setRecord(float);
     void setNombreTirs(int);
     void setNombrePoints(int, int);
 

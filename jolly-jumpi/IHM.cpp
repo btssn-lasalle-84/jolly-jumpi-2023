@@ -34,7 +34,6 @@ IHM::IHM(QWidget* parent) :
     stats->setCourse(course);
 
     bluetooth->initialiserCommunication();
-    // bluetooth->connecter(ADRESSE_ESP32_SIMULATEUR);
     instancierWidgets();
     initialiserWidgets();
     positionnerWidgets();
@@ -236,6 +235,9 @@ void IHM::gererEtatConnexion()
 {
     qDebug() << Q_FUNC_INFO;
     connecte = true;
+    ui->pages->widget(IHM::Page::Connexion)
+      ->findChild<QLabel*>("etatConnexion")
+      ->setText("Appuyez sur start");
     bluetooth->envoyerTrameConnexion();
 }
 
@@ -285,9 +287,12 @@ bool IHM::estBonIndex()
 void IHM::afficherDureePartie()
 {
     float dureeDeLaPartie = stats->getDureeDeLaPartie();
+    float record          = stats->getRecord();
     ui->pages->widget(IHM::Page::PageStatistiques)
       ->findChild<QLabel*>("duree")
-      ->setText(QString::number(dureeDeLaPartie, 'f', 2) + " secondes");
+      ->setText(
+        QString::number(dureeDeLaPartie, 'f', 2) +
+        " secondes (Meilleur score: " + QString::number(record, 'f', 2) + "s)");
     qDebug() << Q_FUNC_INFO << "dureeDeLaPartie" << dureeDeLaPartie;
 }
 
@@ -538,13 +543,12 @@ void IHM::mettreEnEvidenceSelection()
             case MenuStatistiques::QuitterStatistiques:
 
                 ui->pages->widget(IHM::Page::PageStatistiques)
-                  ->findChild<QLabel*>("a_quitter")
+                  ->findChild<QLabel*>("b_quitter")
                   ->setFont(policeStats);
-
                 break;
             case MenuStatistiques::JoueurSuivant:
                 ui->pages->widget(IHM::Page::PageStatistiques)
-                  ->findChild<QLabel*>("b_joueurSuivant")
+                  ->findChild<QLabel*>("a_joueurSuivant")
                   ->setFont(policeStats);
                 break;
             default:
@@ -567,11 +571,11 @@ void IHM::deselectionner()
       ->setFont(police);
 
     ui->pages->widget(IHM::Page::PageStatistiques)
-      ->findChild<QLabel*>("a_quitter")
+      ->findChild<QLabel*>("b_quitter")
       ->setFont(police);
 
     ui->pages->widget(IHM::Page::PageStatistiques)
-      ->findChild<QLabel*>("b_joueurSuivant")
+      ->findChild<QLabel*>("a_joueurSuivant")
       ->setFont(police);
 }
 

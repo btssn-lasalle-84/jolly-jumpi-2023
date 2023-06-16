@@ -3,9 +3,15 @@
 #include "IHM.h"
 
 Bluetooth::Bluetooth(IHM* ihm) :
-    QObject(), ihm(ihm), course(nullptr), socket(nullptr)
+    QObject(), ihm(ihm), course(nullptr), socket(nullptr), abandon(false)
 {
-    qDebug() << Q_FUNC_INFO;
+#ifdef SIMULATEUR
+    adresseESP32 = ADRESSE_ESP32_SIMULATEUR;
+    qDebug() << Q_FUNC_INFO << "SIMULATEUR";
+#else
+    adresseESP32 = ADRESSE_ESP32_JOLLY_JUMPI;
+    qDebug() << Q_FUNC_INFO << "PAS SIMULATEUR";
+#endif
 }
 
 Bluetooth::~Bluetooth()
@@ -13,9 +19,19 @@ Bluetooth::~Bluetooth()
     qDebug() << Q_FUNC_INFO;
 }
 
+bool Bluetooth::getAbandon() const
+{
+    return abandon;
+}
+
 void Bluetooth::setCourse(Course* course)
 {
     this->course = course;
+}
+
+void Bluetooth::setAbandon(bool abandon)
+{
+    this->abandon = abandon;
 }
 
 void Bluetooth::initialiserCommunication()
@@ -84,7 +100,7 @@ void Bluetooth::gererPeripherique(QBluetoothDeviceInfo peripherique)
 {
     qDebug() << Q_FUNC_INFO << "nom" << peripherique.name() << "adresse"
              << peripherique.address();
-    if(peripherique.address().toString() == ADRESSE_ESP32_SIMULATEUR)
+    if(peripherique.address().toString() == adresseESP32)
     {
         peripheriqueDistant = peripherique;
         agentDecouverteBluetooth->stop();
@@ -161,6 +177,7 @@ bool Bluetooth::traiterTrame(QString trame)
     {
         case ABANDON:
             qDebug() << Q_FUNC_INFO << "ABANDON";
+            abandon = true;
             emit abandonPartie();
             break;
         case START:
@@ -178,9 +195,9 @@ bool Bluetooth::traiterTrame(QString trame)
         case TIR:
             qDebug() << Q_FUNC_INFO << "TIR";
             // $JJ;t;{numeroTable};{positionTrou};{couleurAnneau};\r\n
-            emit pointMarque(champsTrame[NUMERO_TABLE].toInt() -1,
-                             champsTrame[NUMERO_TROU].toInt()/*,
-                             champsTrame[COULEUR_ANNEAU].toInt()*/);
+            emit pointMarque(champsTrame[NUMERO_TABLE].toInt() - 1,
+                             /*champsTrame[NUMERO_TROU].toInt(),*/
+                             champsTrame[COULEUR_ANNEAU].toInt());
             break;
         default:
             qDebug() << Q_FUNC_INFO << "trame inconnue";
