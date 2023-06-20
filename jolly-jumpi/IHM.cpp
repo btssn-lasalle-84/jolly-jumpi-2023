@@ -500,6 +500,17 @@ void IHM::changerSelection()
             optionSelectionne = (MenuStatistiques::NbOptions - 1);
         }
     }
+    if(ui->pages->currentIndex() == IHM::Page::Parametres)
+    {
+        if(optionSelectionne > (MenuParametres::NbOptionsParametres - 1))
+        {
+            optionSelectionne = 0;
+        }
+        if(optionSelectionne < 0)
+        {
+            optionSelectionne = (MenuParametres::NbOptionsParametres - 1);
+        }
+    }
     mettreEnEvidenceSelection();
 }
 
@@ -550,6 +561,37 @@ void IHM::mettreEnEvidenceSelection()
                 ui->pages->widget(IHM::Page::PageStatistiques)
                   ->findChild<QLabel*>("a_joueurSuivant")
                   ->setFont(policeStats);
+                break;
+            default:
+                break;
+        };
+    }
+
+    if(ui->pages->currentIndex() == IHM::Page::Parametres)
+    {
+        qDebug() << Q_FUNC_INFO << "currentIndex"
+                 << "Statistiques";
+        switch(optionSelectionne)
+        {
+            case MenuParametres::ChangerNombreJoueurs:
+                ui->pages->widget(IHM::Page::Parametres)
+                ->findChild<QLabel*>("nombreJoueurs")
+                ->setFont(policeSelectionne);
+                break;
+            case MenuParametres::ChangerDureePartie:
+                ui->pages->widget(IHM::Page::Parametres)
+                ->findChild<QLabel*>("dureePartie")
+                ->setFont(policeSelectionne);
+                break;
+            case MenuParametres::ChangerModeDeJeu:
+                ui->pages->widget(IHM::Page::Parametres)
+                ->findChild<QLabel*>("modeJeu")
+                ->setFont(policeSelectionne);
+                break;
+            case MenuParametres::QuitterParametres:
+                ui->pages->widget(IHM::Page::Parametres)
+                  ->findChild<QLabel*>("quitter")
+                  ->setFont(policeSelectionne);
                 break;
             default:
                 break;
