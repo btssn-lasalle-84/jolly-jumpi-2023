@@ -32,6 +32,8 @@
  */
 #define DISTANCE_MAX 11
 
+#define DISTANCE_MIN 6
+
 /**
  * @def ATTENTE_FIN_COURSE
  * @brief La durée d'attente en ms à la fin d'une course
@@ -43,6 +45,13 @@ enum Trou
     JAUNE = 1,
     BLEU  = 3,
     ROUGE = 5
+};
+
+enum ModeDeJeu
+{
+    Normal,
+    PointsAleatoire,
+    NbModes
 };
 
 class Statistiques;
@@ -59,11 +68,13 @@ class Course : public QObject
     Bluetooth*    bluetooth;
 
     int                   nbChevaux;
+    int                   dureePartie;
     int                   numeroCheval;
     QVector<unsigned int> positionChevaux;
     QTimer*               timer;
     float                 chronometre;
     bool                  course;
+    int                   modeDeJeu;
 
     void initialiserChronometre();
     bool estCourseFinie();
@@ -75,13 +86,18 @@ class Course : public QObject
     Course(IHM* ihm = 0);
     ~Course();
 
-    void                  setStatistiques(Statistiques* stats);
-    void                  setBluetooth(Bluetooth* bluetooth);
-    void                  setNbChevaux(int nbChevaux);
+    void setStatistiques(Statistiques* stats);
+    void setBluetooth(Bluetooth* bluetooth);
+    void setNbChevaux(int nbChevaux);
+    void setDureePartie(int dureePartie);
+    void setModeDeJeu(int modeDeJeu);
+
     QVector<unsigned int> getPositionChevaux() const;
     int                   getNbChevaux() const;
     int                   getNbChevauxMax() const;
+    int                   getDureePartie() const;
     int                   getDureeMax() const;
+    int                   getDureeMin() const;
     void                  initialiserCourse();
 #ifdef MODE_SIMULATION
     void simulerAvancementCheval();

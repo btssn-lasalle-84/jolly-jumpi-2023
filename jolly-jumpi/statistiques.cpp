@@ -124,7 +124,7 @@ int Statistiques::determinerJoueurSuivant()
            copiePositionChevaux[numeroJoueur])
         {
             qDebug() << Q_FUNC_INFO << "numeroJoueur" << numeroJoueur;
-            copiePositionChevaux[numeroJoueur] = DISTANCE_MAX + 1;
+            copiePositionChevaux[numeroJoueur] = course->getDureePartie() + 1;
             return numeroJoueur;
         }
     }

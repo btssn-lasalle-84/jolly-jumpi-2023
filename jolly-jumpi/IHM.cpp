@@ -73,6 +73,7 @@ void IHM::afficherPage(IHM::Page page)
  */
 void IHM::afficherPageConnexion()
 {
+    qDebug() << Q_FUNC_INFO;
     afficherPage(IHM::Page::Connexion);
 }
 
@@ -82,21 +83,31 @@ void IHM::afficherPageConnexion()
  */
 void IHM::afficherPageCourse()
 {
+    qDebug() << Q_FUNC_INFO;
     afficherPage(IHM::Page::PageCourse);
 }
 
 void IHM::afficherPageParametres()
 {
+    qDebug() << Q_FUNC_INFO;
     afficherPage(IHM::Page::Parametres);
+}
+
+void IHM::afficherPageChangementParametre()
+{
+    qDebug() << Q_FUNC_INFO;
+    afficherPage(IHM::Page::ChangementParametres);
 }
 
 void IHM::afficherPageAvantCourse()
 {
+    qDebug() << Q_FUNC_INFO;
     afficherPage(IHM::Page::AvantCourse);
 }
 
 void IHM::afficherPageStatistiques()
 {
+    qDebug() << Q_FUNC_INFO;
     afficherPage(IHM::Page::PageStatistiques);
 }
 
@@ -149,7 +160,7 @@ void IHM::initialiserWidgets()
       ->findChild<QGridLayout*>("gridLayout")
       ->setRowStretch(imageAvatarsJoueurs.size(), 1);
 
-    for(int i = 0; i <= DISTANCE_MAX; i++)
+    for(int i = 0; i <= course->getDureePartie(); i++)
     {
         ui->pages->widget(IHM::Page::PageCourse)
           ->findChild<QGridLayout*>("gridLayout")
@@ -208,7 +219,8 @@ void IHM::ouvrirPageAvantCourse()
 
 void IHM::accederParametres()
 {
-    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
+    if(ui->pages->currentIndex() == IHM::Page::AvantCourse ||
+       ui->pages->currentIndex() == IHM::Page::ChangementParametres)
     {
         afficherPageParametres();
     }
@@ -273,7 +285,7 @@ void IHM::avancerChevaux()
           ->findChild<QGridLayout*>("gridLayout")
           ->setRowStretch(imageAvatarsJoueurs.size(), 1);
 
-        if(positionChevaux[i] == DISTANCE_MAX)
+        if(positionChevaux[i] == course->getDureePartie())
             classement.push_back(i);
     }
 }
@@ -338,7 +350,7 @@ void IHM::afficherPositionFinale(int numeroJoueur)
         return;
     QVector<unsigned int> positionChevaux = course->getPositionChevaux();
     unsigned int          pourcentageCompletion =
-      (positionChevaux[numeroJoueur] * 100) / DISTANCE_MAX;
+      (positionChevaux[numeroJoueur] * 100) / course->getDureePartie();
     qDebug() << Q_FUNC_INFO << "numeroJoueur" << numeroJoueur
              << "pourcentageCompletion" << pourcentageCompletion;
     ui->pages->widget(IHM::Page::PageStatistiques)
@@ -516,27 +528,40 @@ void IHM::changerSelection()
 
     if(ui->pages->currentIndex() == IHM::Page::ChangementParametres)
     {
+        qDebug() << Q_FUNC_INFO << "currentIndex"
+                 << "ChangementParametres";
         switch(parametreSelectionne)
         {
             case ChangerParametres::NombreJoueurs:
-                if(optionSelectionne >= course->getNbChevauxMax() ||
-                   optionSelectionne <= 1)
+                if(optionSelectionne > course->getNbChevauxMax())
                 {
-                    return;
+                    optionSelectionne = 1;
+                }
+                if(optionSelectionne < 1)
+                {
+                    optionSelectionne = course->getNbChevauxMax();
                 }
                 break;
+
             case ChangerParametres::Distance:
-                if(optionSelectionne >= course->getDureeMax() ||
-                   optionSelectionne <= 6)
+                if(optionSelectionne > course->getDureeMax())
                 {
-                    return;
+                    optionSelectionne = course->getDureeMin();
+                }
+                if(optionSelectionne < course->getDureeMin())
+                {
+                    optionSelectionne = course->getDureeMax();
                 }
                 break;
+
             case ChangerParametres::ModeDeJeu:
-                if(optionSelectionne >= ModeDeJeu::NbModes ||
-                   optionSelectionne < 0)
+                if(optionSelectionne >= ModeDeJeu::NbModes)
                 {
                     optionSelectionne = 0;
+                }
+                if(optionSelectionne < 0)
+                {
+                    optionSelectionne = (ModeDeJeu::NbModes - 1);
                 }
                 break;
         }
@@ -627,35 +652,53 @@ void IHM::mettreEnEvidenceSelection()
                 break;
         };
     }
+
     if(ui->pages->currentIndex() == IHM::Page::ChangementParametres)
     {
-        qDebug() << Q_FUNC_INFO << "currentIndex"
-                 << "ChangerParametres";
-        switch(optionSelectionne)
+        if(parametreSelectionne == ChangerParametres::Distance)
         {
-            case MenuParametres::ChangerNombreJoueurs:
-                ui->pages->widget(IHM::Page::Parametres)
-                  ->findChild<QLabel*>("nombreJoueurs")
-                  ->setFont(policeSelectionne);
-                break;
-            case MenuParametres::ChangerDureePartie:
-                ui->pages->widget(IHM::Page::Parametres)
-                  ->findChild<QLabel*>("dureePartie")
-                  ->setFont(policeSelectionne);
-                break;
-            case MenuParametres::ChangerModeDeJeu:
-                ui->pages->widget(IHM::Page::Parametres)
-                  ->findChild<QLabel*>("modeJeu")
-                  ->setFont(policeSelectionne);
-                break;
-            case MenuParametres::QuitterParametres:
-                ui->pages->widget(IHM::Page::Parametres)
-                  ->findChild<QLabel*>("quitter")
-                  ->setFont(policeSelectionne);
-                break;
-            default:
-                break;
-        };
+            ui->pages->widget(IHM::Page::ChangementParametres)
+              ->findChild<QLabel*>("selection")
+              ->setText(QString::number(optionSelectionne) + " points");
+            course->setDureePartie(optionSelectionne);
+            qDebug() << Q_FUNC_INFO << "dureePartie"
+                     << course->getDureePartie();
+        }
+        if(parametreSelectionne == ChangerParametres::NombreJoueurs)
+        {
+            if(optionSelectionne != 1)
+            {
+                ui->pages->widget(IHM::Page::ChangementParametres)
+                  ->findChild<QLabel*>("selection")
+                  ->setText(QString::number(optionSelectionne) + " joueurs");
+            }
+            else
+            {
+                ui->pages->widget(IHM::Page::ChangementParametres)
+                  ->findChild<QLabel*>("selection")
+                  ->setText(QString::number(optionSelectionne) + " joueur");
+            }
+
+            course->setNbChevaux(optionSelectionne);
+            qDebug() << Q_FUNC_INFO << "nbChevaux" << course->getNbChevaux();
+        }
+        if(parametreSelectionne == ChangerParametres::ModeDeJeu)
+        {
+            if(optionSelectionne == 0)
+            {
+                ui->pages->widget(IHM::Page::ChangementParametres)
+                  ->findChild<QLabel*>("selection")
+                  ->setText("Classique");
+            }
+            if(optionSelectionne == ModeDeJeu::PointsAleatoire)
+            {
+                ui->pages->widget(IHM::Page::ChangementParametres)
+                  ->findChild<QLabel*>("selection")
+                  ->setText("Points aléatoire");
+            }
+
+            course->setModeDeJeu(optionSelectionne);
+        }
     }
 }
 
@@ -678,6 +721,22 @@ void IHM::deselectionner()
 
     ui->pages->widget(IHM::Page::PageStatistiques)
       ->findChild<QLabel*>("a_joueurSuivant")
+      ->setFont(police);
+
+    ui->pages->widget(IHM::Page::Parametres)
+      ->findChild<QLabel*>("dureePartie")
+      ->setFont(police);
+
+    ui->pages->widget(IHM::Page::Parametres)
+      ->findChild<QLabel*>("nombreJoueurs")
+      ->setFont(police);
+
+    ui->pages->widget(IHM::Page::Parametres)
+      ->findChild<QLabel*>("modeJeu")
+      ->setFont(police);
+
+    ui->pages->widget(IHM::Page::Parametres)
+      ->findChild<QLabel*>("quitter")
       ->setFont(police);
 }
 
@@ -725,8 +784,17 @@ void IHM::validerSelection()
                 break;
         };
     }
+    if(ui->pages->currentIndex() == IHM::Page::ChangementParametres)
+    {
+        qDebug() << Q_FUNC_INFO << "nbChevaux" << course->getNbChevaux()
+                 << "dureePartie" << course->getDureePartie();
+        accederParametres();
+    }
     if(ui->pages->currentIndex() == IHM::Page::Parametres)
     {
+        qDebug() << Q_FUNC_INFO << "currentIndex"
+                 << "Parametres";
+        parametreSelectionne = optionSelectionne;
         switch(optionSelectionne)
         {
             case MenuParametres::ChangerNombreJoueurs:
@@ -750,30 +818,44 @@ void IHM::validerSelection()
 
 void IHM::changerNombreJoueurs()
 {
+    afficherPageChangementParametre();
     optionSelectionne = course->getNbChevaux();
     qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
     ui->pages->widget(IHM::Page::ChangementParametres)
-      ->findChild<QLabel*>("nombreJoueurs")
-      ->setText(QString::number(optionSelectionne));
+      ->findChild<QLabel*>("parametre")
+      ->setText("Nombre de joueurs");
+    course->setNbChevaux(optionSelectionne);
+    ui->pages->widget(IHM::Page::ChangementParametres)
+      ->findChild<QLabel*>("selection")
+      ->setText(QString::number(optionSelectionne) + " joueurs");
     course->setNbChevaux(optionSelectionne);
 }
 
 void IHM::changerDureePartie()
 {
-    optionSelectionne = course->getNbChevaux();
-    qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
+    afficherPageChangementParametre();
+    optionSelectionne = course->getDureeMax();
+
     ui->pages->widget(IHM::Page::ChangementParametres)
-      ->findChild<QLabel*>("nombreJoueurs")
-      ->setText(QString::number(optionSelectionne));
-    course->setNbChevaux(optionSelectionne);
+      ->findChild<QLabel*>("parametre")
+      ->setText("Duree de la partie");
+    course->setDureePartie(optionSelectionne);
+
+    ui->pages->widget(IHM::Page::ChangementParametres)
+      ->findChild<QLabel*>("selection")
+      ->setText(QString::number(optionSelectionne) + " points");
 }
 
 void IHM::changerModeDeJeu()
 {
-    optionSelectionne = course->getNbChevaux();
-    qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
+    afficherPageChangementParametre();
+
     ui->pages->widget(IHM::Page::ChangementParametres)
-      ->findChild<QLabel*>("nombreJoueurs")
-      ->setText(QString::number(optionSelectionne));
-    course->setNbChevaux(optionSelectionne);
+      ->findChild<QLabel*>("parametre")
+      ->setText("Mode de jeu");
+    course->setModeDeJeu(optionSelectionne);
+
+    ui->pages->widget(IHM::Page::ChangementParametres)
+      ->findChild<QLabel*>("selection")
+      ->setText("Classique");
 }

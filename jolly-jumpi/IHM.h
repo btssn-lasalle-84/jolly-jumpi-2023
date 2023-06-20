@@ -86,13 +86,6 @@ class IHM : public QWidget
         ModeDeJeu
     };
 
-    enum ModeDeJeu
-    {
-        Normal,
-        PointsAleatoire,
-        NbModes
-    };
-
   private:
     Course*       course;
     Statistiques* stats;
@@ -132,6 +125,7 @@ class IHM : public QWidget
     void afficherPageAvantCourse();
     void afficherPageCourse();
     void afficherPageParametres();
+    void afficherPageChangementParametre();
     void afficherPageStatistiques();
     void afficherResultatJoueurSuivant();
     void demarrerCourse();
