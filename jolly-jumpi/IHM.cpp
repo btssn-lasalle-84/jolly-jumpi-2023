@@ -20,7 +20,8 @@
 
 IHM::IHM(QWidget* parent) :
     QWidget(parent), course(new Course(this)), stats(new Statistiques(this)),
-    bluetooth(new Bluetooth(this)), connecte(false), ui(new Ui::IHM),
+    bluetooth(new Bluetooth(this)), connecte(false), estMenu(true),
+    parametreSelectionne(0), ui(new Ui::IHM),
     screen(QGuiApplication::primaryScreen()),
     screenGeometry(screen->availableGeometry().size()), optionSelectionne(0),
     police("Ubuntu Regular", 40, QFont::AnyStyle),
@@ -500,6 +501,7 @@ void IHM::changerSelection()
             optionSelectionne = (MenuStatistiques::NbOptions - 1);
         }
     }
+
     if(ui->pages->currentIndex() == IHM::Page::Parametres)
     {
         if(optionSelectionne > (MenuParametres::NbOptionsParametres - 1))
@@ -509,6 +511,34 @@ void IHM::changerSelection()
         if(optionSelectionne < 0)
         {
             optionSelectionne = (MenuParametres::NbOptionsParametres - 1);
+        }
+    }
+
+    if(ui->pages->currentIndex() == IHM::Page::ChangementParametres)
+    {
+        switch(parametreSelectionne)
+        {
+            case ChangerParametres::NombreJoueurs:
+                if(optionSelectionne >= course->getNbChevauxMax() ||
+                   optionSelectionne <= 1)
+                {
+                    return;
+                }
+                break;
+            case ChangerParametres::Distance:
+                if(optionSelectionne >= course->getDureeMax() ||
+                   optionSelectionne <= 6)
+                {
+                    return;
+                }
+                break;
+            case ChangerParametres::ModeDeJeu:
+                if(optionSelectionne >= ModeDeJeu::NbModes ||
+                   optionSelectionne < 0)
+                {
+                    optionSelectionne = 0;
+                }
+                break;
         }
     }
     mettreEnEvidenceSelection();
@@ -570,23 +600,53 @@ void IHM::mettreEnEvidenceSelection()
     if(ui->pages->currentIndex() == IHM::Page::Parametres)
     {
         qDebug() << Q_FUNC_INFO << "currentIndex"
-                 << "Statistiques";
+                 << "Parametres";
         switch(optionSelectionne)
         {
             case MenuParametres::ChangerNombreJoueurs:
                 ui->pages->widget(IHM::Page::Parametres)
-                ->findChild<QLabel*>("nombreJoueurs")
-                ->setFont(policeSelectionne);
+                  ->findChild<QLabel*>("nombreJoueurs")
+                  ->setFont(policeSelectionne);
                 break;
             case MenuParametres::ChangerDureePartie:
                 ui->pages->widget(IHM::Page::Parametres)
-                ->findChild<QLabel*>("dureePartie")
-                ->setFont(policeSelectionne);
+                  ->findChild<QLabel*>("dureePartie")
+                  ->setFont(policeSelectionne);
                 break;
             case MenuParametres::ChangerModeDeJeu:
                 ui->pages->widget(IHM::Page::Parametres)
-                ->findChild<QLabel*>("modeJeu")
-                ->setFont(policeSelectionne);
+                  ->findChild<QLabel*>("modeJeu")
+                  ->setFont(policeSelectionne);
+                break;
+            case MenuParametres::QuitterParametres:
+                ui->pages->widget(IHM::Page::Parametres)
+                  ->findChild<QLabel*>("quitter")
+                  ->setFont(policeSelectionne);
+                break;
+            default:
+                break;
+        };
+    }
+    if(ui->pages->currentIndex() == IHM::Page::ChangementParametres)
+    {
+        qDebug() << Q_FUNC_INFO << "currentIndex"
+                 << "ChangerParametres";
+        switch(optionSelectionne)
+        {
+            case MenuParametres::ChangerNombreJoueurs:
+                ui->pages->widget(IHM::Page::Parametres)
+                  ->findChild<QLabel*>("nombreJoueurs")
+                  ->setFont(policeSelectionne);
+                break;
+            case MenuParametres::ChangerDureePartie:
+                ui->pages->widget(IHM::Page::Parametres)
+                  ->findChild<QLabel*>("dureePartie")
+                  ->setFont(policeSelectionne);
+                break;
+            case MenuParametres::ChangerModeDeJeu:
+                ui->pages->widget(IHM::Page::Parametres)
+                  ->findChild<QLabel*>("modeJeu")
+                  ->setFont(policeSelectionne);
                 break;
             case MenuParametres::QuitterParametres:
                 ui->pages->widget(IHM::Page::Parametres)
@@ -624,6 +684,11 @@ void IHM::deselectionner()
 void IHM::validerSelection()
 {
     qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
+    if(!estMenu)
+    {
+        estMenu = true;
+        afficherPageParametres();
+    }
     if(ui->pages->currentIndex() == IHM::Page::Connexion)
     {
         ouvrirPageAvantCourse();
@@ -660,4 +725,55 @@ void IHM::validerSelection()
                 break;
         };
     }
+    if(ui->pages->currentIndex() == IHM::Page::Parametres)
+    {
+        switch(optionSelectionne)
+        {
+            case MenuParametres::ChangerNombreJoueurs:
+                estMenu = false;
+                changerNombreJoueurs();
+                break;
+            case MenuParametres::ChangerDureePartie:
+                changerDureePartie();
+                break;
+            case MenuParametres::ChangerModeDeJeu:
+                changerModeDeJeu();
+                break;
+            case MenuParametres::QuitterParametres:
+                afficherPageAvantCourse();
+                break;
+            default:
+                break;
+        };
+    }
+}
+
+void IHM::changerNombreJoueurs()
+{
+    optionSelectionne = course->getNbChevaux();
+    qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
+    ui->pages->widget(IHM::Page::ChangementParametres)
+      ->findChild<QLabel*>("nombreJoueurs")
+      ->setText(QString::number(optionSelectionne));
+    course->setNbChevaux(optionSelectionne);
+}
+
+void IHM::changerDureePartie()
+{
+    optionSelectionne = course->getNbChevaux();
+    qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
+    ui->pages->widget(IHM::Page::ChangementParametres)
+      ->findChild<QLabel*>("nombreJoueurs")
+      ->setText(QString::number(optionSelectionne));
+    course->setNbChevaux(optionSelectionne);
+}
+
+void IHM::changerModeDeJeu()
+{
+    optionSelectionne = course->getNbChevaux();
+    qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
+    ui->pages->widget(IHM::Page::ChangementParametres)
+      ->findChild<QLabel*>("nombreJoueurs")
+      ->setText(QString::number(optionSelectionne));
+    course->setNbChevaux(optionSelectionne);
 }

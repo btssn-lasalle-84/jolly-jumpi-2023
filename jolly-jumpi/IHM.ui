@@ -16,11 +16,11 @@
   <property name="styleSheet">
    <string notr="true">background-color: rgb(0, 117, 0);</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_10">
+  <layout class="QVBoxLayout" name="verticalLayout_9">
    <item>
     <widget class="QStackedWidget" name="pages">
      <property name="currentIndex">
-      <number>3</number>
+      <number>4</number>
      </property>
      <widget class="QWidget" name="pageConnexion">
       <property name="styleSheet">
@@ -102,6 +102,7 @@
              <property name="font">
               <font>
                <pointsize>40</pointsize>
+               <weight>50</weight>
                <bold>false</bold>
               </font>
              </property>
@@ -254,6 +255,14 @@ background-color: rgb(78, 140, 6);</string>
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QWidget" name="pageChangementParametre">
+      <property name="maximumSize">
+       <size>
+        <width>1902</width>
+        <height>1699</height>
+       </size>
+      </property>
      </widget>
      <widget class="QWidget" name="pageStatistiques">
       <layout class="QVBoxLayout" name="verticalLayout_4">

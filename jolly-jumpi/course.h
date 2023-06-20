@@ -30,7 +30,7 @@
  * @def DISTANCE_MAX
  * @brief La distance max en nombre de cases
  */
-#define DISTANCE_MAX 10
+#define DISTANCE_MAX 11
 
 /**
  * @def ATTENTE_FIN_COURSE
@@ -77,8 +77,11 @@ class Course : public QObject
 
     void                  setStatistiques(Statistiques* stats);
     void                  setBluetooth(Bluetooth* bluetooth);
+    void                  setNbChevaux(int nbChevaux);
     QVector<unsigned int> getPositionChevaux() const;
     int                   getNbChevaux() const;
+    int                   getNbChevauxMax() const;
+    int                   getDureeMax() const;
     void                  initialiserCourse();
 #ifdef MODE_SIMULATION
     void simulerAvancementCheval();

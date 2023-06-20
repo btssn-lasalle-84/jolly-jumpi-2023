@@ -26,6 +26,11 @@ void Course::setBluetooth(Bluetooth* bluetooth)
     this->bluetooth = bluetooth;
 }
 
+void Course::setNbChevaux(int nbChevaux)
+{
+    this->nbChevaux = nbChevaux;
+}
+
 QVector<unsigned int> Course::getPositionChevaux() const
 {
     return positionChevaux;
@@ -34,6 +39,16 @@ QVector<unsigned int> Course::getPositionChevaux() const
 int Course::getNbChevaux() const
 {
     return nbChevaux;
+}
+
+int Course::getNbChevauxMax() const
+{
+    return NB_CHEVAUX_MAX;
+}
+
+int Course::getDureeMax() const
+{
+    return DISTANCE_MAX;
 }
 
 void Course::initialiserChronometre()
