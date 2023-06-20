@@ -1,4 +1,8 @@
 <map id="Course" name="Course">
-<area shape="rect" id="node1" title=" " alt="" coords="5,131,108,223"/>
-<area shape="rect" id="node2" href="$class_q_object.html" title=" " alt="" coords="19,5,94,83"/>
+<area shape="rect" id="node1" title=" " alt="" coords="307,132,530,488"/>
+<area shape="rect" id="node3" href="$class_bluetooth.html" title=" " alt="" coords="43,551,267,980"/>
+<area shape="rect" id="node4" href="$class_i_h_m.html" title="Affiche les pages d&#39;écran pour l&#39;application." alt="" coords="255,1043,495,1721"/>
+<area shape="rect" id="node6" href="$class_statistiques.html" title=" " alt="" coords="327,1784,567,2125"/>
+<area shape="rect" id="node2" href="$class_q_object.html" title=" " alt="" coords="117,5,192,83"/>
+<area shape="rect" id="node5" href="$class_q_widget.html" title=" " alt="" coords="291,727,370,804"/>
 </map>

@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">jolly-jumpi
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2023</div>
   </td>
@@ -85,7 +85,10 @@ $(document).ready(function(){initNavTree('class_course.html',''); initResizable(
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Fonctions membres publiques</a>  </div>
+<a href="#pub-slots">Connecteurs publics</a> &#124;
+<a href="#pub-methods">Fonctions membres publiques</a> &#124;
+<a href="#pri-methods">Fonctions membres privées</a> &#124;
+<a href="#pri-attribs">Attributs privés</a>  </div>
   <div class="headertitle">
 <div class="title">Référence de la classe Course</div>  </div>
 </div><!--header-->
@@ -97,24 +100,81 @@ Graphe de collaboration de Course:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_course__coll__graph.png" border="0" usemap="#a_course_coll__map" alt="Collaboration graph"/></div>
 <map name="a_course_coll__map" id="a_course_coll__map">
-<area shape="rect" title=" " alt="" coords="5,131,108,223"/>
-<area shape="rect" href="class_q_object.html" title=" " alt="" coords="19,5,94,83"/>
+<area shape="rect" title=" " alt="" coords="307,132,530,488"/>
+<area shape="rect" href="class_bluetooth.html" title=" " alt="" coords="43,551,267,980"/>
+<area shape="rect" href="class_i_h_m.html" title="Affiche les pages d&#39;écran pour l&#39;application." alt="" coords="255,1043,495,1721"/>
+<area shape="rect" href="class_statistiques.html" title=" " alt="" coords="327,1784,567,2125"/>
+<area shape="rect" href="class_q_object.html" title=" " alt="" coords="117,5,192,83"/>
+<area shape="rect" href="class_q_widget.html" title=" " alt="" coords="291,727,370,804"/>
 </map>
 </div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-slots"></a>
+Connecteurs publics</h2></td></tr>
+<tr class="memitem:af1e956e80e98b5b04c53af9b9f3b7ee9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#af1e956e80e98b5b04c53af9b9f3b7ee9">actualiserPositionChevaux</a> (int <a class="el" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a>, int deplacement)</td></tr>
+<tr class="separator:af1e956e80e98b5b04c53af9b9f3b7ee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30f8977c988e525ada896052aa7a9867"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a30f8977c988e525ada896052aa7a9867">avancerChevaux</a> ()</td></tr>
+<tr class="separator:a30f8977c988e525ada896052aa7a9867"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a589447dd63dca89395119ffd4e4a8c8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a589447dd63dca89395119ffd4e4a8c8c">chronometrer</a> ()</td></tr>
+<tr class="separator:a589447dd63dca89395119ffd4e4a8c8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab58e3cbe6ac336d51d23d5de82fa3904"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#ab58e3cbe6ac336d51d23d5de82fa3904">terminerCourse</a> ()</td></tr>
+<tr class="separator:ab58e3cbe6ac336d51d23d5de82fa3904"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Fonctions membres publiques</h2></td></tr>
-<tr class="memitem:a6b959ccf15d9ceed9e9c14a701561982"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a6b959ccf15d9ceed9e9c14a701561982">Course</a> ()</td></tr>
-<tr class="separator:a6b959ccf15d9ceed9e9c14a701561982"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a517bda3e1dc2a3d646257f091651e089"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a517bda3e1dc2a3d646257f091651e089">Course</a> (<a class="el" href="class_i_h_m.html">IHM</a> *<a class="el" href="class_course.html#aea1ce3a5760640f20b97e04bed8630ac">ihm</a>=0)</td></tr>
+<tr class="separator:a517bda3e1dc2a3d646257f091651e089"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27f453aefd01ce7ec90913b1c2dc408c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a27f453aefd01ce7ec90913b1c2dc408c">getNbChevaux</a> () const</td></tr>
+<tr class="separator:a27f453aefd01ce7ec90913b1c2dc408c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a102da586216a1aa638523572ae454f74"><td class="memItemLeft" align="right" valign="top">QVector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a102da586216a1aa638523572ae454f74">getPositionChevaux</a> () const</td></tr>
+<tr class="separator:a102da586216a1aa638523572ae454f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f2596662bc15b78ea31d7d6182ebd2f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a2f2596662bc15b78ea31d7d6182ebd2f">initialiserCourse</a> ()</td></tr>
+<tr class="separator:a2f2596662bc15b78ea31d7d6182ebd2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82f2e2184765f088c0919a2e0902af05"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a82f2e2184765f088c0919a2e0902af05">setBluetooth</a> (<a class="el" href="class_bluetooth.html">Bluetooth</a> *<a class="el" href="class_course.html#a5f6c10748d101246836bcf6d56534ceb">bluetooth</a>)</td></tr>
+<tr class="separator:a82f2e2184765f088c0919a2e0902af05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac03db005dfdf72d706eef7e8f35fa383"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#ac03db005dfdf72d706eef7e8f35fa383">setStatistiques</a> (<a class="el" href="class_statistiques.html">Statistiques</a> *<a class="el" href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">stats</a>)</td></tr>
+<tr class="separator:ac03db005dfdf72d706eef7e8f35fa383"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7010560e86e3fb6b541e737c406b9ebc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a7010560e86e3fb6b541e737c406b9ebc">simulerAvancementCheval</a> ()</td></tr>
+<tr class="separator:a7010560e86e3fb6b541e737c406b9ebc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9038f2e129526920037dda9e76d69d0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#aa9038f2e129526920037dda9e76d69d0">~Course</a> ()</td></tr>
 <tr class="separator:aa9038f2e129526920037dda9e76d69d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Fonctions membres privées</h2></td></tr>
+<tr class="memitem:af5d9847ed138f4835e5d6d0520d017e4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#af5d9847ed138f4835e5d6d0520d017e4">estCourseFinie</a> ()</td></tr>
+<tr class="separator:af5d9847ed138f4835e5d6d0520d017e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a6e19e601ccdd04582b0259eb55c773"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a6a6e19e601ccdd04582b0259eb55c773">initialiserChronometre</a> ()</td></tr>
+<tr class="separator:a6a6e19e601ccdd04582b0259eb55c773"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebd4a4a79866ac02a6b504452a4d4feb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#aebd4a4a79866ac02a6b504452a4d4feb">randInt</a> (int min, int max)</td></tr>
+<tr class="separator:aebd4a4a79866ac02a6b504452a4d4feb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Attributs privés</h2></td></tr>
+<tr class="memitem:a5f6c10748d101246836bcf6d56534ceb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_bluetooth.html">Bluetooth</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a5f6c10748d101246836bcf6d56534ceb">bluetooth</a></td></tr>
+<tr class="separator:a5f6c10748d101246836bcf6d56534ceb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a487a946d71e4afe22d2e7022f1e5475b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a487a946d71e4afe22d2e7022f1e5475b">chronometre</a></td></tr>
+<tr class="separator:a487a946d71e4afe22d2e7022f1e5475b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f33c08a736f653fcc22e28417f28a9d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a3f33c08a736f653fcc22e28417f28a9d">course</a></td></tr>
+<tr class="separator:a3f33c08a736f653fcc22e28417f28a9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea1ce3a5760640f20b97e04bed8630ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_h_m.html">IHM</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#aea1ce3a5760640f20b97e04bed8630ac">ihm</a></td></tr>
+<tr class="separator:aea1ce3a5760640f20b97e04bed8630ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27d3a41929ac77bd2278678d4e3a5b38"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a27d3a41929ac77bd2278678d4e3a5b38">nbChevaux</a></td></tr>
+<tr class="separator:a27d3a41929ac77bd2278678d4e3a5b38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2d56570f18c812534e9051580c18278"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a></td></tr>
+<tr class="separator:ad2d56570f18c812534e9051580c18278"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca8f04577066112ef9861a88acf40ccd"><td class="memItemLeft" align="right" valign="top">QVector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#aca8f04577066112ef9861a88acf40ccd">positionChevaux</a></td></tr>
+<tr class="separator:aca8f04577066112ef9861a88acf40ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a5e7e71bd033fa00dd1f126be741009"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_statistiques.html">Statistiques</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">stats</a></td></tr>
+<tr class="separator:a9a5e7e71bd033fa00dd1f126be741009"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8be66f2125de6172abf494b9b4fe9a17"><td class="memItemLeft" align="right" valign="top">QTimer *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html#a8be66f2125de6172abf494b9b4fe9a17">timer</a></td></tr>
+<tr class="separator:a8be66f2125de6172abf494b9b4fe9a17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
 <div class="textblock">
-<p class="definition">Définition à la ligne <a class="el" href="course_8h_source.html#l00009">9</a> du fichier <a class="el" href="course_8h_source.html">course.h</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="course_8h_source.html#l00052">52</a> du fichier <a class="el" href="course_8h_source.html">course.h</a>.</p>
 </div><h2 class="groupheader">Documentation des constructeurs et destructeur</h2>
-<a id="a6b959ccf15d9ceed9e9c14a701561982"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b959ccf15d9ceed9e9c14a701561982">&#9670;&nbsp;</a></span>Course()</h2>
+<a id="a517bda3e1dc2a3d646257f091651e089"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a517bda3e1dc2a3d646257f091651e089">&#9670;&nbsp;</a></span>Course()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -122,15 +182,36 @@ Fonctions membres publiques</h2></td></tr>
         <tr>
           <td class="memname">Course::Course </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="class_i_h_m.html">IHM</a> *&#160;</td>
+          <td class="paramname"><em>ihm</em> = <code>0</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="course_8cpp_source.html#l00003">3</a> du fichier <a class="el" href="course_8cpp_source.html">course.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;{}</div>
+<p class="definition">Définition à la ligne <a class="el" href="course_8cpp_source.html#l00005">5</a> du fichier <a class="el" href="course_8cpp_source.html">course.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;                       :</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    <a class="code" href="class_q_object.html">QObject</a>(<a class="code" href="class_course.html#aea1ce3a5760640f20b97e04bed8630ac">ihm</a>), <a class="code" href="class_course.html#aea1ce3a5760640f20b97e04bed8630ac">ihm</a>(<a class="code" href="class_course.html#aea1ce3a5760640f20b97e04bed8630ac">ihm</a>), <a class="code" href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">stats</a>(<span class="keyword">nullptr</span>), <a class="code" href="class_course.html#a5f6c10748d101246836bcf6d56534ceb">bluetooth</a>(<span class="keyword">nullptr</span>),</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <a class="code" href="class_course.html#a27d3a41929ac77bd2278678d4e3a5b38">nbChevaux</a>(<a class="code" href="course_8h.html#a71a7ee24a205ebbc945f40ac9b1abbb1">NB_CHEVAUX_MAX</a>), <a class="code" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a>(0), <a class="code" href="class_course.html#aca8f04577066112ef9861a88acf40ccd">positionChevaux</a>(<a class="code" href="class_course.html#a27d3a41929ac77bd2278678d4e3a5b38">nbChevaux</a>, 0),</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <a class="code" href="class_course.html#a487a946d71e4afe22d2e7022f1e5475b">chronometre</a>(0.0), <a class="code" href="class_course.html#a3f33c08a736f653fcc22e28417f28a9d">course</a>(<span class="keyword">false</span>)</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <a class="code" href="class_course.html#a6a6e19e601ccdd04582b0259eb55c773">initialiserChronometre</a>();</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
+<div class="ttc" id="aclass_course_html_a27d3a41929ac77bd2278678d4e3a5b38"><div class="ttname"><a href="class_course.html#a27d3a41929ac77bd2278678d4e3a5b38">Course::nbChevaux</a></div><div class="ttdeci">int nbChevaux</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00061">course.h:61</a></div></div>
+<div class="ttc" id="aclass_course_html_a3f33c08a736f653fcc22e28417f28a9d"><div class="ttname"><a href="class_course.html#a3f33c08a736f653fcc22e28417f28a9d">Course::course</a></div><div class="ttdeci">bool course</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00066">course.h:66</a></div></div>
+<div class="ttc" id="aclass_course_html_a487a946d71e4afe22d2e7022f1e5475b"><div class="ttname"><a href="class_course.html#a487a946d71e4afe22d2e7022f1e5475b">Course::chronometre</a></div><div class="ttdeci">float chronometre</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00065">course.h:65</a></div></div>
+<div class="ttc" id="aclass_course_html_a5f6c10748d101246836bcf6d56534ceb"><div class="ttname"><a href="class_course.html#a5f6c10748d101246836bcf6d56534ceb">Course::bluetooth</a></div><div class="ttdeci">Bluetooth * bluetooth</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00059">course.h:59</a></div></div>
+<div class="ttc" id="aclass_course_html_a6a6e19e601ccdd04582b0259eb55c773"><div class="ttname"><a href="class_course.html#a6a6e19e601ccdd04582b0259eb55c773">Course::initialiserChronometre</a></div><div class="ttdeci">void initialiserChronometre()</div><div class="ttdef"><b>Definition:</b> <a href="course_8cpp_source.html#l00039">course.cpp:39</a></div></div>
+<div class="ttc" id="aclass_course_html_a9a5e7e71bd033fa00dd1f126be741009"><div class="ttname"><a href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">Course::stats</a></div><div class="ttdeci">Statistiques * stats</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00058">course.h:58</a></div></div>
+<div class="ttc" id="aclass_course_html_aca8f04577066112ef9861a88acf40ccd"><div class="ttname"><a href="class_course.html#aca8f04577066112ef9861a88acf40ccd">Course::positionChevaux</a></div><div class="ttdeci">QVector&lt; unsigned int &gt; positionChevaux</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00063">course.h:63</a></div></div>
+<div class="ttc" id="aclass_course_html_ad2d56570f18c812534e9051580c18278"><div class="ttname"><a href="class_course.html#ad2d56570f18c812534e9051580c18278">Course::numeroCheval</a></div><div class="ttdeci">int numeroCheval</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00062">course.h:62</a></div></div>
+<div class="ttc" id="aclass_course_html_aea1ce3a5760640f20b97e04bed8630ac"><div class="ttname"><a href="class_course.html#aea1ce3a5760640f20b97e04bed8630ac">Course::ihm</a></div><div class="ttdeci">IHM * ihm</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00057">course.h:57</a></div></div>
+<div class="ttc" id="aclass_q_object_html"><div class="ttname"><a href="class_q_object.html">QObject</a></div></div>
+<div class="ttc" id="acourse_8h_html_a71a7ee24a205ebbc945f40ac9b1abbb1"><div class="ttname"><a href="course_8h.html#a71a7ee24a205ebbc945f40ac9b1abbb1">NB_CHEVAUX_MAX</a></div><div class="ttdeci">#define NB_CHEVAUX_MAX</div><div class="ttdoc">Le nombre de chevaux maximum pour une course.</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00020">course.h:20</a></div></div>
 </div><!-- fragment -->
+<p class="reference">Références <a class="el" href="course_8cpp_source.html#l00039">initialiserChronometre()</a>.</p>
+
 </div>
 </div>
 <a id="aa9038f2e129526920037dda9e76d69d0"></a>
@@ -148,9 +229,802 @@ Fonctions membres publiques</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="course_8cpp_source.html#l00005">5</a> du fichier <a class="el" href="course_8cpp_source.html">course.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{}</div>
+<p class="definition">Définition à la ligne <a class="el" href="course_8cpp_source.html#l00014">14</a> du fichier <a class="el" href="course_8cpp_source.html">course.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
 </div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Documentation des fonctions membres</h2>
+<a id="af1e956e80e98b5b04c53af9b9f3b7ee9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1e956e80e98b5b04c53af9b9f3b7ee9">&#9670;&nbsp;</a></span>actualiserPositionChevaux</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Course::actualiserPositionChevaux </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>numeroCheval</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>deplacement</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8cpp_source.html#l00119">119</a> du fichier <a class="el" href="course_8cpp_source.html">course.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;{</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">if</span>(!<a class="code" href="class_course.html#a3f33c08a736f653fcc22e28417f28a9d">course</a>)</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keyword">enum</span> <a class="code" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1">Trou</a></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <a class="code" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1aeb840a0760d5c5122e980d507891c1a1">JAUNE</a> = 1,</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <a class="code" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1a1b592b20aeb91b073f8f249231622230">BLEU</a>  = 3,</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <a class="code" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1a92b33cebaccf73541ab06eca48a31e42">ROUGE</a> = 5</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    };</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">switch</span>(deplacement)</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="keywordflow">case</span> 0:</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            deplacement = <a class="code" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1aeb840a0760d5c5122e980d507891c1a1">Trou::JAUNE</a>;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="keywordflow">case</span> 1:</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            deplacement = <a class="code" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1a1b592b20aeb91b073f8f249231622230">Trou::BLEU</a>;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keywordflow">case</span> 2:</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            deplacement = <a class="code" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1a92b33cebaccf73541ab06eca48a31e42">Trou::ROUGE</a>;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    }</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <a class="code" href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">stats</a>-&gt;<a class="code" href="class_statistiques.html#a405f08ec5bf66bbeee60ec493c6114c5">setNombreTirs</a>(<a class="code" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a>);</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <a class="code" href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">stats</a>-&gt;<a class="code" href="class_statistiques.html#a6eda6e5f8b3ec24162da3900821da129">setNombrePoints</a>(<a class="code" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a>, deplacement);</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    QVector&lt;unsigned int&gt; nombreTirs   = <a class="code" href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">stats</a>-&gt;<a class="code" href="class_statistiques.html#a5c74804dc040a57653178f29b586ab58">getNombreTirs</a>();</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    QVector&lt;unsigned int&gt; nombrePoints = <a class="code" href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">stats</a>-&gt;<a class="code" href="class_statistiques.html#a5c74804dc040a57653178f29b586ab58">getNombreTirs</a>();</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    nombrePoints[<a class="code" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a>] += deplacement;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordflow">if</span>(nombrePoints[<a class="code" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a>] &gt;= <a class="code" href="course_8h.html#a03050ffe4793411263f3e00c3c9f490a">DISTANCE_MAX</a>)</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        nombrePoints[<a class="code" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a>] = <a class="code" href="course_8h.html#a03050ffe4793411263f3e00c3c9f490a">DISTANCE_MAX</a>;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;Le cheval numéro&quot;</span> &lt;&lt; <a class="code" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a> + 1</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;, qui était positionné à la case&quot;</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;             &lt;&lt; <a class="code" href="class_course.html#aca8f04577066112ef9861a88acf40ccd">positionChevaux</a>[<a class="code" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a>] &lt;&lt; <span class="stringliteral">&quot;a avancé de&quot;</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;             &lt;&lt; int(deplacement);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;chronometre&quot;</span> &lt;&lt; <a class="code" href="class_course.html#a487a946d71e4afe22d2e7022f1e5475b">chronometre</a>;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;nombreTirs&quot;</span> &lt;&lt; nombreTirs[<a class="code" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a>]</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;nombrePoints&quot;</span> &lt;&lt; nombrePoints[<a class="code" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a>];</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <a class="code" href="class_course.html#aca8f04577066112ef9861a88acf40ccd">positionChevaux</a>[<a class="code" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a>] =</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;      <a class="code" href="class_course.html#aca8f04577066112ef9861a88acf40ccd">positionChevaux</a>[<a class="code" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a>] + int(deplacement);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="class_course.html#aca8f04577066112ef9861a88acf40ccd">positionChevaux</a>[<a class="code" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a>] &gt; <a class="code" href="course_8h.html#a03050ffe4793411263f3e00c3c9f490a">DISTANCE_MAX</a>)</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    {</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <a class="code" href="class_course.html#aca8f04577066112ef9861a88acf40ccd">positionChevaux</a>[<a class="code" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a>] = <a class="code" href="course_8h.html#a03050ffe4793411263f3e00c3c9f490a">DISTANCE_MAX</a>;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    }</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;Il est maintenant case&quot;</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;             &lt;&lt; <a class="code" href="class_course.html#aca8f04577066112ef9861a88acf40ccd">positionChevaux</a>[<a class="code" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a>];</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <a class="code" href="class_course.html#a30f8977c988e525ada896052aa7a9867">avancerChevaux</a>();</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;}</div>
+<div class="ttc" id="aclass_course_html_a30f8977c988e525ada896052aa7a9867"><div class="ttname"><a href="class_course.html#a30f8977c988e525ada896052aa7a9867">Course::avancerChevaux</a></div><div class="ttdeci">void avancerChevaux()</div><div class="ttdef"><b>Definition:</b> <a href="course_8cpp_source.html#l00112">course.cpp:112</a></div></div>
+<div class="ttc" id="aclass_statistiques_html_a405f08ec5bf66bbeee60ec493c6114c5"><div class="ttname"><a href="class_statistiques.html#a405f08ec5bf66bbeee60ec493c6114c5">Statistiques::setNombreTirs</a></div><div class="ttdeci">void setNombreTirs(int)</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8cpp_source.html#l00077">statistiques.cpp:77</a></div></div>
+<div class="ttc" id="aclass_statistiques_html_a5c74804dc040a57653178f29b586ab58"><div class="ttname"><a href="class_statistiques.html#a5c74804dc040a57653178f29b586ab58">Statistiques::getNombreTirs</a></div><div class="ttdeci">QVector&lt; unsigned int &gt; getNombreTirs() const</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8cpp_source.html#l00037">statistiques.cpp:37</a></div></div>
+<div class="ttc" id="aclass_statistiques_html_a6eda6e5f8b3ec24162da3900821da129"><div class="ttname"><a href="class_statistiques.html#a6eda6e5f8b3ec24162da3900821da129">Statistiques::setNombrePoints</a></div><div class="ttdeci">void setNombrePoints(int, int)</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8cpp_source.html#l00082">statistiques.cpp:82</a></div></div>
+<div class="ttc" id="acourse_8h_html_a03050ffe4793411263f3e00c3c9f490a"><div class="ttname"><a href="course_8h.html#a03050ffe4793411263f3e00c3c9f490a">DISTANCE_MAX</a></div><div class="ttdeci">#define DISTANCE_MAX</div><div class="ttdoc">La distance max en nombre de cases.</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00033">course.h:33</a></div></div>
+<div class="ttc" id="acourse_8h_html_aaa505bf354cbd3e0460d0efba184d0b1"><div class="ttname"><a href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1">Trou</a></div><div class="ttdeci">Trou</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00041">course.h:42</a></div></div>
+<div class="ttc" id="acourse_8h_html_aaa505bf354cbd3e0460d0efba184d0b1a1b592b20aeb91b073f8f249231622230"><div class="ttname"><a href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1a1b592b20aeb91b073f8f249231622230">BLEU</a></div><div class="ttdeci">@ BLEU</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00044">course.h:44</a></div></div>
+<div class="ttc" id="acourse_8h_html_aaa505bf354cbd3e0460d0efba184d0b1a92b33cebaccf73541ab06eca48a31e42"><div class="ttname"><a href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1a92b33cebaccf73541ab06eca48a31e42">ROUGE</a></div><div class="ttdeci">@ ROUGE</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00046">course.h:45</a></div></div>
+<div class="ttc" id="acourse_8h_html_aaa505bf354cbd3e0460d0efba184d0b1aeb840a0760d5c5122e980d507891c1a1"><div class="ttname"><a href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1aeb840a0760d5c5122e980d507891c1a1">JAUNE</a></div><div class="ttdeci">@ JAUNE</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00043">course.h:43</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Références <a class="el" href="course_8cpp_source.html#l00112">avancerChevaux()</a>, <a class="el" href="course_8h_source.html#l00044">BLEU</a>, <a class="el" href="course_8h_source.html#l00065">chronometre</a>, <a class="el" href="course_8h_source.html#l00066">course</a>, <a class="el" href="course_8h_source.html#l00033">DISTANCE_MAX</a>, <a class="el" href="statistiques_8cpp_source.html#l00037">Statistiques::getNombreTirs()</a>, <a class="el" href="course_8h_source.html#l00043">JAUNE</a>, <a class="el" href="course_8h_source.html#l00062">numeroCheval</a>, <a class="el" href="course_8h_source.html#l00063">positionChevaux</a>, <a class="el" href="course_8h_source.html#l00045">ROUGE</a>, <a class="el" href="statistiques_8cpp_source.html#l00082">Statistiques::setNombrePoints()</a>, <a class="el" href="statistiques_8cpp_source.html#l00077">Statistiques::setNombreTirs()</a>, et <a class="el" href="course_8h_source.html#l00058">stats</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="course_8cpp_source.html#l00175">simulerAvancementCheval()</a>.</p>
+
+</div>
+</div>
+<a id="a30f8977c988e525ada896052aa7a9867"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30f8977c988e525ada896052aa7a9867">&#9670;&nbsp;</a></span>avancerChevaux</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Course::avancerChevaux </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8cpp_source.html#l00112">112</a> du fichier <a class="el" href="course_8cpp_source.html">course.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;{</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <a class="code" href="class_course.html#aea1ce3a5760640f20b97e04bed8630ac">ihm</a>-&gt;<a class="code" href="class_i_h_m.html#a9762f0cec409986e01d4d35043d7462b">avancerChevaux</a>();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="class_course.html#af5d9847ed138f4835e5d6d0520d017e4">estCourseFinie</a>())</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <a class="code" href="class_course.html#ab58e3cbe6ac336d51d23d5de82fa3904">terminerCourse</a>();</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
+<div class="ttc" id="aclass_course_html_ab58e3cbe6ac336d51d23d5de82fa3904"><div class="ttname"><a href="class_course.html#ab58e3cbe6ac336d51d23d5de82fa3904">Course::terminerCourse</a></div><div class="ttdeci">void terminerCourse()</div><div class="ttdef"><b>Definition:</b> <a href="course_8cpp_source.html#l00083">course.cpp:83</a></div></div>
+<div class="ttc" id="aclass_course_html_af5d9847ed138f4835e5d6d0520d017e4"><div class="ttname"><a href="class_course.html#af5d9847ed138f4835e5d6d0520d017e4">Course::estCourseFinie</a></div><div class="ttdeci">bool estCourseFinie()</div><div class="ttdef"><b>Definition:</b> <a href="course_8cpp_source.html#l00065">course.cpp:65</a></div></div>
+<div class="ttc" id="aclass_i_h_m_html_a9762f0cec409986e01d4d35043d7462b"><div class="ttname"><a href="class_i_h_m.html#a9762f0cec409986e01d4d35043d7462b">IHM::avancerChevaux</a></div><div class="ttdeci">void avancerChevaux()</div><div class="ttdef"><b>Definition:</b> <a href="_i_h_m_8cpp_source.html#l00256">IHM.cpp:256</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Références <a class="el" href="_i_h_m_8cpp_source.html#l00256">IHM::avancerChevaux()</a>, <a class="el" href="course_8cpp_source.html#l00065">estCourseFinie()</a>, <a class="el" href="course_8h_source.html#l00057">ihm</a>, et <a class="el" href="course_8cpp_source.html#l00083">terminerCourse()</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="course_8cpp_source.html#l00119">actualiserPositionChevaux()</a>, et <a class="el" href="course_8cpp_source.html#l00051">initialiserCourse()</a>.</p>
+
+</div>
+</div>
+<a id="a589447dd63dca89395119ffd4e4a8c8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a589447dd63dca89395119ffd4e4a8c8c">&#9670;&nbsp;</a></span>chronometrer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Course::chronometrer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8cpp_source.html#l00046">46</a> du fichier <a class="el" href="course_8cpp_source.html">course.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;{</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="class_course.html#a487a946d71e4afe22d2e7022f1e5475b">chronometre</a> += 0.01;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">Références <a class="el" href="course_8h_source.html#l00065">chronometre</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="course_8cpp_source.html#l00039">initialiserChronometre()</a>.</p>
+
+</div>
+</div>
+<a id="af5d9847ed138f4835e5d6d0520d017e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5d9847ed138f4835e5d6d0520d017e4">&#9670;&nbsp;</a></span>estCourseFinie()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Course::estCourseFinie </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8cpp_source.html#l00065">65</a> du fichier <a class="el" href="course_8cpp_source.html">course.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;{</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_course.html#a27d3a41929ac77bd2278678d4e3a5b38">nbChevaux</a>; i++)</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="class_course.html#aca8f04577066112ef9861a88acf40ccd">positionChevaux</a>[i] == <a class="code" href="course_8h.html#a03050ffe4793411263f3e00c3c9f490a">DISTANCE_MAX</a>)</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <a class="code" href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">stats</a>-&gt;<a class="code" href="class_statistiques.html#a52e57864351ad32ba59516281538aefe">setJoueurGagnant</a>(i);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;DISTANCE_MAX&quot;</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                     &lt;&lt; <span class="stringliteral">&quot;true&quot;</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                     &lt;&lt; <span class="stringliteral">&quot;joueurGagnant&quot;</span> &lt;&lt; <a class="code" href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">stats</a>-&gt;<a class="code" href="class_statistiques.html#a667b3f10733c99c3c9418927db47170f">getJoueurGagnant</a>();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;DISTANCE_MAX&quot;</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;false&quot;</span>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
+<div class="ttc" id="aclass_statistiques_html_a52e57864351ad32ba59516281538aefe"><div class="ttname"><a href="class_statistiques.html#a52e57864351ad32ba59516281538aefe">Statistiques::setJoueurGagnant</a></div><div class="ttdeci">void setJoueurGagnant(int)</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8cpp_source.html#l00057">statistiques.cpp:57</a></div></div>
+<div class="ttc" id="aclass_statistiques_html_a667b3f10733c99c3c9418927db47170f"><div class="ttname"><a href="class_statistiques.html#a667b3f10733c99c3c9418927db47170f">Statistiques::getJoueurGagnant</a></div><div class="ttdeci">int getJoueurGagnant() const</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8cpp_source.html#l00027">statistiques.cpp:27</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Références <a class="el" href="course_8h_source.html#l00033">DISTANCE_MAX</a>, <a class="el" href="statistiques_8cpp_source.html#l00027">Statistiques::getJoueurGagnant()</a>, <a class="el" href="course_8h_source.html#l00061">nbChevaux</a>, <a class="el" href="course_8h_source.html#l00063">positionChevaux</a>, <a class="el" href="statistiques_8cpp_source.html#l00057">Statistiques::setJoueurGagnant()</a>, et <a class="el" href="course_8h_source.html#l00058">stats</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="course_8cpp_source.html#l00112">avancerChevaux()</a>.</p>
+
+</div>
+</div>
+<a id="a27f453aefd01ce7ec90913b1c2dc408c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27f453aefd01ce7ec90913b1c2dc408c">&#9670;&nbsp;</a></span>getNbChevaux()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Course::getNbChevaux </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8cpp_source.html#l00034">34</a> du fichier <a class="el" href="course_8cpp_source.html">course.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;{</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_course.html#a27d3a41929ac77bd2278678d4e3a5b38">nbChevaux</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">Références <a class="el" href="course_8h_source.html#l00061">nbChevaux</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="_i_h_m_8cpp_source.html#l00256">IHM::avancerChevaux()</a>, <a class="el" href="_i_h_m_8cpp_source.html#l00117">IHM::initialiserWidgets()</a>, <a class="el" href="_i_h_m_8cpp_source.html#l00102">IHM::instancierWidgets()</a>, et <a class="el" href="statistiques_8cpp_source.html#l00021">Statistiques::setCourse()</a>.</p>
+
+</div>
+</div>
+<a id="a102da586216a1aa638523572ae454f74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a102da586216a1aa638523572ae454f74">&#9670;&nbsp;</a></span>getPositionChevaux()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVector&lt; unsigned int &gt; Course::getPositionChevaux </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8cpp_source.html#l00029">29</a> du fichier <a class="el" href="course_8cpp_source.html">course.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_course.html#aca8f04577066112ef9861a88acf40ccd">positionChevaux</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">Références <a class="el" href="course_8h_source.html#l00063">positionChevaux</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="_i_h_m_8cpp_source.html#l00306">IHM::afficherNombrePointsParTir()</a>, <a class="el" href="_i_h_m_8cpp_source.html#l00349">IHM::afficherPointsParSeconde()</a>, <a class="el" href="_i_h_m_8cpp_source.html#l00334">IHM::afficherPositionFinale()</a>, <a class="el" href="_i_h_m_8cpp_source.html#l00256">IHM::avancerChevaux()</a>, <a class="el" href="statistiques_8cpp_source.html#l00087">Statistiques::determinerClassement()</a>, et <a class="el" href="statistiques_8cpp_source.html#l00105">Statistiques::determinerJoueurSuivant()</a>.</p>
+
+</div>
+</div>
+<a id="a6a6e19e601ccdd04582b0259eb55c773"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a6e19e601ccdd04582b0259eb55c773">&#9670;&nbsp;</a></span>initialiserChronometre()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Course::initialiserChronometre </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8cpp_source.html#l00039">39</a> du fichier <a class="el" href="course_8cpp_source.html">course.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="class_course.html#a8be66f2125de6172abf494b9b4fe9a17">timer</a> = <span class="keyword">new</span> QTimer(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="class_course.html#a8be66f2125de6172abf494b9b4fe9a17">timer</a>-&gt;setInterval(10);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    connect(<a class="code" href="class_course.html#a8be66f2125de6172abf494b9b4fe9a17">timer</a>, SIGNAL(timeout()), <span class="keyword">this</span>, SLOT(<a class="code" href="class_course.html#a589447dd63dca89395119ffd4e4a8c8c">chronometrer</a>()));</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
+<div class="ttc" id="aclass_course_html_a589447dd63dca89395119ffd4e4a8c8c"><div class="ttname"><a href="class_course.html#a589447dd63dca89395119ffd4e4a8c8c">Course::chronometrer</a></div><div class="ttdeci">void chronometrer()</div><div class="ttdef"><b>Definition:</b> <a href="course_8cpp_source.html#l00046">course.cpp:46</a></div></div>
+<div class="ttc" id="aclass_course_html_a8be66f2125de6172abf494b9b4fe9a17"><div class="ttname"><a href="class_course.html#a8be66f2125de6172abf494b9b4fe9a17">Course::timer</a></div><div class="ttdeci">QTimer * timer</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00064">course.h:64</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Références <a class="el" href="course_8cpp_source.html#l00046">chronometrer()</a>, et <a class="el" href="course_8h_source.html#l00064">timer</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="course_8cpp_source.html#l00005">Course()</a>.</p>
+
+</div>
+</div>
+<a id="a2f2596662bc15b78ea31d7d6182ebd2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f2596662bc15b78ea31d7d6182ebd2f">&#9670;&nbsp;</a></span>initialiserCourse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Course::initialiserCourse </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8cpp_source.html#l00051">51</a> du fichier <a class="el" href="course_8cpp_source.html">course.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;{</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">stats</a>-&gt;<a class="code" href="class_statistiques.html#a52e57864351ad32ba59516281538aefe">setJoueurGagnant</a>(<a class="code" href="statistiques_8h.html#a7354abd7796a2ab57e8ba14118262126">AUCUN_JOUEUR</a>);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">stats</a>-&gt;<a class="code" href="class_statistiques.html#a2b90f1e6a4e7a8f2695ef36e50ac1fe1">setPositionClassement</a>(0);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_course.html#a27d3a41929ac77bd2278678d4e3a5b38">nbChevaux</a>; i++)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <a class="code" href="class_course.html#aca8f04577066112ef9861a88acf40ccd">positionChevaux</a>[i] = 0;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="class_course.html#a8be66f2125de6172abf494b9b4fe9a17">timer</a>-&gt;start();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="class_course.html#a30f8977c988e525ada896052aa7a9867">avancerChevaux</a>();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="class_course.html#a3f33c08a736f653fcc22e28417f28a9d">course</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="class_course.html#a5f6c10748d101246836bcf6d56534ceb">bluetooth</a>-&gt;<a class="code" href="class_bluetooth.html#a352fbaa90f55bf44c2658437753f2359">envoyerTrameDebutCourse</a>();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>
+<div class="ttc" id="aclass_bluetooth_html_a352fbaa90f55bf44c2658437753f2359"><div class="ttname"><a href="class_bluetooth.html#a352fbaa90f55bf44c2658437753f2359">Bluetooth::envoyerTrameDebutCourse</a></div><div class="ttdeci">void envoyerTrameDebutCourse()</div><div class="ttdef"><b>Definition:</b> <a href="bluetooth_8cpp_source.html#l00156">bluetooth.cpp:156</a></div></div>
+<div class="ttc" id="aclass_statistiques_html_a2b90f1e6a4e7a8f2695ef36e50ac1fe1"><div class="ttname"><a href="class_statistiques.html#a2b90f1e6a4e7a8f2695ef36e50ac1fe1">Statistiques::setPositionClassement</a></div><div class="ttdeci">void setPositionClassement(int)</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8cpp_source.html#l00072">statistiques.cpp:72</a></div></div>
+<div class="ttc" id="astatistiques_8h_html_a7354abd7796a2ab57e8ba14118262126"><div class="ttname"><a href="statistiques_8h.html#a7354abd7796a2ab57e8ba14118262126">AUCUN_JOUEUR</a></div><div class="ttdeci">#define AUCUN_JOUEUR</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8h_source.html#l00007">statistiques.h:7</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Références <a class="el" href="statistiques_8h_source.html#l00007">AUCUN_JOUEUR</a>, <a class="el" href="course_8cpp_source.html#l00112">avancerChevaux()</a>, <a class="el" href="course_8h_source.html#l00059">bluetooth</a>, <a class="el" href="course_8h_source.html#l00066">course</a>, <a class="el" href="bluetooth_8cpp_source.html#l00156">Bluetooth::envoyerTrameDebutCourse()</a>, <a class="el" href="course_8h_source.html#l00061">nbChevaux</a>, <a class="el" href="course_8h_source.html#l00063">positionChevaux</a>, <a class="el" href="statistiques_8cpp_source.html#l00057">Statistiques::setJoueurGagnant()</a>, <a class="el" href="statistiques_8cpp_source.html#l00072">Statistiques::setPositionClassement()</a>, <a class="el" href="course_8h_source.html#l00058">stats</a>, et <a class="el" href="course_8h_source.html#l00064">timer</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="_i_h_m_8cpp_source.html#l00190">IHM::demarrerCourse()</a>.</p>
+
+</div>
+</div>
+<a id="aebd4a4a79866ac02a6b504452a4d4feb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebd4a4a79866ac02a6b504452a4d4feb">&#9670;&nbsp;</a></span>randInt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Course::randInt </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8cpp_source.html#l00186">186</a> du fichier <a class="el" href="course_8cpp_source.html">course.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;{</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordflow">return</span> ((QRandomGenerator::global()-&gt;bounded(min, max + 1)) + min);</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">Référencé par <a class="el" href="course_8cpp_source.html#l00175">simulerAvancementCheval()</a>.</p>
+
+</div>
+</div>
+<a id="a82f2e2184765f088c0919a2e0902af05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82f2e2184765f088c0919a2e0902af05">&#9670;&nbsp;</a></span>setBluetooth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Course::setBluetooth </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_bluetooth.html">Bluetooth</a> *&#160;</td>
+          <td class="paramname"><em>bluetooth</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8cpp_source.html#l00024">24</a> du fichier <a class="el" href="course_8cpp_source.html">course.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    this-&gt;bluetooth = <a class="code" href="class_course.html#a5f6c10748d101246836bcf6d56534ceb">bluetooth</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">Références <a class="el" href="course_8h_source.html#l00059">bluetooth</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="_i_h_m_8cpp_source.html#l00021">IHM::IHM()</a>.</p>
+
+</div>
+</div>
+<a id="ac03db005dfdf72d706eef7e8f35fa383"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac03db005dfdf72d706eef7e8f35fa383">&#9670;&nbsp;</a></span>setStatistiques()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Course::setStatistiques </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_statistiques.html">Statistiques</a> *&#160;</td>
+          <td class="paramname"><em>stats</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8cpp_source.html#l00019">19</a> du fichier <a class="el" href="course_8cpp_source.html">course.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    this-&gt;stats = <a class="code" href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">stats</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">Références <a class="el" href="course_8h_source.html#l00058">stats</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="_i_h_m_8cpp_source.html#l00021">IHM::IHM()</a>.</p>
+
+</div>
+</div>
+<a id="a7010560e86e3fb6b541e737c406b9ebc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7010560e86e3fb6b541e737c406b9ebc">&#9670;&nbsp;</a></span>simulerAvancementCheval()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Course::simulerAvancementCheval </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8cpp_source.html#l00175">175</a> du fichier <a class="el" href="course_8cpp_source.html">course.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;{</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="class_course.html#aea1ce3a5760640f20b97e04bed8630ac">ihm</a>-&gt;<a class="code" href="class_i_h_m.html#ad32b279f3fb2da736d88fb0cf2bff01c">estBonIndex</a>())</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    {</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <a class="code" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1">Trou</a> trous[<a class="code" href="course_8h.html#a1d8f8c55b6ba9459f8eaf50cb526ccf3">NB_COULEURS_TROU</a>] = { <a class="code" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1aeb840a0760d5c5122e980d507891c1a1">JAUNE</a>, <a class="code" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1a1b592b20aeb91b073f8f249231622230">BLEU</a>, <a class="code" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1a92b33cebaccf73541ab06eca48a31e42">ROUGE</a> };</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <span class="keywordtype">int</span>  <a class="code" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a>            = <a class="code" href="class_course.html#aebd4a4a79866ac02a6b504452a4d4feb">randInt</a>(0, <a class="code" href="course_8h.html#a71a7ee24a205ebbc945f40ac9b1abbb1">NB_CHEVAUX_MAX</a> - 1);</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <span class="keywordtype">int</span>  trou                    = <a class="code" href="class_course.html#aebd4a4a79866ac02a6b504452a4d4feb">randInt</a>(0, <a class="code" href="course_8h.html#a1d8f8c55b6ba9459f8eaf50cb526ccf3">NB_COULEURS_TROU</a> - 1);</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <a class="code" href="class_course.html#af1e956e80e98b5b04c53af9b9f3b7ee9">actualiserPositionChevaux</a>(<a class="code" href="class_course.html#ad2d56570f18c812534e9051580c18278">numeroCheval</a>, trous[trou]);</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    }</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;}</div>
+<div class="ttc" id="aclass_course_html_aebd4a4a79866ac02a6b504452a4d4feb"><div class="ttname"><a href="class_course.html#aebd4a4a79866ac02a6b504452a4d4feb">Course::randInt</a></div><div class="ttdeci">int randInt(int min, int max)</div><div class="ttdef"><b>Definition:</b> <a href="course_8cpp_source.html#l00186">course.cpp:186</a></div></div>
+<div class="ttc" id="aclass_course_html_af1e956e80e98b5b04c53af9b9f3b7ee9"><div class="ttname"><a href="class_course.html#af1e956e80e98b5b04c53af9b9f3b7ee9">Course::actualiserPositionChevaux</a></div><div class="ttdeci">void actualiserPositionChevaux(int numeroCheval, int deplacement)</div><div class="ttdef"><b>Definition:</b> <a href="course_8cpp_source.html#l00119">course.cpp:119</a></div></div>
+<div class="ttc" id="aclass_i_h_m_html_ad32b279f3fb2da736d88fb0cf2bff01c"><div class="ttname"><a href="class_i_h_m.html#ad32b279f3fb2da736d88fb0cf2bff01c">IHM::estBonIndex</a></div><div class="ttdeci">bool estBonIndex()</div><div class="ttdef"><b>Definition:</b> <a href="_i_h_m_8cpp_source.html#l00280">IHM.cpp:280</a></div></div>
+<div class="ttc" id="acourse_8h_html_a1d8f8c55b6ba9459f8eaf50cb526ccf3"><div class="ttname"><a href="course_8h.html#a1d8f8c55b6ba9459f8eaf50cb526ccf3">NB_COULEURS_TROU</a></div><div class="ttdeci">#define NB_COULEURS_TROU</div><div class="ttdoc">Le nombre de couleurs différentes pour les trous.</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00027">course.h:27</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Références <a class="el" href="course_8cpp_source.html#l00119">actualiserPositionChevaux()</a>, <a class="el" href="course_8h_source.html#l00044">BLEU</a>, <a class="el" href="_i_h_m_8cpp_source.html#l00280">IHM::estBonIndex()</a>, <a class="el" href="course_8h_source.html#l00057">ihm</a>, <a class="el" href="course_8h_source.html#l00043">JAUNE</a>, <a class="el" href="course_8h_source.html#l00020">NB_CHEVAUX_MAX</a>, <a class="el" href="course_8h_source.html#l00027">NB_COULEURS_TROU</a>, <a class="el" href="course_8h_source.html#l00062">numeroCheval</a>, <a class="el" href="course_8cpp_source.html#l00186">randInt()</a>, et <a class="el" href="course_8h_source.html#l00045">ROUGE</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="_i_h_m_8cpp_source.html#l00400">IHM::simulerAvancementCheval()</a>.</p>
+
+</div>
+</div>
+<a id="ab58e3cbe6ac336d51d23d5de82fa3904"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab58e3cbe6ac336d51d23d5de82fa3904">&#9670;&nbsp;</a></span>terminerCourse</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Course::terminerCourse </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8cpp_source.html#l00083">83</a> du fichier <a class="el" href="course_8cpp_source.html">course.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;{</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="class_course.html#a3f33c08a736f653fcc22e28417f28a9d">course</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="class_course.html#a5f6c10748d101246836bcf6d56534ceb">bluetooth</a>-&gt;<a class="code" href="class_bluetooth.html#a245a6cfec8694075dac56c0a7d95a6da">getAbandon</a>() == <span class="keyword">false</span>)</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <a class="code" href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">stats</a>-&gt;<a class="code" href="class_statistiques.html#a91b7f8b2740ba422e39568e83d323f42">setDureeDeLaPartie</a>(<a class="code" href="class_course.html#a487a946d71e4afe22d2e7022f1e5475b">chronometre</a>);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">stats</a>-&gt;<a class="code" href="class_statistiques.html#a9d8edf6b264c96527d148edec2d04a19">getRecord</a>() &gt; <a class="code" href="class_course.html#a487a946d71e4afe22d2e7022f1e5475b">chronometre</a>)</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        {</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;record&quot;</span> &lt;&lt; <a class="code" href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">stats</a>-&gt;<a class="code" href="class_statistiques.html#a9d8edf6b264c96527d148edec2d04a19">getRecord</a>()</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                     &lt;&lt; <span class="stringliteral">&quot;chronometre&quot;</span> &lt;&lt; <a class="code" href="class_course.html#a487a946d71e4afe22d2e7022f1e5475b">chronometre</a>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <a class="code" href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">stats</a>-&gt;<a class="code" href="class_statistiques.html#aa4d5642d742669450c34e938a162bf6a">setRecord</a>(<a class="code" href="class_course.html#a487a946d71e4afe22d2e7022f1e5475b">chronometre</a>);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <a class="code" href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">stats</a>-&gt;<a class="code" href="class_statistiques.html#a79016feab8e18d0f05043c3544407d8c">determinerClassement</a>();</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        QTimer::singleShot(<a class="code" href="course_8h.html#adcfa67f7b7fdb3b798a2c18d99348ba1">ATTENTE_FIN_COURSE</a>,</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                           <a class="code" href="class_course.html#aea1ce3a5760640f20b97e04bed8630ac">ihm</a>,</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                           SLOT(afficherPageStatistiques()));</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <a class="code" href="class_course.html#a9a5e7e71bd033fa00dd1f126be741009">stats</a>-&gt;<a class="code" href="class_statistiques.html#a8da5f0cb8d13995c114da596894397f3">afficherResultats</a>();</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <a class="code" href="class_course.html#aea1ce3a5760640f20b97e04bed8630ac">ihm</a>-&gt;<a class="code" href="class_i_h_m.html#a94ce62f486940657061274da61a02fe9">afficherPageConnexion</a>();</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <a class="code" href="class_course.html#a5f6c10748d101246836bcf6d56534ceb">bluetooth</a>-&gt;<a class="code" href="class_bluetooth.html#a264d9eedacf9b6ff107faceee7ee87e8">setAbandon</a>(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="class_course.html#a8be66f2125de6172abf494b9b4fe9a17">timer</a>-&gt;stop();</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="class_course.html#a487a946d71e4afe22d2e7022f1e5475b">chronometre</a> = 0;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="class_course.html#a5f6c10748d101246836bcf6d56534ceb">bluetooth</a>-&gt;<a class="code" href="class_bluetooth.html#a4ac2ec05be34d6525ab5f4169ccbeec6">envoyerTrameFinCourse</a>();</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
+<div class="ttc" id="aclass_bluetooth_html_a245a6cfec8694075dac56c0a7d95a6da"><div class="ttname"><a href="class_bluetooth.html#a245a6cfec8694075dac56c0a7d95a6da">Bluetooth::getAbandon</a></div><div class="ttdeci">bool getAbandon() const</div><div class="ttdef"><b>Definition:</b> <a href="bluetooth_8cpp_source.html#l00022">bluetooth.cpp:22</a></div></div>
+<div class="ttc" id="aclass_bluetooth_html_a264d9eedacf9b6ff107faceee7ee87e8"><div class="ttname"><a href="class_bluetooth.html#a264d9eedacf9b6ff107faceee7ee87e8">Bluetooth::setAbandon</a></div><div class="ttdeci">void setAbandon(bool abandon)</div><div class="ttdef"><b>Definition:</b> <a href="bluetooth_8cpp_source.html#l00032">bluetooth.cpp:32</a></div></div>
+<div class="ttc" id="aclass_bluetooth_html_a4ac2ec05be34d6525ab5f4169ccbeec6"><div class="ttname"><a href="class_bluetooth.html#a4ac2ec05be34d6525ab5f4169ccbeec6">Bluetooth::envoyerTrameFinCourse</a></div><div class="ttdeci">void envoyerTrameFinCourse()</div><div class="ttdef"><b>Definition:</b> <a href="bluetooth_8cpp_source.html#l00164">bluetooth.cpp:164</a></div></div>
+<div class="ttc" id="aclass_i_h_m_html_a94ce62f486940657061274da61a02fe9"><div class="ttname"><a href="class_i_h_m.html#a94ce62f486940657061274da61a02fe9">IHM::afficherPageConnexion</a></div><div class="ttdeci">void afficherPageConnexion()</div><div class="ttdoc">Affiche la page de connexion.</div><div class="ttdef"><b>Definition:</b> <a href="_i_h_m_8cpp_source.html#l00073">IHM.cpp:73</a></div></div>
+<div class="ttc" id="aclass_statistiques_html_a79016feab8e18d0f05043c3544407d8c"><div class="ttname"><a href="class_statistiques.html#a79016feab8e18d0f05043c3544407d8c">Statistiques::determinerClassement</a></div><div class="ttdeci">void determinerClassement()</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8cpp_source.html#l00087">statistiques.cpp:87</a></div></div>
+<div class="ttc" id="aclass_statistiques_html_a8da5f0cb8d13995c114da596894397f3"><div class="ttname"><a href="class_statistiques.html#a8da5f0cb8d13995c114da596894397f3">Statistiques::afficherResultats</a></div><div class="ttdeci">void afficherResultats()</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8cpp_source.html#l00134">statistiques.cpp:134</a></div></div>
+<div class="ttc" id="aclass_statistiques_html_a91b7f8b2740ba422e39568e83d323f42"><div class="ttname"><a href="class_statistiques.html#a91b7f8b2740ba422e39568e83d323f42">Statistiques::setDureeDeLaPartie</a></div><div class="ttdeci">void setDureeDeLaPartie(float)</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8cpp_source.html#l00062">statistiques.cpp:62</a></div></div>
+<div class="ttc" id="aclass_statistiques_html_a9d8edf6b264c96527d148edec2d04a19"><div class="ttname"><a href="class_statistiques.html#a9d8edf6b264c96527d148edec2d04a19">Statistiques::getRecord</a></div><div class="ttdeci">float getRecord() const</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8cpp_source.html#l00052">statistiques.cpp:52</a></div></div>
+<div class="ttc" id="aclass_statistiques_html_aa4d5642d742669450c34e938a162bf6a"><div class="ttname"><a href="class_statistiques.html#aa4d5642d742669450c34e938a162bf6a">Statistiques::setRecord</a></div><div class="ttdeci">void setRecord(float)</div><div class="ttdef"><b>Definition:</b> <a href="statistiques_8cpp_source.html#l00067">statistiques.cpp:67</a></div></div>
+<div class="ttc" id="acourse_8h_html_adcfa67f7b7fdb3b798a2c18d99348ba1"><div class="ttname"><a href="course_8h.html#adcfa67f7b7fdb3b798a2c18d99348ba1">ATTENTE_FIN_COURSE</a></div><div class="ttdeci">#define ATTENTE_FIN_COURSE</div><div class="ttdoc">La durée d'attente en ms à la fin d'une course.</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00039">course.h:39</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Références <a class="el" href="_i_h_m_8cpp_source.html#l00073">IHM::afficherPageConnexion()</a>, <a class="el" href="statistiques_8cpp_source.html#l00134">Statistiques::afficherResultats()</a>, <a class="el" href="course_8h_source.html#l00039">ATTENTE_FIN_COURSE</a>, <a class="el" href="course_8h_source.html#l00059">bluetooth</a>, <a class="el" href="course_8h_source.html#l00065">chronometre</a>, <a class="el" href="course_8h_source.html#l00066">course</a>, <a class="el" href="statistiques_8cpp_source.html#l00087">Statistiques::determinerClassement()</a>, <a class="el" href="bluetooth_8cpp_source.html#l00164">Bluetooth::envoyerTrameFinCourse()</a>, <a class="el" href="bluetooth_8cpp_source.html#l00022">Bluetooth::getAbandon()</a>, <a class="el" href="statistiques_8cpp_source.html#l00052">Statistiques::getRecord()</a>, <a class="el" href="course_8h_source.html#l00057">ihm</a>, <a class="el" href="bluetooth_8cpp_source.html#l00032">Bluetooth::setAbandon()</a>, <a class="el" href="statistiques_8cpp_source.html#l00062">Statistiques::setDureeDeLaPartie()</a>, <a class="el" href="statistiques_8cpp_source.html#l00067">Statistiques::setRecord()</a>, <a class="el" href="course_8h_source.html#l00058">stats</a>, et <a class="el" href="course_8h_source.html#l00064">timer</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="course_8cpp_source.html#l00112">avancerChevaux()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation des champs</h2>
+<a id="a5f6c10748d101246836bcf6d56534ceb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f6c10748d101246836bcf6d56534ceb">&#9670;&nbsp;</a></span>bluetooth</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_bluetooth.html">Bluetooth</a>* Course::bluetooth</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8h_source.html#l00059">59</a> du fichier <a class="el" href="course_8h_source.html">course.h</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="course_8cpp_source.html#l00051">initialiserCourse()</a>, <a class="el" href="course_8cpp_source.html#l00024">setBluetooth()</a>, et <a class="el" href="course_8cpp_source.html#l00083">terminerCourse()</a>.</p>
+
+</div>
+</div>
+<a id="a487a946d71e4afe22d2e7022f1e5475b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a487a946d71e4afe22d2e7022f1e5475b">&#9670;&nbsp;</a></span>chronometre</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Course::chronometre</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8h_source.html#l00065">65</a> du fichier <a class="el" href="course_8h_source.html">course.h</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="course_8cpp_source.html#l00119">actualiserPositionChevaux()</a>, <a class="el" href="course_8cpp_source.html#l00046">chronometrer()</a>, et <a class="el" href="course_8cpp_source.html#l00083">terminerCourse()</a>.</p>
+
+</div>
+</div>
+<a id="a3f33c08a736f653fcc22e28417f28a9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f33c08a736f653fcc22e28417f28a9d">&#9670;&nbsp;</a></span>course</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Course::course</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8h_source.html#l00066">66</a> du fichier <a class="el" href="course_8h_source.html">course.h</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="course_8cpp_source.html#l00119">actualiserPositionChevaux()</a>, <a class="el" href="course_8cpp_source.html#l00051">initialiserCourse()</a>, et <a class="el" href="course_8cpp_source.html#l00083">terminerCourse()</a>.</p>
+
+</div>
+</div>
+<a id="aea1ce3a5760640f20b97e04bed8630ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea1ce3a5760640f20b97e04bed8630ac">&#9670;&nbsp;</a></span>ihm</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_i_h_m.html">IHM</a>* Course::ihm</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8h_source.html#l00057">57</a> du fichier <a class="el" href="course_8h_source.html">course.h</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="course_8cpp_source.html#l00112">avancerChevaux()</a>, <a class="el" href="course_8cpp_source.html#l00175">simulerAvancementCheval()</a>, et <a class="el" href="course_8cpp_source.html#l00083">terminerCourse()</a>.</p>
+
+</div>
+</div>
+<a id="a27d3a41929ac77bd2278678d4e3a5b38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27d3a41929ac77bd2278678d4e3a5b38">&#9670;&nbsp;</a></span>nbChevaux</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Course::nbChevaux</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8h_source.html#l00061">61</a> du fichier <a class="el" href="course_8h_source.html">course.h</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="course_8cpp_source.html#l00065">estCourseFinie()</a>, <a class="el" href="course_8cpp_source.html#l00034">getNbChevaux()</a>, et <a class="el" href="course_8cpp_source.html#l00051">initialiserCourse()</a>.</p>
+
+</div>
+</div>
+<a id="ad2d56570f18c812534e9051580c18278"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2d56570f18c812534e9051580c18278">&#9670;&nbsp;</a></span>numeroCheval</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Course::numeroCheval</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8h_source.html#l00062">62</a> du fichier <a class="el" href="course_8h_source.html">course.h</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="course_8cpp_source.html#l00119">actualiserPositionChevaux()</a>, et <a class="el" href="course_8cpp_source.html#l00175">simulerAvancementCheval()</a>.</p>
+
+</div>
+</div>
+<a id="aca8f04577066112ef9861a88acf40ccd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca8f04577066112ef9861a88acf40ccd">&#9670;&nbsp;</a></span>positionChevaux</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVector&lt;unsigned int&gt; Course::positionChevaux</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8h_source.html#l00063">63</a> du fichier <a class="el" href="course_8h_source.html">course.h</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="course_8cpp_source.html#l00119">actualiserPositionChevaux()</a>, <a class="el" href="course_8cpp_source.html#l00065">estCourseFinie()</a>, <a class="el" href="course_8cpp_source.html#l00029">getPositionChevaux()</a>, et <a class="el" href="course_8cpp_source.html#l00051">initialiserCourse()</a>.</p>
+
+</div>
+</div>
+<a id="a9a5e7e71bd033fa00dd1f126be741009"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a5e7e71bd033fa00dd1f126be741009">&#9670;&nbsp;</a></span>stats</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_statistiques.html">Statistiques</a>* Course::stats</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8h_source.html#l00058">58</a> du fichier <a class="el" href="course_8h_source.html">course.h</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="course_8cpp_source.html#l00119">actualiserPositionChevaux()</a>, <a class="el" href="course_8cpp_source.html#l00065">estCourseFinie()</a>, <a class="el" href="course_8cpp_source.html#l00051">initialiserCourse()</a>, <a class="el" href="course_8cpp_source.html#l00019">setStatistiques()</a>, et <a class="el" href="course_8cpp_source.html#l00083">terminerCourse()</a>.</p>
+
+</div>
+</div>
+<a id="a8be66f2125de6172abf494b9b4fe9a17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8be66f2125de6172abf494b9b4fe9a17">&#9670;&nbsp;</a></span>timer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QTimer* Course::timer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8h_source.html#l00064">64</a> du fichier <a class="el" href="course_8h_source.html">course.h</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="course_8cpp_source.html#l00039">initialiserChronometre()</a>, <a class="el" href="course_8cpp_source.html#l00051">initialiserCourse()</a>, et <a class="el" href="course_8cpp_source.html#l00083">terminerCourse()</a>.</p>
+
 </div>
 </div>
 <hr/>La documentation de cette classe a été générée à partir du fichier suivant :<ul>
@@ -164,7 +1038,7 @@ Fonctions membres publiques</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_course.html">Course</a></li>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Lundi 29 Mai 2023 09:00:48 pour jolly-jumpi par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Mardi 20 Juin 2023 06:00:32 pour jolly-jumpi par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
   </ul>
 </div>
 </body>

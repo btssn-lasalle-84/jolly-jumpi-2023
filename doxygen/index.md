@@ -2,7 +2,7 @@
 
 \author Axel Lapierre <<lapierre.axel30@gmail.com>>
 \date 2023
-\version 1.0
+\version 1.1
 \see https://github.com/btssn-lasalle-84/jolly-jumpi-2023
 
 

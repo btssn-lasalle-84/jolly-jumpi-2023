@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">jolly-jumpi
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2023</div>
   </td>
@@ -85,14 +85,18 @@ $(document).ready(function(){initNavTree('course_8h.html',''); initResizable(); 
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Structures de données</a>  </div>
+<a href="#nested-classes">Structures de données</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#enum-members">Énumérations</a>  </div>
   <div class="headertitle">
 <div class="title">Référence du fichier course.h</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;QObject&gt;</code><br />
 <code>#include &lt;QVector&gt;</code><br />
-<code>#include &quot;<a class="el" href="_i_h_m_8h_source.html">IHM.h</a>&quot;</code><br />
+<code>#include &lt;QTimer&gt;</code><br />
+<code>#include &lt;QDebug&gt;</code><br />
+<code>#include &lt;QLabel&gt;</code><br />
 </div>
 <p><a href="course_8h_source.html">Aller au code source de ce fichier.</a></p>
 <table class="memberdecls">
@@ -100,7 +104,155 @@ $(document).ready(function(){initNavTree('course_8h.html',''); initResizable(); 
 Structures de données</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_course.html">Course</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:adcfa67f7b7fdb3b798a2c18d99348ba1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="course_8h.html#adcfa67f7b7fdb3b798a2c18d99348ba1">ATTENTE_FIN_COURSE</a>&#160;&#160;&#160;5000</td></tr>
+<tr class="memdesc:adcfa67f7b7fdb3b798a2c18d99348ba1"><td class="mdescLeft">&#160;</td><td class="mdescRight">La durée d'attente en ms à la fin d'une course.  <a href="course_8h.html#adcfa67f7b7fdb3b798a2c18d99348ba1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:adcfa67f7b7fdb3b798a2c18d99348ba1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03050ffe4793411263f3e00c3c9f490a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="course_8h.html#a03050ffe4793411263f3e00c3c9f490a">DISTANCE_MAX</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memdesc:a03050ffe4793411263f3e00c3c9f490a"><td class="mdescLeft">&#160;</td><td class="mdescRight">La distance max en nombre de cases.  <a href="course_8h.html#a03050ffe4793411263f3e00c3c9f490a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a03050ffe4793411263f3e00c3c9f490a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ed1f0593cbcb09935576e6f72ae9a4f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="course_8h.html#a2ed1f0593cbcb09935576e6f72ae9a4f">MODE_SIMULATION</a></td></tr>
+<tr class="memdesc:a2ed1f0593cbcb09935576e6f72ae9a4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pour le mode simulation avec les touches de clavier.  <a href="course_8h.html#a2ed1f0593cbcb09935576e6f72ae9a4f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a2ed1f0593cbcb09935576e6f72ae9a4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71a7ee24a205ebbc945f40ac9b1abbb1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="course_8h.html#a71a7ee24a205ebbc945f40ac9b1abbb1">NB_CHEVAUX_MAX</a>&#160;&#160;&#160;6</td></tr>
+<tr class="memdesc:a71a7ee24a205ebbc945f40ac9b1abbb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nombre de chevaux maximum pour une course.  <a href="course_8h.html#a71a7ee24a205ebbc945f40ac9b1abbb1">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a71a7ee24a205ebbc945f40ac9b1abbb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d8f8c55b6ba9459f8eaf50cb526ccf3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="course_8h.html#a1d8f8c55b6ba9459f8eaf50cb526ccf3">NB_COULEURS_TROU</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:a1d8f8c55b6ba9459f8eaf50cb526ccf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nombre de couleurs différentes pour les trous.  <a href="course_8h.html#a1d8f8c55b6ba9459f8eaf50cb526ccf3">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a1d8f8c55b6ba9459f8eaf50cb526ccf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Énumérations</h2></td></tr>
+<tr class="memitem:aaa505bf354cbd3e0460d0efba184d0b1"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1">Trou</a> { <a class="el" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1aeb840a0760d5c5122e980d507891c1a1">JAUNE</a> = 1
+, <a class="el" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1a1b592b20aeb91b073f8f249231622230">BLEU</a> = 3
+, <a class="el" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1a92b33cebaccf73541ab06eca48a31e42">ROUGE</a> = 5
+ }</td></tr>
+<tr class="separator:aaa505bf354cbd3e0460d0efba184d0b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Documentation des macros</h2>
+<a id="adcfa67f7b7fdb3b798a2c18d99348ba1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcfa67f7b7fdb3b798a2c18d99348ba1">&#9670;&nbsp;</a></span>ATTENTE_FIN_COURSE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ATTENTE_FIN_COURSE&#160;&#160;&#160;5000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La durée d'attente en ms à la fin d'une course. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8h_source.html#l00039">39</a> du fichier <a class="el" href="course_8h_source.html">course.h</a>.</p>
+
+</div>
+</div>
+<a id="a03050ffe4793411263f3e00c3c9f490a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03050ffe4793411263f3e00c3c9f490a">&#9670;&nbsp;</a></span>DISTANCE_MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DISTANCE_MAX&#160;&#160;&#160;10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La distance max en nombre de cases. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8h_source.html#l00033">33</a> du fichier <a class="el" href="course_8h_source.html">course.h</a>.</p>
+
+</div>
+</div>
+<a id="a2ed1f0593cbcb09935576e6f72ae9a4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ed1f0593cbcb09935576e6f72ae9a4f">&#9670;&nbsp;</a></span>MODE_SIMULATION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MODE_SIMULATION</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pour le mode simulation avec les touches de clavier. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8h_source.html#l00014">14</a> du fichier <a class="el" href="course_8h_source.html">course.h</a>.</p>
+
+</div>
+</div>
+<a id="a71a7ee24a205ebbc945f40ac9b1abbb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71a7ee24a205ebbc945f40ac9b1abbb1">&#9670;&nbsp;</a></span>NB_CHEVAUX_MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NB_CHEVAUX_MAX&#160;&#160;&#160;6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le nombre de chevaux maximum pour une course. </p>
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8h_source.html#l00020">20</a> du fichier <a class="el" href="course_8h_source.html">course.h</a>.</p>
+
+</div>
+</div>
+<a id="a1d8f8c55b6ba9459f8eaf50cb526ccf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d8f8c55b6ba9459f8eaf50cb526ccf3">&#9670;&nbsp;</a></span>NB_COULEURS_TROU</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NB_COULEURS_TROU&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le nombre de couleurs différentes pour les trous. </p>
+<dl class="section see"><dt>Voir également</dt><dd><a class="el" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1">Trou</a> </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8h_source.html#l00027">27</a> du fichier <a class="el" href="course_8h_source.html">course.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Documentation du type de l'énumération</h2>
+<a id="aaa505bf354cbd3e0460d0efba184d0b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa505bf354cbd3e0460d0efba184d0b1">&#9670;&nbsp;</a></span>Trou</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1">Trou</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Valeurs énumérées</th></tr><tr><td class="fieldname"><a id="aaa505bf354cbd3e0460d0efba184d0b1aeb840a0760d5c5122e980d507891c1a1"></a>JAUNE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaa505bf354cbd3e0460d0efba184d0b1a1b592b20aeb91b073f8f249231622230"></a>BLEU&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaa505bf354cbd3e0460d0efba184d0b1a92b33cebaccf73541ab06eca48a31e42"></a>ROUGE&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Définition à la ligne <a class="el" href="course_8h_source.html#l00041">41</a> du fichier <a class="el" href="course_8h_source.html">course.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;{</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1aeb840a0760d5c5122e980d507891c1a1">JAUNE</a> = 1,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1a1b592b20aeb91b073f8f249231622230">BLEU</a>  = 3,</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1a92b33cebaccf73541ab06eca48a31e42">ROUGE</a> = 5</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
+<div class="ttc" id="acourse_8h_html_aaa505bf354cbd3e0460d0efba184d0b1a1b592b20aeb91b073f8f249231622230"><div class="ttname"><a href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1a1b592b20aeb91b073f8f249231622230">BLEU</a></div><div class="ttdeci">@ BLEU</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00044">course.h:44</a></div></div>
+<div class="ttc" id="acourse_8h_html_aaa505bf354cbd3e0460d0efba184d0b1a92b33cebaccf73541ab06eca48a31e42"><div class="ttname"><a href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1a92b33cebaccf73541ab06eca48a31e42">ROUGE</a></div><div class="ttdeci">@ ROUGE</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00046">course.h:45</a></div></div>
+<div class="ttc" id="acourse_8h_html_aaa505bf354cbd3e0460d0efba184d0b1aeb840a0760d5c5122e980d507891c1a1"><div class="ttname"><a href="course_8h.html#aaa505bf354cbd3e0460d0efba184d0b1aeb840a0760d5c5122e980d507891c1a1">JAUNE</a></div><div class="ttdeci">@ JAUNE</div><div class="ttdef"><b>Definition:</b> <a href="course_8h_source.html#l00043">course.h:43</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.1-->
@@ -108,7 +260,7 @@ Structures de données</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_f5b24512a5a4fabafe00bdd1f2ffc501.html">jolly-jumpi</a></li><li class="navelem"><a class="el" href="course_8h.html">course.h</a></li>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Lundi 29 Mai 2023 09:00:48 pour jolly-jumpi par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Mardi 20 Juin 2023 06:00:32 pour jolly-jumpi par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
   </ul>
 </div>
 </body>
