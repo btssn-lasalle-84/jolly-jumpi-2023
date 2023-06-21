@@ -18,9 +18,10 @@
 #define FIN_TRAME        QString("\r\n")
 #define DELIMITEUR_TRAME QString(";")
 
-#define CONNECTE     QString("c")
-#define DEBUT_COURSE QString("d")
-#define FIN_COURSE   QString("f")
+#define CONNECTE               QString("c")
+#define DEBUT_COURSE           QString("d")
+#define DEBUT_COURSE_ALEATOIRE QString("m")
+#define FIN_COURSE             QString("f")
 
 #define ABANDON 'a'
 #define START   's'
@@ -70,6 +71,7 @@ class Bluetooth : public QObject
     void deconnecter();
     void envoyerTrameConnexion();
     void envoyerTrameDebutCourse();
+    void envoyerTrameDebutCourseAleatoire();
     void envoyerTrameFinCourse();
 
   public slots:

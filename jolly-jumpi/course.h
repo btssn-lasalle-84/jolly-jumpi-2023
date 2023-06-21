@@ -38,7 +38,7 @@
  * @def ATTENTE_FIN_COURSE
  * @brief La durée d'attente en ms à la fin d'une course
  */
-#define ATTENTE_FIN_COURSE 5000
+#define ATTENTE_FIN_COURSE 2000
 
 enum Trou
 {

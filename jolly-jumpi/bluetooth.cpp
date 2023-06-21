@@ -161,6 +161,14 @@ void Bluetooth::envoyerTrameDebutCourse()
     envoyerTrame(trame);
 }
 
+void Bluetooth::envoyerTrameDebutCourseAleatoire()
+{
+    qDebug() << Q_FUNC_INFO;
+    QString trame = ENTETE_TRAME + DELIMITEUR_TRAME + DEBUT_COURSE_ALEATOIRE +
+                    DELIMITEUR_TRAME + FIN_TRAME;
+    envoyerTrame(trame);
+}
+
 void Bluetooth::envoyerTrameFinCourse()
 {
     qDebug() << Q_FUNC_INFO;

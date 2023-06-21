@@ -94,7 +94,10 @@ void Course::initialiserCourse()
     timer->start();
     avancerChevaux();
     course = true;
-    bluetooth->envoyerTrameDebutCourse();
+    if(modeDeJeu == ModeDeJeu::Normal)
+        bluetooth->envoyerTrameDebutCourse();
+    if(modeDeJeu == ModeDeJeu::PointsAleatoire)
+        bluetooth->envoyerTrameDebutCourseAleatoire();
     qDebug() << Q_FUNC_INFO << "dureePartie" << dureePartie << "nbChevaux"
              << nbChevaux << "modeDeJeu" << modeDeJeu;
 }
