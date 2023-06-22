@@ -114,7 +114,7 @@ void IHM::afficherPageStatistiques()
 void IHM::supprimerWidgets()
 {
     qDebug() << Q_FUNC_INFO;
-    for(int i = 0; i < NB_CHEVAUX_MAX; i++)
+    for(int i = 0; i < avatarsJoueurs.size(); i++)
     {
         avatarsJoueurs[i]->setPixmap(*imageAvatarsJoueurs[i]);
         ui->pages->widget(IHM::Page::PageCourse)
@@ -240,8 +240,8 @@ void IHM::demarrerCourse()
 {
     if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
     {
-        course->initialiserCourse();
         supprimerWidgets();
+        course->initialiserCourse();
         afficherPageCourse();
     }
 }
@@ -286,6 +286,7 @@ void IHM::gererEtatConnexion()
 {
     qDebug() << Q_FUNC_INFO;
     connecte = true;
+    bluetooth->arreterReconnexion();
     ui->pages->widget(IHM::Page::Connexion)
       ->findChild<QLabel*>("etatConnexion")
       ->setText("Appuyez sur start");
@@ -296,6 +297,7 @@ void IHM::gererEtatDeconnexion()
 {
     qDebug() << Q_FUNC_INFO;
     connecte = false;
+    bluetooth->deconnecter();
 }
 
 void IHM::afficherResultatJoueurSuivant()
@@ -790,7 +792,7 @@ void IHM::validerSelection()
         mettreEnEvidenceSelection();
         return;
     }
-    if((ui->pages->currentIndex() == IHM::Page::Parametres) && (estMenu = true))
+    if((ui->pages->currentIndex() == IHM::Page::Parametres) && estMenu)
     {
         qDebug() << Q_FUNC_INFO << "currentIndex"
                  << "Parametres"
@@ -874,11 +876,9 @@ void IHM::changerNombreJoueurs()
     ui->pages->widget(IHM::Page::ChangementParametres)
       ->findChild<QLabel*>("parametre")
       ->setText("Nombre de joueurs");
-    course->setNbChevaux(optionSelectionne);
     ui->pages->widget(IHM::Page::ChangementParametres)
       ->findChild<QLabel*>("selection")
       ->setText(QString::number(optionSelectionne) + " joueurs");
-    course->setNbChevaux(optionSelectionne);
 }
 
 void IHM::changerDureePartie()

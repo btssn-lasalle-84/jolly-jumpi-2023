@@ -3,7 +3,9 @@
 #include "IHM.h"
 
 Bluetooth::Bluetooth(IHM* ihm) :
-    QObject(), ihm(ihm), course(nullptr), socket(nullptr), abandon(false)
+    QObject(), ihm(ihm), course(nullptr), socket(nullptr),
+    agentDecouverteBluetooth(nullptr), abandon(false),
+    gestionConnexion(new QTimer(this))
 {
 #ifdef SIMULATEUR
     adresseESP32 = ADRESSE_ESP32_SIMULATEUR;
@@ -12,6 +14,7 @@ Bluetooth::Bluetooth(IHM* ihm) :
     adresseESP32 = ADRESSE_ESP32_JOLLY_JUMPI;
     qDebug() << Q_FUNC_INFO << "PAS SIMULATEUR";
 #endif
+    gestionConnexion->setInterval(PERIODE_RECONNEXION);
 }
 
 Bluetooth::~Bluetooth()
@@ -36,6 +39,9 @@ void Bluetooth::setAbandon(bool abandon)
 
 void Bluetooth::initialiserCommunication()
 {
+    if(ihm->estConnecte())
+        return;
+
     if(peripheriqueLocal.isValid())
     {
         peripheriqueLocal.powerOn();
@@ -46,16 +52,18 @@ void Bluetooth::initialiserCommunication()
                  << adressePeripheriqueLocal;
         // peripheriqueLocal.setHostMode(QBluetoothLocalDevice::HostConnectable);
 
-        agentDecouverteBluetooth = new QBluetoothDeviceDiscoveryAgent(this);
+        if(agentDecouverteBluetooth == nullptr)
+            agentDecouverteBluetooth = new QBluetoothDeviceDiscoveryAgent(this);
 
         if(socket == nullptr)
         {
             socket =
               new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol);
+            connecterSignauxSlots();
         }
-        connecterSignauxSlots();
 
         agentDecouverteBluetooth->start();
+        gestionConnexion->start();
     }
 }
 
@@ -69,6 +77,10 @@ void Bluetooth::connecterSignauxSlots()
     connect(socket, SIGNAL(connected()), ihm, SLOT(gererEtatConnexion()));
     connect(socket, SIGNAL(disconnected()), ihm, SLOT(gererEtatDeconnexion()));
     connect(socket, SIGNAL(readyRead()), this, SLOT(lireTrame()));
+    connect(socket,
+            SIGNAL(error(QBluetoothSocket::SocketError)),
+            this,
+            SLOT(gererErreurBluetooth(QBluetoothSocket::SocketError)));
     connect(this, SIGNAL(abandonPartie()), course, SLOT(terminerCourse()));
     connect(this, SIGNAL(boutonStart()), ihm, SLOT(validerSelection()));
     connect(this, SIGNAL(encodeurDroite()), ihm, SLOT(selectionnerSuivant()));
@@ -77,6 +89,10 @@ void Bluetooth::connecterSignauxSlots()
             SIGNAL(pointMarque(int, int)),
             course,
             SLOT(actualiserPositionChevaux(int, int)));
+    connect(gestionConnexion,
+            SIGNAL(timeout()),
+            this,
+            SLOT(gererReconnexion()));
 }
 
 void Bluetooth::connecter()
@@ -94,6 +110,7 @@ void Bluetooth::deconnecter()
     {
         socket->close();
     }
+    gestionConnexion->start();
 }
 
 void Bluetooth::gererPeripherique(QBluetoothDeviceInfo peripherique)
@@ -213,4 +230,27 @@ bool Bluetooth::traiterTrame(QString trame)
     }
 
     return true;
+}
+
+void Bluetooth::arreterReconnexion()
+{
+    qDebug() << Q_FUNC_INFO << "estConnecte" << ihm->estConnecte();
+    gestionConnexion->stop();
+}
+
+void Bluetooth::gererReconnexion()
+{
+    qDebug() << Q_FUNC_INFO << "estConnecte" << ihm->estConnecte();
+    if(!agentDecouverteBluetooth->isActive())
+        initialiserCommunication();
+}
+
+void Bluetooth::gererErreurBluetooth(QBluetoothSocket::SocketError erreur)
+{
+    qDebug() << Q_FUNC_INFO << "erreur" << erreur;
+    switch(erreur)
+    {
+        case QBluetoothSocket::SocketError::OperationError:
+            socket->abort();
+    }
 }
