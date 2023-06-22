@@ -5,7 +5,7 @@
 Course::Course(IHM* ihm) :
     QObject(ihm), ihm(ihm), stats(nullptr), bluetooth(nullptr),
     nbChevaux(NB_CHEVAUX_MAX), dureePartie(DISTANCE_MAX), numeroCheval(0),
-    positionChevaux(nbChevaux, 0), chronometre(0.0), course(false)
+    positionChevaux(nbChevaux, 0), chronometre(0.0), course(false), modeDeJeu(0)
 {
     qDebug() << Q_FUNC_INFO;
     initialiserChronometre();
@@ -193,8 +193,7 @@ void Course::actualiserPositionChevaux(int numeroCheval, int deplacement)
     stats->setNombreTirs(numeroCheval);
     stats->setNombrePoints(numeroCheval, deplacement);
     QVector<unsigned int> nombreTirs   = stats->getNombreTirs();
-    QVector<unsigned int> nombrePoints = stats->getNombreTirs();
-    nombrePoints[numeroCheval] += deplacement;
+    QVector<unsigned int> nombrePoints = stats->getNombrePoints();
     if(nombrePoints[numeroCheval] >= dureePartie)
         nombrePoints[numeroCheval] = dureePartie;
     qDebug() << Q_FUNC_INFO << "Le cheval numéro" << numeroCheval + 1
@@ -224,7 +223,7 @@ void Course::simulerAvancementCheval()
     if(ihm->estBonIndex())
     {
         Trou trous[NB_COULEURS_TROU] = { JAUNE, BLEU, ROUGE };
-        int  numeroCheval            = randInt(0, NB_CHEVAUX_MAX - 1);
+        int  numeroCheval            = randInt(0, nbChevaux - 1);
         int  trou                    = randInt(0, NB_COULEURS_TROU - 1);
         actualiserPositionChevaux(numeroCheval, trous[trou]);
     }

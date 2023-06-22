@@ -81,6 +81,8 @@ void Statistiques::setNombreTirs(int numeroCheval)
 
 void Statistiques::setNombrePoints(int numeroCheval, int deplacement)
 {
+    qDebug() << Q_FUNC_INFO << "nombrePoints" << nombrePoints[numeroCheval]
+             << "deplacement" << deplacement;
     this->nombrePoints[numeroCheval] = nombrePoints[numeroCheval] + deplacement;
 }
 

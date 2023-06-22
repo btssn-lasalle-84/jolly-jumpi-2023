@@ -105,9 +105,11 @@ class IHM : public QWidget
     int   optionSelectionne;
     QFont police, policeStats, policeSelectionne;
 
+    void afficherWidgets();
     void instancierWidgets();
     void initialiserWidgets();
     void positionnerWidgets();
+    void supprimerWidgets();
     void connecterSignauxSlots();
     void initialiserFenetre();
 #ifdef MODE_SIMULATION

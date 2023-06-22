@@ -20,7 +20,7 @@
    <item>
     <widget class="QStackedWidget" name="pages">
      <property name="currentIndex">
-      <number>4</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="pageConnexion">
       <property name="styleSheet">
@@ -247,7 +247,7 @@ background-color: rgb(78, 140, 6);</string>
           <string notr="true">color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
-          <string>Quitter</string>
+          <string>Retour</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
