@@ -120,6 +120,7 @@ void IHM::supprimerWidgets()
         ui->pages->widget(IHM::Page::PageCourse)
           ->findChild<QGridLayout*>("gridLayout")
           ->removeWidget(avatarsJoueurs[i]);
+        delete avatarsJoueurs[i];
     }
     for(int i = 0; i < course->getDureeMax(); i++)
     {
@@ -127,6 +128,7 @@ void IHM::supprimerWidgets()
         ui->pages->widget(IHM::Page::PageCourse)
           ->findChild<QGridLayout*>("gridLayout")
           ->removeWidget(placeHolder[i]);
+        delete placeHolder[i];
     }
     imageAvatarsJoueurs.clear();
     avatarsJoueurs.clear();
