@@ -50,7 +50,6 @@ void Bluetooth::initialiserCommunication()
         qDebug() << Q_FUNC_INFO << "nomPeripheriqueLocal"
                  << nomPeripheriqueLocal << "adressePeripheriqueLocal"
                  << adressePeripheriqueLocal;
-        // peripheriqueLocal.setHostMode(QBluetoothLocalDevice::HostConnectable);
 
         if(agentDecouverteBluetooth == nullptr)
             agentDecouverteBluetooth = new QBluetoothDeviceDiscoveryAgent(this);
