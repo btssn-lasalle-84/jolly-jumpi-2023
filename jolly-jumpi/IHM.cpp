@@ -471,50 +471,29 @@ void IHM::installerModeSimulation()
             this,
             SLOT(simulerAvancementCheval()));
 
-    QAction* demarrage = new QAction(this);
-    demarrage->setShortcut(QKeySequence(Qt::Key_S)); // START
-    addAction(demarrage);
-    connect(demarrage,
+    QAction* simulerSelectionSuivant = new QAction(this);
+    simulerSelectionSuivant->setShortcut(QKeySequence(Qt::Key_Down));
+    addAction(simulerSelectionSuivant);
+    connect(simulerSelectionSuivant,
             SIGNAL(triggered()),
             this,
-            SLOT(ouvrirPageAvantCourse()));
+            SLOT(selectionnerSuivant()));
 
-    QAction* demarrerCourse = new QAction(this);
-    demarrerCourse->setShortcut(QKeySequence(Qt::Key_1));
-    addAction(demarrerCourse);
-    connect(demarrerCourse, SIGNAL(triggered()), this, SLOT(demarrerCourse()));
-
-    QAction* selectionnerParametres = new QAction(this);
-    selectionnerParametres->setShortcut(QKeySequence(Qt::Key_2));
-    addAction(selectionnerParametres);
-    connect(selectionnerParametres,
+    QAction* simulerSelectionPrecedent = new QAction(this);
+    simulerSelectionPrecedent->setShortcut(QKeySequence(Qt::Key_Up));
+    addAction(simulerSelectionPrecedent);
+    connect(simulerSelectionPrecedent,
             SIGNAL(triggered()),
             this,
-            SLOT(accederParametres()));
+            SLOT(selectionnerPrecedent()));
 
-    QAction* retourAccueil = new QAction(this);
-    retourAccueil->setShortcut(QKeySequence(Qt::Key_3));
-    addAction(retourAccueil);
-    connect(retourAccueil,
+    QAction* simulerValidation = new QAction(this);
+    simulerValidation->setShortcut(QKeySequence(Qt::Key_Left));
+    addAction(simulerValidation);
+    connect(simulerValidation,
             SIGNAL(triggered()),
             this,
-            SLOT(afficherPageConnexion()));
-
-    QAction* quitterStatistiques = new QAction(this);
-    quitterStatistiques->setShortcut(QKeySequence(Qt::Key_Q));
-    addAction(quitterStatistiques);
-    connect(quitterStatistiques,
-            SIGNAL(triggered()),
-            this,
-            SLOT(quitterStatistiques()));
-
-    QAction* afficherStatsJoueurSuivant = new QAction(this);
-    afficherStatsJoueurSuivant->setShortcut(QKeySequence(Qt::Key_D));
-    addAction(afficherStatsJoueurSuivant);
-    connect(afficherStatsJoueurSuivant,
-            SIGNAL(triggered()),
-            this,
-            SLOT(afficherResultatJoueurSuivant()));
+            SLOT(validerSelection()));
 }
 #endif
 
