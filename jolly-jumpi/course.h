@@ -49,9 +49,9 @@ enum Trou
 
 enum ModeDeJeu
 {
-    Normal,
-    PointsAleatoire,
-    NbModes
+    Normal = 0,
+    PointsAleatoire = 1,
+    NbModes = 2
 };
 
 class Statistiques;

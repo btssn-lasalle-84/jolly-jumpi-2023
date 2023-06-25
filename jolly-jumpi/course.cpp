@@ -5,7 +5,7 @@
 Course::Course(IHM* ihm) :
     QObject(ihm), ihm(ihm), stats(nullptr), bluetooth(nullptr),
     nbChevaux(NB_CHEVAUX_MAX), dureePartie(DISTANCE_MAX), numeroCheval(0),
-    positionChevaux(nbChevaux, 0), chronometre(0.0), course(false), modeDeJeu(0)
+    positionChevaux(nbChevaux, 0), chronometre(-3.0), course(false), modeDeJeu(0)
 {
     qDebug() << Q_FUNC_INFO;
     initialiserChronometre();

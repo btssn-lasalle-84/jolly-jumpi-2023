@@ -376,6 +376,10 @@ void IHM::afficherNombrePointsParTir(int numeroJoueur)
         ui->pages->widget(IHM::Page::PageStatistiques)
           ->findChild<QLabel*>("ppt")
           ->setText(QString::number(pointsParTir) + " points par tir");
+        if(pointsParTir == 1)
+            ui->pages->widget(IHM::Page::PageStatistiques)
+            ->findChild<QLabel*>("ppt")
+            ->setText(QString::number(pointsParTir) + " point par tir");
     }
     else
     {

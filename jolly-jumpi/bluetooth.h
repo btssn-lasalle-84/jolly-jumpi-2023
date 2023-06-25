@@ -7,11 +7,10 @@
 #include <QBluetoothLocalDevice>
 #include <QDebug>
 
-#define SIMULATEUR
+//#define SIMULATEUR
 
 #define ADRESSE_ESP32_JOLLY_JUMPI QString("08:3A:F2:6E:2C:22")
 #define NOM_ESP32_JOLLY_JUMPI     QString("Jolly-JumPi")
-//#define ADRESSE_ESP32_SIMULATEUR  QString("3C:71:BF:6A:F5:D2")
 #define ADRESSE_ESP32_SIMULATEUR QString("3C:71:BF:6A:F5:D2")
 #define NOM_ESP32_SIMULATEUR     QString("jolly-jumpi-1")
 
@@ -35,7 +34,7 @@
 #define NUMERO_TROU    3
 #define COULEUR_ANNEAU 4
 
-#define PERIODE_RECONNEXION 5000
+#define PERIODE_RECONNEXION 2000
 
 class Course;
 class IHM;
