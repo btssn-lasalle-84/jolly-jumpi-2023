@@ -860,9 +860,18 @@ void IHM::changerNombreJoueurs()
     ui->pages->widget(IHM::Page::ChangementParametres)
       ->findChild<QLabel*>("parametre")
       ->setText("Nombre de joueurs");
-    ui->pages->widget(IHM::Page::ChangementParametres)
-      ->findChild<QLabel*>("selection")
-      ->setText(QString::number(optionSelectionne) + " joueurs");
+    if(course->getNbChevaux() != 1)
+    {
+        ui->pages->widget(IHM::Page::ChangementParametres)
+          ->findChild<QLabel*>("selection")
+          ->setText(QString::number(optionSelectionne) + " joueurs");
+    }
+    else
+    {
+        ui->pages->widget(IHM::Page::ChangementParametres)
+          ->findChild<QLabel*>("selection")
+          ->setText(QString::number(optionSelectionne) + " joueur");
+    }
 }
 
 void IHM::changerDureePartie()
