@@ -6,7 +6,7 @@
 
 Statistiques::Statistiques(IHM* ihm) :
     QObject(ihm), ihm(ihm), course(nullptr), nbChevaux(NB_CHEVAUX_MAX),
-    classement(nbChevaux, 0), positionClassement(0), dureeDeLaPartie(0.0),
+    classement(0), positionClassement(0), dureeDeLaPartie(0.0),
     record(16.46), nombreTirs(nbChevaux, 0), nombrePoints(nbChevaux, 0),
     joueurGagnant(AUCUN_JOUEUR)
 {
@@ -96,6 +96,7 @@ void Statistiques::determinerClassement()
      */
     classement.clear();
     classement = positionChevaux;
+    classement.resize(course->getNbChevaux());
     std::sort(classement.begin(),
               classement.end(),
               std::greater<unsigned int>());
@@ -112,7 +113,7 @@ int Statistiques::determinerJoueurSuivant()
     {
         copiePositionChevaux = course->getPositionChevaux();
     }
-    else if(positionClassement > nbChevaux)
+    else if(positionClassement > course->getNbChevaux())
     {
         qDebug() << Q_FUNC_INFO;
         afficherResultats();
@@ -120,7 +121,7 @@ int Statistiques::determinerJoueurSuivant()
         copiePositionChevaux = course->getPositionChevaux();
         return joueurGagnant;
     }
-    for(int numeroJoueur = 0; numeroJoueur < classement.size(); numeroJoueur++)
+    for(int numeroJoueur = 0; numeroJoueur < course->getNbChevaux(); numeroJoueur++)
     {
         if(classement[positionClassement - 1] ==
            copiePositionChevaux[numeroJoueur])
@@ -147,6 +148,9 @@ void Statistiques::afficherResultats()
 void Statistiques::afficherResultatJoueurSuivant()
 {
     int joueurSuivant = determinerJoueurSuivant();
+    if(joueurSuivant > course->getNbChevaux())
+        joueurSuivant = joueurGagnant;
+
     qDebug() << Q_FUNC_INFO << "positionClassement" << positionClassement
              << "joueurSuivant" << joueurSuivant;
     ihm->afficherPositionFinale(joueurSuivant);
