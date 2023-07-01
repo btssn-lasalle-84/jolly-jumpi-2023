@@ -1,4 +1,6 @@
-QT       += core gui
+QT       += core gui \
+         multimedia \
+         bluetooth
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -9,12 +11,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     IHM.cpp \
+    bluetooth.cpp \
     course.cpp \
     main.cpp \
     statistiques.cpp
 
 HEADERS += \
     IHM.h \
+    bluetooth.h \
     course.h \
     statistiques.h
 
@@ -24,7 +28,7 @@ FORMS += \
 CONFIG(release, debug|release):DEFINES+=QT_NO_DEBUG_OUTPUT
 
 RESOURCES += \
-    background.qrc
+    res.qrc
 
 
 COPIES += images

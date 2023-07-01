@@ -2,7 +2,7 @@
  * @file src/main.cpp
  * @brief Programme principal Jolly Jumpi 2023
  * @author Thierry Vaira
- * @version 0.12
+ * @version 1.0
  */
 #include <Arduino.h>
 #include <BluetoothSerial.h>
@@ -13,23 +13,27 @@
 #define DEBUG
 
 // Brochages
-#define GPIO_LED_ROUGE   5    //!<
-#define GPIO_LED_ORANGE  17   //!< Trame OK
-#define GPIO_LED_VERTE   16   //!< Trame START
-#define GPIO_SW1         12   //!< Pour simuler un tir
-#define GPIO_SW2         14   //!< Pour simuler joueur suivant
+#define GPIO_LED_ROUGE   5  //!<
+#define GPIO_LED_ORANGE  17 //!< Trame OK
+#define GPIO_LED_VERTE   16 //!< Trame START
+#define GPIO_SW1         12 //!< Pour simuler un tir
+#define GPIO_SW2         14 //!< Pour simuler joueur suivant
+#define GPIO_ENCODEUR_A  2
+#define GPIO_ENCODEUR_B  4
+#define GPIO_ENCODEUR_E  13
 #define ADRESSE_I2C_OLED 0x3c //!< Adresse I2C de l'OLED
 #define BROCHE_I2C_SDA   21   //!< Broche SDA
 #define BROCHE_I2C_SCL   22   //!< Broche SCL
 
 // Protocole (cf. Google Drive)
-#define EN_TETE_TRAME    "$"
+#define EN_TETE_TRAME    "$JJ"
 #define DELIMITEUR_CHAMP ";"
 #define DELIMITEURS_FIN  "\r\n"
 #define DELIMITEUR_DATAS ';'
 #define DELIMITEUR_FIN   '\n'
 
-#define NB_TROUS 5
+#define NB_TROUS  6
+#define NB_TABLES 6
 
 #define BLUETOOTH
 #ifdef BLUETOOTH
@@ -44,14 +48,15 @@ BluetoothSerial ESPBluetooth;
  */
 enum TypeTrame
 {
-    Inconnu = -1,
-    START   = 0,
-    PAUSE,
-    PLAY,
-    STOP,
-    RESET,
-    CONFIG,
-    ACK,
+    Inconnu  = -1,
+    CONNECTE = 0,
+    DEBUT_COURSE,
+    FIN_COURSE,
+    ABANDON,
+    VALIDATION,
+    ENCODEUR_DROITE,
+    ENCODEUR_GAUCHE,
+    TIR,
     NB_TRAMES
 };
 
@@ -63,7 +68,6 @@ enum EtatPartie
 {
     Finie = 0,
     EnCours,
-    EnPause,
     Terminee
 };
 
@@ -75,20 +79,26 @@ enum CouleurTrou
 {
     Jaune = 0,
     Bleu  = 1,
-    Rouge,
+    Rouge = 2,
     NbCouleurs
 };
 
 const String nomsTrame[TypeTrame::NB_TRAMES] = {
-    "START", "PAUSE", "PLAY", "STOP", "RESET", "CONFIG", "ACK"
+    "c", "d", "f", "a", "s", "d", "g", "t"
 }; //!< nom des trames dans le protocole
+
 const String codeCouleur[CouleurTrou::NbCouleurs] = {
     "J",
     "B",
     "R"
 };                                //!< nom des trames dans le protocole
+
 EtatPartie etatPartie = Finie;    //!< l'état de la partie
 bool       tirEncours = false;    //!<
+bool       bouton     = false;    //!<
+bool       encodeur   = false;    //!<
+bool       encodeurA  = false;    //!<
+bool       encodeurB  = false;    //!<
 int        numeroTrou = 0;        //!< de 0 à NB_TROUS
 int        nbTrous    = NB_TROUS; //!< le nombre de trous détectables
 bool       refresh    = false;    //!< demande rafraichissement de l'écran OLED
@@ -127,17 +137,43 @@ String extraireChamp(String& trame, unsigned int numeroChamp)
 }
 
 /**
- * @brief Envoie une trame d'acquittement via le Bluetooth
+ * @brief Envoie une trame encodeur
  *
  */
-void envoyerTrameAcquittement()
+void envoyerTrameEncodeur(char sens)
 {
     char trameEnvoi[64];
 
-    sprintf((char*)trameEnvoi,
-            "%s%s\r\n",
-            entete.c_str(),
-            nomsTrame[TypeTrame::ACK].c_str());
+    // Format :
+    // Encodeur pressé : 	$JJ;s;\r\n
+    // Encodeur droite : 	$JJ;d;\r\n
+    // Encodeur gauche : 	$JJ;g;\r\n
+
+    if(sens == 0x00)
+        sprintf((char*)trameEnvoi, "%s;s;\r\n", entete.c_str());
+    else
+        sprintf((char*)trameEnvoi, "%s;%c;\r\n", entete.c_str(), sens);
+
+    ESPBluetooth.write((uint8_t*)trameEnvoi, strlen((char*)trameEnvoi));
+#ifdef DEBUG
+    String trame = String(trameEnvoi);
+    trame.remove(trame.indexOf("\r"), 1);
+    Serial.print("> ");
+    Serial.println(trame);
+#endif
+}
+
+/**
+ * @brief Envoie une trame bouton pressé
+ *
+ */
+void envoyerTrameBouton()
+{
+    char trameEnvoi[64];
+
+    // Format : $JJ;a;\r\n
+
+    sprintf((char*)trameEnvoi, "%s;a;\r\n", entete.c_str());
 
     ESPBluetooth.write((uint8_t*)trameEnvoi, strlen((char*)trameEnvoi));
 #ifdef DEBUG
@@ -152,17 +188,18 @@ void envoyerTrameAcquittement()
  * @brief Envoie une trame via le Bluetooth
  *
  */
-void envoyerTrameDetection(int numeroTrou, CouleurTrou couleurTrou)
+void envoyerTrameTir(int numeroTable, int numeroTrou, CouleurTrou couleurTrou)
 {
     char trameEnvoi[64];
 
-    // Format : ${NUMERO};{COULEUR}\r\n
+    // Format : $JJ;t;{numeroTable};{positionTrou};{couleurAnneau};\r\n
 
     sprintf((char*)trameEnvoi,
-            "%s%d;%s\r\n",
+            "%s;t;%d;%d;%d;\r\n",
             entete.c_str(),
+            numeroTable,
             numeroTrou,
-            codeCouleur[(int)couleurTrou].c_str());
+            (int)couleurTrou);
     ESPBluetooth.write((uint8_t*)trameEnvoi, strlen((char*)trameEnvoi));
 #ifdef DEBUG
     String trame = String(trameEnvoi);
@@ -187,10 +224,42 @@ void IRAM_ATTR tirer()
 
 /**
  * @brief Déclenchée par interruption sur le bouton SW2
- * @fn terminerTir()
+ * @fn valider()
  */
-void IRAM_ATTR terminerTir()
+void IRAM_ATTR valider()
 {
+    if(antiRebond || bouton)
+        return;
+
+    bouton     = true;
+    antiRebond = true;
+}
+
+void IRAM_ATTR encoderA()
+{
+    if(antiRebond || encodeurA)
+        return;
+
+    encodeurA  = true;
+    antiRebond = true;
+}
+
+void IRAM_ATTR encoderB()
+{
+    if(antiRebond || encodeurB)
+        return;
+
+    encodeurB  = true;
+    antiRebond = true;
+}
+
+void IRAM_ATTR encoderE()
+{
+    if(antiRebond || encodeur)
+        return;
+
+    encodeur   = true;
+    antiRebond = true;
 }
 
 /**
@@ -234,8 +303,9 @@ TypeTrame verifierTrame(String& trame)
 
     for(int i = 0; i < TypeTrame::NB_TRAMES; i++)
     {
-        // Format : ${TYPE}\r\n
-        format = entete + nomsTrame[i]; // + delimiteurFin;
+        // Format : $JJ;{TYPE};\r\n
+        format =
+          entete + String(DELIMITEUR_CHAMP) + nomsTrame[i]; // + delimiteurFin;
 #ifdef DEBUG
         Serial.print("Verification trame : ");
         Serial.print(format);
@@ -283,9 +353,16 @@ void setup()
     pinMode(GPIO_LED_VERTE, OUTPUT);
     pinMode(GPIO_SW1, INPUT_PULLUP);
     pinMode(GPIO_SW2, INPUT_PULLUP);
+    pinMode(GPIO_ENCODEUR_A, INPUT_PULLUP);
+    pinMode(GPIO_ENCODEUR_B, INPUT_PULLUP);
+    pinMode(GPIO_ENCODEUR_E, INPUT_PULLUP);
 
     attachInterrupt(digitalPinToInterrupt(GPIO_SW1), tirer, FALLING);
-    // attachInterrupt(digitalPinToInterrupt(GPIO_SW2), terminerTir, FALLING);
+    attachInterrupt(digitalPinToInterrupt(GPIO_SW2), valider, FALLING);
+
+    attachInterrupt(digitalPinToInterrupt(GPIO_ENCODEUR_A), encoderA, FALLING);
+    attachInterrupt(digitalPinToInterrupt(GPIO_ENCODEUR_B), encoderB, FALLING);
+    attachInterrupt(digitalPinToInterrupt(GPIO_ENCODEUR_E), encoderE, FALLING);
 
     digitalWrite(GPIO_LED_ROUGE, HIGH);
     digitalWrite(GPIO_LED_ORANGE, LOW);
@@ -375,10 +452,12 @@ void loop()
           random(0, (NB_TROUS * 2)) + 1; // 1 chance sur 2 : entre 1 et 12
         if(tir >= 1 && tir <= NB_TROUS)
         {
+            int         numeroTable = random(0, NB_TABLES) + 1;
             CouleurTrou couleurTrou = (CouleurTrou)random(0, NbCouleurs);
-            envoyerTrameDetection(tir, couleurTrou);
+            envoyerTrameTir(numeroTable, tir, couleurTrou);
             sprintf(strMessageDisplay,
-                    "-> Trou %d %s",
+                    "-> Table %d trou %d %s",
+                    numeroTable,
                     tir,
                     codeCouleur[(int)couleurTrou].c_str());
         }
@@ -397,6 +476,30 @@ void loop()
 #endif
     }
 
+    if(bouton)
+    {
+        envoyerTrameBouton();
+        bouton = false;
+    }
+
+    if(encodeur)
+    {
+        envoyerTrameEncodeur(0x00);
+        encodeur = false;
+    }
+
+    if(encodeurA)
+    {
+        envoyerTrameEncodeur('g');
+        encodeurA = false;
+    }
+
+    if(encodeurB)
+    {
+        envoyerTrameEncodeur('d');
+        encodeurB = false;
+    }
+
     if(lireTrame(trame))
     {
         typeTrame = verifierTrame(trame);
@@ -411,18 +514,11 @@ void loop()
         {
             case Inconnu:
                 break;
-            case TypeTrame::START:
+            case TypeTrame::CONNECTE:
+            case TypeTrame::DEBUT_COURSE:
                 if(etatPartie == Finie)
                 {
-                    /*
-                    String type = extraireChamp(trame, 2);
-#ifdef DEBUG
-                    Serial.print("type : ");
-                    Serial.println(type);
-#endif
-                    */
                     reinitialiserAffichage();
-                    envoyerTrameAcquittement();
                     etatPartie = EnCours;
                     digitalWrite(GPIO_LED_ROUGE, LOW);
                     digitalWrite(GPIO_LED_ORANGE, LOW);
@@ -435,37 +531,10 @@ void loop()
 #endif
                 }
                 break;
-            case TypeTrame::PAUSE:
+            case TypeTrame::FIN_COURSE:
                 if(etatPartie == EnCours)
                 {
-                    envoyerTrameAcquittement();
-                    etatPartie = EnPause;
-                    digitalWrite(GPIO_LED_ROUGE, LOW);
-                    digitalWrite(GPIO_LED_ORANGE, HIGH);
-                    digitalWrite(GPIO_LED_VERTE, LOW);
-                    afficheur.setMessageLigne(Afficheur::Ligne3,
-                                              String("En pause"));
-                    afficheur.afficher();
-                }
-                break;
-            case TypeTrame::PLAY:
-                if(etatPartie == EnPause)
-                {
-                    envoyerTrameAcquittement();
-                    etatPartie = EnCours;
-                    digitalWrite(GPIO_LED_ROUGE, LOW);
-                    digitalWrite(GPIO_LED_ORANGE, LOW);
-                    digitalWrite(GPIO_LED_VERTE, HIGH);
-                    afficheur.setMessageLigne(Afficheur::Ligne3,
-                                              String("En cours"));
-                    afficheur.afficher();
-                }
-                break;
-            case TypeTrame::STOP:
-                if(etatPartie > Finie)
-                {
                     reinitialiserAffichage();
-                    envoyerTrameAcquittement();
                     etatPartie = Finie;
                     digitalWrite(GPIO_LED_ROUGE, HIGH);
                     digitalWrite(GPIO_LED_ORANGE, LOW);
@@ -474,27 +543,6 @@ void loop()
                                               String("Finie"));
                     afficheur.afficher();
                 }
-                break;
-            case TypeTrame::RESET:
-                reinitialiserAffichage();
-                envoyerTrameAcquittement();
-                etatPartie = Finie;
-                digitalWrite(GPIO_LED_ROUGE, HIGH);
-                digitalWrite(GPIO_LED_ORANGE, LOW);
-                digitalWrite(GPIO_LED_VERTE, LOW);
-                afficheur.setMessageLigne(Afficheur::Ligne3, String("Finie"));
-                reinitialiserAffichage();
-                break;
-            case TypeTrame::CONFIG:
-                envoyerTrameAcquittement();
-                digitalWrite(GPIO_LED_ORANGE, HIGH);
-                delay(150);
-                digitalWrite(GPIO_LED_ORANGE, LOW);
-                break;
-            case TypeTrame::ACK:
-                digitalWrite(GPIO_LED_ORANGE, HIGH);
-                delay(150);
-                digitalWrite(GPIO_LED_ORANGE, LOW);
                 break;
             default:
 #ifdef DEBUG

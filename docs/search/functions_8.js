@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['simuleravancementcheval_92',['simulerAvancementCheval',['../class_i_h_m.html#af800723bc452273c6f852d497a12303c',1,'IHM']]],
-  ['statistiques_93',['Statistiques',['../class_statistiques.html#a99c00468ae9c05d6d83a97e92ff86e96',1,'Statistiques']]]
+  ['liretrame_281',['lireTrame',['../class_bluetooth.html#aabdc2328c4fb3a8621198f2c44adf34c',1,'Bluetooth']]]
 ];

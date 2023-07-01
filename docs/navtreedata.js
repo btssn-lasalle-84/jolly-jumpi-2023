@@ -27,7 +27,6 @@ var NAVTREE =
   [ "jolly-jumpi", "index.html", [
     [ "A propos", "index.html", null ],
     [ "README", "md__mnt_sda_home_tv__documents_git_projets_2023_jolly_jumpi_2023__r_e_a_d_m_e.html", null ],
-    [ "Liste des choses à faire", "todo.html", null ],
     [ "Espaces de nommage", "namespaces.html", [
       [ "Liste des espaces de nommage", "namespaces.html", "namespaces_dup" ]
     ] ],
@@ -48,6 +47,8 @@ var NAVTREE =
       [ "Variables globale", "globals.html", [
         [ "Tout", "globals.html", null ],
         [ "Fonctions", "globals_func.html", null ],
+        [ "Énumérations", "globals_enum.html", null ],
+        [ "Valeurs énumérées", "globals_eval.html", null ],
         [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ]

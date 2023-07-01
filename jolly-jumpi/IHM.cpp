@@ -8,6 +8,8 @@
 
 #include "IHM.h"
 #include "ui_IHM.h"
+#include "course.h"
+#include "statistiques.h"
 
 /**
  * @brief Constructeur de la classe IHM
@@ -17,20 +19,28 @@
  */
 
 IHM::IHM(QWidget* parent) :
-    QWidget(parent), ui(new Ui::IHM), positionChevaux(NB_CHEVAUX_MAX, 0),
-    nbChevaux(positionChevaux.size()), screen(QGuiApplication::primaryScreen()), screenGeometry(screen->availableGeometry().size())
+    QWidget(parent), course(new Course(this)), stats(new Statistiques(this)),
+    bluetooth(new Bluetooth(this)), connecte(false), estMenu(true),
+    parametreSelectionne(0), ui(new Ui::IHM),
+    screen(QGuiApplication::primaryScreen()),
+    screenGeometry(screen->availableGeometry().size()), optionSelectionne(0),
+    police("Ubuntu Regular", 40, QFont::AnyStyle),
+    policeStats("Ubuntu Regular", 60, QFont::Bold),
+    policeSelectionne("Ubuntu Condensed", 60, QFont::Bold)
 {
-    qDebug() << Q_FUNC_INFO << "nbChevaux" << nbChevaux;
+    qDebug() << Q_FUNC_INFO;
+    course->setStatistiques(stats);
+    course->setBluetooth(bluetooth);
+    bluetooth->setCourse(course);
+    stats->setCourse(course);
 
-    instancierWidgets();
-    initialiserWidgets();
-    positionnerWidgets();
-    connecterSignauxSlots();
-    initialiserFenetre();
+    bluetooth->initialiserCommunication();
+    ui->setupUi(this);
+    afficherWidgets();
 #ifdef MODE_SIMULATION
     installerModeSimulation();
-    afficherPageCourse();
 #endif
+    initialiserMusiqueDeFond();
 }
 
 /**
@@ -43,6 +53,7 @@ IHM::IHM(QWidget* parent) :
 IHM::~IHM()
 {
     delete ui;
+    qDebug() << Q_FUNC_INFO;
 }
 
 /**
@@ -60,6 +71,7 @@ void IHM::afficherPage(IHM::Page page)
  */
 void IHM::afficherPageConnexion()
 {
+    qDebug() << Q_FUNC_INFO;
     afficherPage(IHM::Page::Connexion);
 }
 
@@ -69,63 +81,125 @@ void IHM::afficherPageConnexion()
  */
 void IHM::afficherPageCourse()
 {
-    afficherPage(IHM::Page::Course);
+    qDebug() << Q_FUNC_INFO;
+    afficherPage(IHM::Page::PageCourse);
+}
+
+void IHM::afficherPageParametres()
+{
+    qDebug() << Q_FUNC_INFO;
+    afficherPage(IHM::Page::Parametres);
+}
+
+void IHM::afficherPageChangementParametre()
+{
+    qDebug() << Q_FUNC_INFO;
+    afficherPage(IHM::Page::ChangementParametres);
+}
+
+void IHM::afficherPageAvantCourse()
+{
+    qDebug() << Q_FUNC_INFO;
+    afficherPage(IHM::Page::AvantCourse);
+}
+
+void IHM::afficherPageStatistiques()
+{
+    qDebug() << Q_FUNC_INFO;
+    optionSelectionne = 0;
+    mettreEnEvidenceSelection();
+    afficherPage(IHM::Page::PageStatistiques);
+}
+
+void IHM::supprimerWidgets()
+{
+    qDebug() << Q_FUNC_INFO;
+    for(int i = 0; i < avatarsJoueurs.size(); i++)
+    {
+        avatarsJoueurs[i]->setPixmap(*imageAvatarsJoueurs[i]);
+        ui->pages->widget(IHM::Page::PageCourse)
+          ->findChild<QGridLayout*>("gridLayout")
+          ->removeWidget(avatarsJoueurs[i]);
+        delete avatarsJoueurs[i];
+    }
+    for(int i = 0; i < placeHolder.size(); i++)
+    {
+        placeHolder[i]->setPixmap(*imagePlaceHolder[i]);
+        ui->pages->widget(IHM::Page::PageCourse)
+          ->findChild<QGridLayout*>("gridLayout")
+          ->removeWidget(placeHolder[i]);
+        delete placeHolder[i];
+    }
+    imageAvatarsJoueurs.clear();
+    avatarsJoueurs.clear();
+    imagePlaceHolder.clear();
+    placeHolder.clear();
+    afficherWidgets();
+}
+
+void IHM::afficherWidgets()
+{
+    instancierWidgets();
+    initialiserWidgets();
+    positionnerWidgets();
+    initialiserFenetre();
 }
 
 void IHM::instancierWidgets()
 {
-    ui->setupUi(this);
-
-    for(int i = 0; i < nbChevaux; i++)
+    for(int i = 0; i < course->getNbChevaux(); i++)
     {
         imageAvatarsJoueurs.push_back(
           new QPixmap("Images/cheval" + QString::number(i + 1) + ".png"));
         avatarsJoueurs.push_back(new QLabel(this));
-
+        qDebug() << Q_FUNC_INFO << i + 1 << "chevaux";
+    }
+    for(int i = 0; i < course->getDureePartie(); i++)
+    {
         imagePlaceHolder.push_back(new QPixmap("Images/placeholder.png"));
         placeHolder.push_back(new QLabel(this));
+        qDebug() << Q_FUNC_INFO << i + 1 << "placeholders";
     }
 }
 
 void IHM::initialiserWidgets()
 {
+    qDebug() << Q_FUNC_INFO;
+    QVector<unsigned int> positionCheval = course->getPositionChevaux();
     for(int i = 0; i < imageAvatarsJoueurs.size(); i++)
     {
         *imageAvatarsJoueurs[i] = imageAvatarsJoueurs[i]->scaled(
-            QSize(screenGeometry.width() * 0.1,
-                  screenGeometry.height() * 0.1));
+          QSize(screenGeometry.width() * 0.1, screenGeometry.height() * 0.1));
         avatarsJoueurs[i]->setPixmap(*imageAvatarsJoueurs[i]);
 
-
-        ui->pages->widget(IHM::Page::Course)
+        ui->pages->widget(IHM::Page::PageCourse)
           ->findChild<QGridLayout*>("gridLayout")
-          ->addWidget(avatarsJoueurs[i], i, 0, Qt::AlignTop);
+          ->addWidget(avatarsJoueurs[i], i, positionCheval[i], Qt::AlignTop);
 
-        ui->pages->widget(IHM::Page::Course)
+        ui->pages->widget(IHM::Page::PageCourse)
           ->findChild<QGridLayout*>("gridLayout")
           ->setRowStretch(imageAvatarsJoueurs.size(), 1);
 
         *imagePlaceHolder[i] = imagePlaceHolder[i]->scaled(
-            QSize(screenGeometry.width() * 0.1,
-                  screenGeometry.height() * 0.1));
+          QSize(screenGeometry.width() * 0.1, screenGeometry.height() * 0.1));
         placeHolder[i]->setPixmap(*imagePlaceHolder[i]);
 
-        ui->pages->widget(IHM::Page::Course)
+        ui->pages->widget(IHM::Page::PageCourse)
           ->findChild<QGridLayout*>("gridLayout")
-          ->addWidget(placeHolder[i], nbChevaux, i, Qt::AlignTop);
+          ->addWidget(placeHolder[i], course->getNbChevaux(), i, Qt::AlignTop);
 
-        ui->pages->widget(IHM::Page::Course)
+        ui->pages->widget(IHM::Page::PageCourse)
           ->findChild<QGridLayout*>("gridLayout")
           ->setRowStretch(imagePlaceHolder.size(), 1);
     }
 
-    ui->pages->widget(IHM::Page::Course)
+    ui->pages->widget(IHM::Page::PageCourse)
       ->findChild<QGridLayout*>("gridLayout")
       ->setRowStretch(imageAvatarsJoueurs.size(), 1);
 
-    for(int i = 0; i <= DISTANCE_MAX; i++)
+    for(int i = 0; i <= course->getDureePartie(); i++)
     {
-        ui->pages->widget(IHM::Page::Course)
+        ui->pages->widget(IHM::Page::PageCourse)
           ->findChild<QGridLayout*>("gridLayout")
           ->setColumnStretch(i, 1);
     }
@@ -133,48 +207,262 @@ void IHM::initialiserWidgets()
 
 void IHM::positionnerWidgets()
 {
-    ui->pages->widget(IHM::Page::Course)
-        ->findChild<QGridLayout*>("gridLayout")
-        ->setContentsMargins(0,
-                             screenGeometry.height() * 0.14,
-                             0,
-                             0);
-}
-
-void IHM::connecterSignauxSlots()
-{
+    qDebug() << Q_FUNC_INFO;
+    ui->pages->widget(IHM::Page::PageCourse)
+      ->findChild<QGridLayout*>("gridLayout")
+      ->setContentsMargins(0, screenGeometry.height() * 0.14, 0, 0);
 }
 
 void IHM::initialiserFenetre()
 {
 #ifdef RASPBERRY_PI
+    setFixedSize(screenGeometry.width(), screenGeometry.height());
     showFullScreen();
 #else
-    setFixedSize(screenGeometry.width(),
-                 screenGeometry.height());
+    setFixedSize(screenGeometry.width(), screenGeometry.height());
     // showMaximized();
 #endif
 
     afficherPageConnexion();
 }
 
-bool IHM::estPartieFinie()
+void IHM::initialiserMusiqueDeFond()
 {
-    for(int i = 0; i < nbChevaux; i++)
+    QSoundEffect musique;
+    musique.setSource(QUrl::fromLocalFile(MUSIQUE_DE_FOND));
+    musique.setLoopCount(QSoundEffect::Infinite);
+    musique.setVolume(1.0f);
+    musique.play();
+    qDebug() << Q_FUNC_INFO << "isPlaying" << musique.isPlaying();
+}
+
+void IHM::demarrerCourse()
+{
+    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
     {
-        if(positionChevaux[i] == DISTANCE_MAX)
-        {
-            qDebug() << Q_FUNC_INFO << "true";
-            return true;
-        }
+        supprimerWidgets();
+        course->initialiserCourse();
+        afficherPageCourse();
     }
-    qDebug() << Q_FUNC_INFO << "false";
+}
+
+void IHM::ouvrirPageAvantCourse()
+{
+    qDebug() << Q_FUNC_INFO;
+    if(ui->pages->currentIndex() == IHM::Page::Connexion)
+    {
+        afficherPageAvantCourse();
+    }
+}
+
+void IHM::accederParametres()
+{
+    if(ui->pages->currentIndex() == IHM::Page::AvantCourse ||
+       ui->pages->currentIndex() == IHM::Page::ChangementParametres)
+    {
+        afficherPageParametres();
+    }
+}
+
+void IHM::quitterProgramme()
+{
+    qDebug() << Q_FUNC_INFO;
+    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
+    {
+        afficherPageConnexion();
+    }
+}
+
+void IHM::quitterStatistiques()
+{
+    qDebug() << Q_FUNC_INFO;
+    if(ui->pages->currentIndex() == IHM::Page::PageStatistiques)
+    {
+        afficherPageAvantCourse();
+    }
+}
+
+void IHM::gererEtatConnexion()
+{
+    qDebug() << Q_FUNC_INFO;
+    connecte = true;
+    bluetooth->arreterReconnexion();
+    ui->pages->widget(IHM::Page::Connexion)
+      ->findChild<QLabel*>("etatConnexion")
+      ->setText("Appuyez sur start");
+    bluetooth->envoyerTrameConnexion();
+}
+
+void IHM::gererEtatDeconnexion()
+{
+    qDebug() << Q_FUNC_INFO;
+    connecte = false;
+    bluetooth->deconnecter();
+}
+
+void IHM::afficherResultatJoueurSuivant()
+{
+    if(ui->pages->currentIndex() == IHM::Page::PageStatistiques &&
+       course->getNbChevaux() != 1)
+        stats->afficherResultatJoueurSuivant();
+}
+
+void IHM::avancerChevaux()
+{
+    QVector<unsigned int> positionChevaux = course->getPositionChevaux();
+    QVector<unsigned int> classement      = stats->getClassement();
+    for(int i = 0; i < course->getNbChevaux(); i++)
+    {
+        avatarsJoueurs[i]->setPixmap(*imageAvatarsJoueurs[i]);
+        ui->pages->widget(IHM::Page::PageCourse)
+          ->findChild<QGridLayout*>("gridLayout")
+          ->removeWidget(avatarsJoueurs[i]);
+
+        ui->pages->widget(IHM::Page::PageCourse)
+          ->findChild<QGridLayout*>("gridLayout")
+          ->addWidget(avatarsJoueurs[i], i, positionChevaux[i], Qt::AlignTop);
+
+        ui->pages->widget(IHM::Page::PageCourse)
+          ->findChild<QGridLayout*>("gridLayout")
+          ->setRowStretch(imageAvatarsJoueurs.size(), 1);
+
+        if(positionChevaux[i] == course->getDureePartie())
+            classement.push_back(i);
+    }
+}
+
+bool IHM::estBonIndex()
+{
+    if(ui->pages->currentIndex() == IHM::PageCourse && course)
+        return true;
     return false;
 }
 
+void IHM::afficherDureePartie()
+{
+    float dureeDeLaPartie = stats->getDureeDeLaPartie();
+    float record          = stats->getRecord();
+    ui->pages->widget(IHM::Page::PageStatistiques)
+      ->findChild<QLabel*>("duree")
+      ->setText(
+        QString::number(dureeDeLaPartie, 'f', 2) +
+        " secondes (Meilleur score: " + QString::number(record, 'f', 2) + "s)");
+    qDebug() << Q_FUNC_INFO << "dureeDeLaPartie" << dureeDeLaPartie;
+}
+
+void IHM::afficherClassement(int positionClassement)
+{
+    ui->pages->widget(IHM::Page::PageStatistiques)
+      ->findChild<QLabel*>("duree")
+      ->setText(QString::number(positionClassement) + "e position");
+}
+
+void IHM::afficherNombrePointsParTir(int numeroJoueur)
+{
+    if(numeroJoueur == AUCUN_JOUEUR)
+        return;
+    unsigned int          pointsParTir    = 0;
+    QVector<unsigned int> positionChevaux = course->getPositionChevaux();
+    QVector<unsigned int> nombrePoints    = stats->getNombrePoints();
+    QVector<unsigned int> nombreTirs      = stats->getNombreTirs();
+    if(positionChevaux[numeroJoueur] != 0)
+    {
+        qDebug() << Q_FUNC_INFO << "numeroJoueur" << numeroJoueur
+                 << "nombrePoints" << nombrePoints[numeroJoueur] << "nombreTirs"
+                 << nombreTirs[numeroJoueur];
+        pointsParTir = (nombrePoints[numeroJoueur] / nombreTirs[numeroJoueur]);
+        qDebug() << Q_FUNC_INFO << "numeroJoueur" << numeroJoueur
+                 << "pointsParTir" << pointsParTir;
+        ui->pages->widget(IHM::Page::PageStatistiques)
+          ->findChild<QLabel*>("ppt")
+          ->setText(QString::number(pointsParTir) + " points par tir");
+        if(pointsParTir == 1)
+            ui->pages->widget(IHM::Page::PageStatistiques)
+            ->findChild<QLabel*>("ppt")
+            ->setText(QString::number(pointsParTir) + " point par tir");
+    }
+    else
+    {
+        ui->pages->widget(IHM::Page::PageStatistiques)
+          ->findChild<QLabel*>("ppt")
+          ->setText("0 point par tir");
+    }
+}
+
+void IHM::afficherPositionFinale(int numeroJoueur)
+{
+    if(numeroJoueur == AUCUN_JOUEUR)
+        return;
+    QVector<unsigned int> positionChevaux = course->getPositionChevaux();
+    unsigned int          pourcentageCompletion =
+      (positionChevaux[numeroJoueur] * 100) / course->getDureePartie();
+    qDebug() << Q_FUNC_INFO << "numeroJoueur" << numeroJoueur
+             << "pourcentageCompletion" << pourcentageCompletion;
+    ui->pages->widget(IHM::Page::PageStatistiques)
+      ->findChild<QLabel*>("temps")
+      ->setText("Course finie à " + QString::number(pourcentageCompletion) +
+                "%");
+}
+
+void IHM::afficherPointsParSeconde(int numeroJoueur)
+{
+    if(numeroJoueur == AUCUN_JOUEUR)
+        return;
+    float                 pointsParSeconde = 0.0;
+    QVector<unsigned int> positionChevaux  = course->getPositionChevaux();
+    QVector<unsigned int> nombrePoints     = stats->getNombrePoints();
+    float                 dureeDeLaPartie  = stats->getDureeDeLaPartie();
+    if(positionChevaux[numeroJoueur] != 0)
+    {
+        qDebug() << Q_FUNC_INFO << "positionChevaux[numeroJoueur]"
+                 << positionChevaux[numeroJoueur];
+        pointsParSeconde = (nombrePoints[numeroJoueur] / dureeDeLaPartie);
+        qDebug() << Q_FUNC_INFO << "numeroJoueur" << numeroJoueur
+                 << "pointsParSeconde" << pointsParSeconde;
+        ui->pages->widget(IHM::Page::PageStatistiques)
+          ->findChild<QLabel*>("pps")
+          ->setText(QString::number(pointsParSeconde, 'f', 2) +
+                    " points par seconde");
+    }
+    else
+    {
+        ui->pages->widget(IHM::Page::PageStatistiques)
+          ->findChild<QLabel*>("pps")
+          ->setText("0 point par seconde");
+    }
+}
+
+void IHM::afficherNumeroJoueur(int numeroJoueur)
+{
+    if(numeroJoueur == AUCUN_JOUEUR)
+        return;
+    if(numeroJoueur == stats->getJoueurGagnant())
+        ui->pages->widget(IHM::Page::PageStatistiques)
+          ->findChild<QLabel*>("position")
+          ->setText("Gagnant : joueur " +
+                    QString::number(stats->getJoueurGagnant() + 1));
+    else
+    {
+        ui->pages->widget(IHM::Page::PageStatistiques)
+          ->findChild<QLabel*>("position")
+          ->setText("Joueur " + QString::number(numeroJoueur + 1));
+    }
+}
+
+bool IHM::estConnecte()
+{
+    return connecte;
+}
+
 #ifdef MODE_SIMULATION
+void IHM::simulerAvancementCheval()
+{
+    course->simulerAvancementCheval();
+}
+
 void IHM::installerModeSimulation()
 {
+    qDebug() << Q_FUNC_INFO;
     QAction* actionAvancementCheval = new QAction(this);
     actionAvancementCheval->setShortcut(QKeySequence(Qt::Key_Right));
     addAction(actionAvancementCheval);
@@ -182,54 +470,435 @@ void IHM::installerModeSimulation()
             SIGNAL(triggered()),
             this,
             SLOT(simulerAvancementCheval()));
-}
 
-int IHM::randInt(int min, int max)
-{
-    return ((QRandomGenerator::global()->bounded(min, max + 1)) + min);
-}
-#endif
+    QAction* simulerSelectionSuivant = new QAction(this);
+    simulerSelectionSuivant->setShortcut(QKeySequence(Qt::Key_Down));
+    addAction(simulerSelectionSuivant);
+    connect(simulerSelectionSuivant,
+            SIGNAL(triggered()),
+            this,
+            SLOT(selectionnerSuivant()));
 
-void IHM::actualiserPositionChevaux(int numeroCheval, Trou deplacement)
-{
-    qDebug() << Q_FUNC_INFO << "Le cheval numéro" << numeroCheval+1 << ", qui était positionné à la case" << positionChevaux[numeroCheval] << "a avancé de"
-             << int(deplacement);
+    QAction* simulerSelectionPrecedent = new QAction(this);
+    simulerSelectionPrecedent->setShortcut(QKeySequence(Qt::Key_Up));
+    addAction(simulerSelectionPrecedent);
+    connect(simulerSelectionPrecedent,
+            SIGNAL(triggered()),
+            this,
+            SLOT(selectionnerPrecedent()));
 
-    positionChevaux[numeroCheval] =
-      positionChevaux[numeroCheval] + int(deplacement);
-    if(positionChevaux[numeroCheval] > DISTANCE_MAX)
-    {
-        positionChevaux[numeroCheval] = DISTANCE_MAX;
-    }
-    qDebug() << Q_FUNC_INFO << "Il est maintenant case" << positionChevaux[numeroCheval];
-    avancerChevaux();
-}
-
-void IHM::avancerChevaux()
-{
-    for(int i = 0; i < nbChevaux; i++)
-    {
-        avatarsJoueurs[i]->setPixmap(*imageAvatarsJoueurs[i]);
-        ui->pages->widget(IHM::Page::Course)
-          ->findChild<QGridLayout*>("gridLayout")
-          ->removeWidget(avatarsJoueurs[i]);
-
-        ui->pages->widget(IHM::Page::Course)
-          ->findChild<QGridLayout*>("gridLayout")
-          ->addWidget(avatarsJoueurs[i], i, positionChevaux[i], Qt::AlignTop);
-
-        ui->pages->widget(IHM::Page::Course)
-          ->findChild<QGridLayout*>("gridLayout")
-          ->setRowStretch(imageAvatarsJoueurs.size(), 1);
-    }
-}
-
-#ifdef MODE_SIMULATION
-void IHM::simulerAvancementCheval()
-{
-    Trou trous[NB_COULEURS_TROU] = { JAUNE, BLEU, ROUGE };
-    int  numeroCheval            = randInt(0, NB_CHEVAUX_MAX - 1);
-    int  trou                    = randInt(0, NB_COULEURS_TROU - 1);
-    actualiserPositionChevaux(numeroCheval, trous[trou]);
+    QAction* simulerValidation = new QAction(this);
+    simulerValidation->setShortcut(QKeySequence(Qt::Key_Left));
+    addAction(simulerValidation);
+    connect(simulerValidation,
+            SIGNAL(triggered()),
+            this,
+            SLOT(validerSelection()));
 }
 #endif
+
+void IHM::selectionnerSuivant()
+{
+    optionSelectionne += 1;
+    qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
+    changerSelection();
+}
+
+void IHM::selectionnerPrecedent()
+{
+    optionSelectionne -= 1;
+    qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
+    changerSelection();
+}
+
+void IHM::changerSelection()
+{
+    qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
+    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
+    {
+        if(optionSelectionne > (MenuAvantCourse::NombreOptions - 1))
+        {
+            optionSelectionne = 0;
+        }
+        if(optionSelectionne < 0)
+        {
+            optionSelectionne = (MenuAvantCourse::NombreOptions - 1);
+        }
+    }
+
+    if(ui->pages->currentIndex() == IHM::Page::PageStatistiques)
+    {
+        if(optionSelectionne > (MenuStatistiques::NbOptions - 1))
+        {
+            optionSelectionne = 0;
+        }
+        if(optionSelectionne < 0)
+        {
+            optionSelectionne = (MenuStatistiques::NbOptions - 1);
+        }
+    }
+
+    if(ui->pages->currentIndex() == IHM::Page::Parametres)
+    {
+        if(optionSelectionne > (MenuParametres::NbOptionsParametres - 1))
+        {
+            optionSelectionne = 0;
+        }
+        if(optionSelectionne < 0)
+        {
+            optionSelectionne = (MenuParametres::NbOptionsParametres - 1);
+        }
+    }
+
+    if(ui->pages->currentIndex() == IHM::Page::ChangementParametres)
+    {
+        qDebug() << Q_FUNC_INFO << "currentIndex"
+                 << "ChangementParametres";
+        switch(parametreSelectionne)
+        {
+            case ChangerParametres::NombreJoueurs:
+                if(optionSelectionne > course->getNbChevauxMax())
+                {
+                    optionSelectionne = 1;
+                }
+                if(optionSelectionne < 1)
+                {
+                    optionSelectionne = course->getNbChevauxMax();
+                }
+                break;
+
+            case ChangerParametres::Distance:
+                if(optionSelectionne > course->getDureeMax())
+                {
+                    optionSelectionne = course->getDureeMin();
+                }
+                if(optionSelectionne < course->getDureeMin())
+                {
+                    optionSelectionne = course->getDureeMax();
+                }
+                break;
+
+            case ChangerParametres::ModeDeJeu:
+                if(optionSelectionne >= ModeDeJeu::NbModes)
+                {
+                    optionSelectionne = 0;
+                }
+                if(optionSelectionne < 0)
+                {
+                    optionSelectionne = (ModeDeJeu::NbModes - 1);
+                }
+                break;
+        }
+    }
+    mettreEnEvidenceSelection();
+}
+
+void IHM::mettreEnEvidenceSelection()
+{
+    deselectionner();
+
+    qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
+    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
+    {
+        qDebug() << Q_FUNC_INFO << "currentIndex"
+                 << "AvantCourse";
+        switch(optionSelectionne)
+        {
+            case MenuAvantCourse::LancerPartie:
+                ui->pages->widget(IHM::Page::AvantCourse)
+                  ->findChild<QLabel*>("option1")
+                  ->setFont(policeSelectionne);
+                break;
+            case MenuAvantCourse::AccederParametres:
+                ui->pages->widget(IHM::Page::AvantCourse)
+                  ->findChild<QLabel*>("option2")
+                  ->setFont(policeSelectionne);
+                break;
+            case MenuAvantCourse::Quitter:
+                ui->pages->widget(IHM::Page::AvantCourse)
+                  ->findChild<QLabel*>("option3")
+                  ->setFont(policeSelectionne);
+                break;
+            default:
+                break;
+        };
+    }
+
+    if(ui->pages->currentIndex() == IHM::Page::PageStatistiques)
+    {
+        qDebug() << Q_FUNC_INFO << "currentIndex"
+                 << "Statistiques";
+        switch(optionSelectionne)
+        {
+            case MenuStatistiques::QuitterStatistiques:
+
+                ui->pages->widget(IHM::Page::PageStatistiques)
+                  ->findChild<QLabel*>("b_quitter")
+                  ->setFont(policeStats);
+                break;
+            case MenuStatistiques::JoueurSuivant:
+                ui->pages->widget(IHM::Page::PageStatistiques)
+                  ->findChild<QLabel*>("a_joueurSuivant")
+                  ->setFont(policeStats);
+                break;
+            default:
+                break;
+        };
+    }
+
+    if(ui->pages->currentIndex() == IHM::Page::Parametres)
+    {
+        qDebug() << Q_FUNC_INFO << "currentIndex"
+                 << "Parametres";
+        switch(optionSelectionne)
+        {
+            case MenuParametres::ChangerNombreJoueurs:
+                ui->pages->widget(IHM::Page::Parametres)
+                  ->findChild<QLabel*>("nombreJoueurs")
+                  ->setFont(policeSelectionne);
+                break;
+            case MenuParametres::ChangerDureePartie:
+                ui->pages->widget(IHM::Page::Parametres)
+                  ->findChild<QLabel*>("dureePartie")
+                  ->setFont(policeSelectionne);
+                break;
+            case MenuParametres::ChangerModeDeJeu:
+                ui->pages->widget(IHM::Page::Parametres)
+                  ->findChild<QLabel*>("modeJeu")
+                  ->setFont(policeSelectionne);
+                break;
+            case MenuParametres::QuitterParametres:
+                ui->pages->widget(IHM::Page::Parametres)
+                  ->findChild<QLabel*>("quitter")
+                  ->setFont(policeSelectionne);
+                break;
+            default:
+                break;
+        };
+    }
+
+    if(ui->pages->currentIndex() == IHM::Page::ChangementParametres)
+    {
+        if(parametreSelectionne == ChangerParametres::Distance)
+        {
+            ui->pages->widget(IHM::Page::ChangementParametres)
+              ->findChild<QLabel*>("selection")
+              ->setText(QString::number(optionSelectionne) + " points");
+            course->setDureePartie(optionSelectionne);
+            qDebug() << Q_FUNC_INFO << "dureePartie"
+                     << course->getDureePartie();
+        }
+        if(parametreSelectionne == ChangerParametres::NombreJoueurs)
+        {
+            if(optionSelectionne != 1)
+            {
+                ui->pages->widget(IHM::Page::ChangementParametres)
+                  ->findChild<QLabel*>("selection")
+                  ->setText(QString::number(optionSelectionne) + " joueurs");
+            }
+            else
+            {
+                ui->pages->widget(IHM::Page::ChangementParametres)
+                  ->findChild<QLabel*>("selection")
+                  ->setText(QString::number(optionSelectionne) + " joueur");
+            }
+
+            course->setNbChevaux(optionSelectionne);
+            qDebug() << Q_FUNC_INFO << "nbChevaux" << course->getNbChevaux();
+        }
+        if(parametreSelectionne == ChangerParametres::ModeDeJeu)
+        {
+            if(optionSelectionne == 0)
+            {
+                ui->pages->widget(IHM::Page::ChangementParametres)
+                  ->findChild<QLabel*>("selection")
+                  ->setText("Classique");
+            }
+            if(optionSelectionne == ModeDeJeu::PointsAleatoire)
+            {
+                ui->pages->widget(IHM::Page::ChangementParametres)
+                  ->findChild<QLabel*>("selection")
+                  ->setText("Points aléatoire");
+            }
+
+            course->setModeDeJeu(optionSelectionne);
+        }
+    }
+}
+
+void IHM::deselectionner()
+{
+    qDebug() << Q_FUNC_INFO;
+    ui->pages->widget(IHM::Page::AvantCourse)
+      ->findChild<QLabel*>("option1")
+      ->setFont(police);
+    ui->pages->widget(IHM::Page::AvantCourse)
+      ->findChild<QLabel*>("option2")
+      ->setFont(police);
+    ui->pages->widget(IHM::Page::AvantCourse)
+      ->findChild<QLabel*>("option3")
+      ->setFont(police);
+
+    ui->pages->widget(IHM::Page::PageStatistiques)
+      ->findChild<QLabel*>("b_quitter")
+      ->setFont(police);
+
+    ui->pages->widget(IHM::Page::PageStatistiques)
+      ->findChild<QLabel*>("a_joueurSuivant")
+      ->setFont(police);
+
+    ui->pages->widget(IHM::Page::Parametres)
+      ->findChild<QLabel*>("dureePartie")
+      ->setFont(police);
+
+    ui->pages->widget(IHM::Page::Parametres)
+      ->findChild<QLabel*>("nombreJoueurs")
+      ->setFont(police);
+
+    ui->pages->widget(IHM::Page::Parametres)
+      ->findChild<QLabel*>("modeJeu")
+      ->setFont(police);
+
+    ui->pages->widget(IHM::Page::Parametres)
+      ->findChild<QLabel*>("quitter")
+      ->setFont(police);
+}
+
+void IHM::validerSelection()
+{
+    qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
+    if(!estMenu)
+    {
+        estMenu = true;
+        afficherPageParametres();
+        qDebug() << Q_FUNC_INFO << "nbChevaux" << course->getNbChevaux()
+                 << "dureePartie" << course->getDureePartie();
+        mettreEnEvidenceSelection();
+        return;
+    }
+    if((ui->pages->currentIndex() == IHM::Page::Parametres) && estMenu)
+    {
+        qDebug() << Q_FUNC_INFO << "currentIndex"
+                 << "Parametres"
+                 << "estMenu" << estMenu;
+        parametreSelectionne = optionSelectionne;
+        switch(optionSelectionne)
+        {
+            case MenuParametres::ChangerNombreJoueurs:
+                estMenu = false;
+                changerNombreJoueurs();
+                return;
+                break;
+            case MenuParametres::ChangerDureePartie:
+                estMenu = false;
+                changerDureePartie();
+                return;
+                break;
+            case MenuParametres::ChangerModeDeJeu:
+                estMenu = false;
+                changerModeDeJeu();
+                return;
+                break;
+            case MenuParametres::QuitterParametres:
+                estMenu = true;
+                afficherPageAvantCourse();
+                optionSelectionne = 0;
+                mettreEnEvidenceSelection();
+                return;
+                break;
+            default:
+                return;
+                break;
+        };
+    }
+    if(ui->pages->currentIndex() == IHM::Page::AvantCourse)
+    {
+        switch(optionSelectionne)
+        {
+            case MenuAvantCourse::LancerPartie:
+                demarrerCourse();
+                break;
+            case MenuAvantCourse::AccederParametres:
+                accederParametres();
+                break;
+            case MenuAvantCourse::Quitter:
+                quitterProgramme();
+                return;
+                break;
+            default:
+                break;
+        };
+    }
+    if(ui->pages->currentIndex() == IHM::Page::Connexion)
+    {
+        ouvrirPageAvantCourse();
+    }
+    if(ui->pages->currentIndex() == IHM::Page::PageStatistiques)
+    {
+        switch(optionSelectionne)
+        {
+            case MenuStatistiques::QuitterStatistiques:
+                optionSelectionne = 0;
+                mettreEnEvidenceSelection();
+                quitterStatistiques();
+                break;
+            case MenuStatistiques::JoueurSuivant:
+                afficherResultatJoueurSuivant();
+                break;
+            default:
+                break;
+        };
+    }
+    qDebug() << Q_FUNC_INFO;
+}
+
+void IHM::changerNombreJoueurs()
+{
+    afficherPageChangementParametre();
+    optionSelectionne = course->getNbChevaux();
+    qDebug() << Q_FUNC_INFO << "optionSelectionne" << optionSelectionne;
+    ui->pages->widget(IHM::Page::ChangementParametres)
+      ->findChild<QLabel*>("parametre")
+      ->setText("Nombre de joueurs");
+    if(course->getNbChevaux() != 1)
+    {
+        ui->pages->widget(IHM::Page::ChangementParametres)
+          ->findChild<QLabel*>("selection")
+          ->setText(QString::number(optionSelectionne) + " joueurs");
+    }
+    else
+    {
+        ui->pages->widget(IHM::Page::ChangementParametres)
+          ->findChild<QLabel*>("selection")
+          ->setText(QString::number(optionSelectionne) + " joueur");
+    }
+}
+
+void IHM::changerDureePartie()
+{
+    afficherPageChangementParametre();
+    optionSelectionne = course->getDureeMax();
+
+    ui->pages->widget(IHM::Page::ChangementParametres)
+      ->findChild<QLabel*>("parametre")
+      ->setText("Durée de la partie");
+    course->setDureePartie(optionSelectionne);
+
+    ui->pages->widget(IHM::Page::ChangementParametres)
+      ->findChild<QLabel*>("selection")
+      ->setText(QString::number(optionSelectionne) + " points");
+}
+
+void IHM::changerModeDeJeu()
+{
+    afficherPageChangementParametre();
+    course->setModeDeJeu(optionSelectionne);
+
+    ui->pages->widget(IHM::Page::ChangementParametres)
+      ->findChild<QLabel*>("parametre")
+      ->setText("Mode de jeu");
+
+    ui->pages->widget(IHM::Page::ChangementParametres)
+      ->findChild<QLabel*>("selection")
+      ->setText("Classique");
+}

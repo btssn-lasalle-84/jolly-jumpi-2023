@@ -4,17 +4,52 @@
 #include <QObject>
 #include <QVector>
 
-class Statistiques : public QObject {
-  Q_OBJECT
+#define AUCUN_JOUEUR -1
 
-private:
-  unsigned int tempsDeLaPartie;
-  QVector<unsigned int> nombreDePointsMarques;
-  QVector<unsigned int> nombreBallesRentrees;
+class Course;
+class IHM;
 
-public:
-  Statistiques(QObject *parent = nullptr);
-  ~Statistiques();
+class Statistiques : public QObject
+{
+    Q_OBJECT
+
+  private:
+    IHM*    ihm;
+    Course* course;
+
+    int                   nbChevaux;
+    QVector<unsigned int> classement;
+    int                   positionClassement;
+    float                 dureeDeLaPartie;
+    float                 record;
+    QVector<unsigned int> nombreTirs;
+    QVector<unsigned int> nombrePoints;
+    int                   joueurGagnant;
+
+    int determinerJoueurSuivant();
+
+  public:
+    Statistiques(IHM* ihm);
+    ~Statistiques();
+
+    void                  setCourse(Course* course);
+    int                   getJoueurGagnant() const;
+    QVector<unsigned int> getClassement() const;
+    QVector<unsigned int> getNombreTirs() const;
+    QVector<unsigned int> getNombrePoints() const;
+    float                 getDureeDeLaPartie() const;
+    float                 getRecord() const;
+
+    void setJoueurGagnant(int);
+    void setPositionClassement(int);
+    void setDureeDeLaPartie(float);
+    void setRecord(float);
+    void setNombreTirs(int);
+    void setNombrePoints(int, int);
+
+    void determinerClassement();
+    void afficherResultats();
+    void afficherResultatJoueurSuivant();
 };
 
 #endif // STATISTIQUES_H

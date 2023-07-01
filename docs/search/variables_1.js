@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['imageavatarsjoueurs_98',['imageAvatarsJoueurs',['../class_i_h_m.html#ad789ee936a811589899c69192b8d9448',1,'IHM']]],
-  ['imageplaceholder_99',['imagePlaceHolder',['../class_i_h_m.html#aae3a8239112cee7cdd147c8a6fe053e5',1,'IHM']]]
+  ['bluetooth_317',['bluetooth',['../class_course.html#a5f6c10748d101246836bcf6d56534ceb',1,'Course::bluetooth()'],['../class_i_h_m.html#a0a54e4e71193253687bef4eb2daed5e7',1,'IHM::bluetooth()']]]
 ];

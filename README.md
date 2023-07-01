@@ -5,12 +5,16 @@
 # Le projet jolly-jumpi 2023
 
 - [Le projet jolly-jumpi 2023](#le-projet-jolly-jumpi-2023)
+  - [Fonctionnalités](#fonctionnalit%C3%A9s)
   - [Documentation du code](#documentation-du-code)
-  - [Versions](#versions)
+  - [Présentations](#pr%C3%A9sentations)
+  - [Vidéo](#vid%C3%A9o)
+  - [Diagramme de classes](#diagramme-de-classes)
+  - [Screenshots](#screenshots)
+  - [Historique des versions](#historique-des-versions)
     - [1.0](#10)
     - [0.2](#02)
     - [0.1](#01)
-  - [Diagramme de classes](#diagramme-de-classes)
   - [Auteur](#auteur)
 
 ![](Images/logo.png)
@@ -19,7 +23,7 @@
 
 Le système Jolly-JumPi est un système numérique permettant de jouer au tiercé de manière ludique : soyez le premier à faire franchir à votre jockey la ligne d’arrivée. Pour cela, envoyez vos balles dans les trous aux couleurs différentes. Cheval au pas, au trot ou au galop ?  A vous de viser le plus juste possible.
 
-![](Images/table.jpg)
+![](Images/jolly-jumpi.png)
 
 Le système est composé :
 
@@ -28,40 +32,58 @@ Le système est composé :
 
 ![](Images/modules.png)
 
-![](Images/deploiement.png)
+
+## Fonctionnalités
+
+![](Images/uc.png)
+
+- Android :
+
+| Fonctionnalité   | OUI | NON |
+| ------------------------- |:-----:|:-----:|
+| Afficher un écran d’accueil | X |  |
+| Gérer et afficher le déroulement de la course en temps réel | X |  |
+| Afficher les données de la course et les statistiques | X |  |
+| Dialoguer avec le module de détection | X |  |
+| Configurer une course | X |  |
 
 ## Documentation du code
 
 https://btssn-lasalle-84.github.io/jolly-jumpi-2023/
 
-## Versions
+## Présentations
 
-![](Images/uc.png)
+Diaporama étudiant IR :
+
+- Axel LAPIERRE : [Revue finale - Lapierre.pptx](./diaporama/Revue%20finale%20-%20Lapierre.pptx)
+
+## Vidéo
+
+[<img src="https://img.youtube.com/vi/vWXhNmLc52A/maxresdefault.jpg" width="50%">](https://youtu.be/vWXhNmLc52A)
+
+## Diagramme de classes
+
+![](Images/dc.png)
+
+## Screenshots
+
+![](./Images/jollyjumpi.gif)
+
+## Historique des versions
+
+![](Images/livraisons.png)
 
 ### 1.0
 
-![](Images/screenshot-jollyjumpi-v0.2.png)
-
-![](Images/screenshot-jollyjumpi-1-v1.0.png)
-
-![](Images/screenshot-jollyjumpi-2-v1.0.png)
-
+![](Images/jira-tickets-v1.0.png)
 
 ### 0.2
 
 ![](Images/jira-tickets-v0.2.png)
 
-![](Images/screenshot-jollyjumpi-v0.2.png)
-
 ### 0.1
 
 ![](Images/jira-tickets-v0.1.png)
-
-![](Images/screenshot-jollyjumpi-v0.1.png)
-
-## Diagramme de classes
-
-![](Images/dc.png)
 
 ## Auteur
 
