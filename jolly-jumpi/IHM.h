@@ -50,6 +50,7 @@ class IHM : public QWidget
         AvantCourse,
         PageCourse,
         Parametres,
+        ChangementParametres,
         PageStatistiques,
         NbPages
     };
@@ -78,11 +79,20 @@ class IHM : public QWidget
         NbOptionsParametres
     };
 
+    enum ChangerParametres
+    {
+        NombreJoueurs,
+        Distance,
+        ModeDeJeu
+    };
+
   private:
     Course*       course;
     Statistiques* stats;
     Bluetooth*    bluetooth;
     bool          connecte;
+    bool          estMenu;
+    unsigned int  parametreSelectionne;
 
     Ui::IHM*          ui;
     QScreen*          screen;
@@ -95,9 +105,11 @@ class IHM : public QWidget
     int   optionSelectionne;
     QFont police, policeStats, policeSelectionne;
 
+    void afficherWidgets();
     void instancierWidgets();
     void initialiserWidgets();
     void positionnerWidgets();
+    void supprimerWidgets();
     void connecterSignauxSlots();
     void initialiserFenetre();
 #ifdef MODE_SIMULATION
@@ -105,6 +117,9 @@ class IHM : public QWidget
 #endif
     void initialiserMusiqueDeFond();
     void deselectionner();
+    void changerNombreJoueurs();
+    void changerDureePartie();
+    void changerModeDeJeu();
 
   public slots:
     void afficherPage(IHM::Page page);
@@ -112,6 +127,7 @@ class IHM : public QWidget
     void afficherPageAvantCourse();
     void afficherPageCourse();
     void afficherPageParametres();
+    void afficherPageChangementParametre();
     void afficherPageStatistiques();
     void afficherResultatJoueurSuivant();
     void demarrerCourse();

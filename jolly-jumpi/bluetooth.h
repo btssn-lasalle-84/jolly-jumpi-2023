@@ -7,20 +7,21 @@
 #include <QBluetoothLocalDevice>
 #include <QDebug>
 
-#define SIMULATEUR
+//#define SIMULATEUR
 
 #define ADRESSE_ESP32_JOLLY_JUMPI QString("08:3A:F2:6E:2C:22")
 #define NOM_ESP32_JOLLY_JUMPI     QString("Jolly-JumPi")
-#define ADRESSE_ESP32_SIMULATEUR  QString("3C:71:BF:6A:F5:D2")
-#define NOM_ESP32_SIMULATEUR      QString("jolly-jumpi")
+#define ADRESSE_ESP32_SIMULATEUR QString("3C:71:BF:6A:F5:D2")
+#define NOM_ESP32_SIMULATEUR     QString("jolly-jumpi-1")
 
 #define ENTETE_TRAME     QString("$JJ")
 #define FIN_TRAME        QString("\r\n")
 #define DELIMITEUR_TRAME QString(";")
 
-#define CONNECTE     QString("c")
-#define DEBUT_COURSE QString("d")
-#define FIN_COURSE   QString("f")
+#define CONNECTE               QString("c")
+#define DEBUT_COURSE           QString("d")
+#define DEBUT_COURSE_ALEATOIRE QString("m")
+#define FIN_COURSE             QString("f")
 
 #define ABANDON 'a'
 #define START   's'
@@ -32,6 +33,8 @@
 #define NUMERO_TABLE   2
 #define NUMERO_TROU    3
 #define COULEUR_ANNEAU 4
+
+#define PERIODE_RECONNEXION 2000
 
 class Course;
 class IHM;
@@ -54,6 +57,7 @@ class Bluetooth : public QObject
     QString                         adressePeripheriqueLocal;
     QString                         donneesRecues;
     bool                            abandon;
+    QTimer*                         gestionConnexion;
 
     bool traiterTrame(QString trame);
     void envoyerTrame(QString trame);
@@ -70,12 +74,16 @@ class Bluetooth : public QObject
     void deconnecter();
     void envoyerTrameConnexion();
     void envoyerTrameDebutCourse();
+    void envoyerTrameDebutCourseAleatoire();
     void envoyerTrameFinCourse();
+    void arreterReconnexion();
 
   public slots:
     void gererPeripherique(QBluetoothDeviceInfo peripherique);
     void connecter();
     void lireTrame();
+    void gererReconnexion();
+    void gererErreurBluetooth(QBluetoothSocket::SocketError erreur);
 
   signals:
     void peripheriqueTrouve();

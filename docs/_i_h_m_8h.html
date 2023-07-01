@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">jolly-jumpi
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2023</div>
   </td>
@@ -99,6 +99,9 @@ $(document).ready(function(){initNavTree('_i_h_m_8h.html',''); initResizable(); 
 <code>#include &lt;QApplication&gt;</code><br />
 <code>#include &lt;QScreen&gt;</code><br />
 <code>#include &lt;QRandomGenerator&gt;</code><br />
+<code>#include &lt;QSoundEffect&gt;</code><br />
+<code>#include &quot;<a class="el" href="course_8h_source.html">course.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="bluetooth_8h_source.html">bluetooth.h</a>&quot;</code><br />
 </div>
 <p><a href="_i_h_m_8h_source.html">Aller au code source de ce fichier.</a></p>
 <table class="memberdecls">
@@ -115,18 +118,11 @@ Espaces de nommage</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a03050ffe4793411263f3e00c3c9f490a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_i_h_m_8h.html#a03050ffe4793411263f3e00c3c9f490a">DISTANCE_MAX</a>&#160;&#160;&#160;10</td></tr>
-<tr class="memdesc:a03050ffe4793411263f3e00c3c9f490a"><td class="mdescLeft">&#160;</td><td class="mdescRight">La distance max en nombre de cases.  <a href="_i_h_m_8h.html#a03050ffe4793411263f3e00c3c9f490a">Plus de détails...</a><br /></td></tr>
-<tr class="separator:a03050ffe4793411263f3e00c3c9f490a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ed1f0593cbcb09935576e6f72ae9a4f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_i_h_m_8h.html#a2ed1f0593cbcb09935576e6f72ae9a4f">MODE_SIMULATION</a></td></tr>
-<tr class="memdesc:a2ed1f0593cbcb09935576e6f72ae9a4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pour le mode simulation avec les touches de clavier.  <a href="_i_h_m_8h.html#a2ed1f0593cbcb09935576e6f72ae9a4f">Plus de détails...</a><br /></td></tr>
-<tr class="separator:a2ed1f0593cbcb09935576e6f72ae9a4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71a7ee24a205ebbc945f40ac9b1abbb1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_i_h_m_8h.html#a71a7ee24a205ebbc945f40ac9b1abbb1">NB_CHEVAUX_MAX</a>&#160;&#160;&#160;6</td></tr>
-<tr class="memdesc:a71a7ee24a205ebbc945f40ac9b1abbb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nombre de chevaux maximum pour une course.  <a href="_i_h_m_8h.html#a71a7ee24a205ebbc945f40ac9b1abbb1">Plus de détails...</a><br /></td></tr>
-<tr class="separator:a71a7ee24a205ebbc945f40ac9b1abbb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d8f8c55b6ba9459f8eaf50cb526ccf3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_i_h_m_8h.html#a1d8f8c55b6ba9459f8eaf50cb526ccf3">NB_COULEURS_TROU</a>&#160;&#160;&#160;3</td></tr>
-<tr class="memdesc:a1d8f8c55b6ba9459f8eaf50cb526ccf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nombre de couleurs différentes pour les trous.  <a href="_i_h_m_8h.html#a1d8f8c55b6ba9459f8eaf50cb526ccf3">Plus de détails...</a><br /></td></tr>
-<tr class="separator:a1d8f8c55b6ba9459f8eaf50cb526ccf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ecbb00b34704df6f7c4937fa6ceacfc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_i_h_m_8h.html#a9ecbb00b34704df6f7c4937fa6ceacfc">MUSIQUE_DE_FOND</a>&#160;&#160;&#160;&quot;:/musiques/Musiques/musique_de_fond_1.wav&quot;</td></tr>
+<tr class="separator:a9ecbb00b34704df6f7c4937fa6ceacfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afae691acd2419684ef9acadf7bf54a5a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_i_h_m_8h.html#afae691acd2419684ef9acadf7bf54a5a">RASPBERRY_PI</a></td></tr>
+<tr class="memdesc:afae691acd2419684ef9acadf7bf54a5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pour le mode plein écran sur la RPI.  <a href="_i_h_m_8h.html#afae691acd2419684ef9acadf7bf54a5a">Plus de détails...</a><br /></td></tr>
+<tr class="separator:afae691acd2419684ef9acadf7bf54a5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
 <div class="textblock"><p>Déclaration de la classe <a class="el" href="class_i_h_m.html" title="Affiche les pages d&#39;écran pour l&#39;application.">IHM</a>. </p>
@@ -135,76 +131,37 @@ Macros</h2></td></tr>
 
 <p class="definition">Définition dans le fichier <a class="el" href="_i_h_m_8h_source.html">IHM.h</a>.</p>
 </div><h2 class="groupheader">Documentation des macros</h2>
-<a id="a03050ffe4793411263f3e00c3c9f490a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03050ffe4793411263f3e00c3c9f490a">&#9670;&nbsp;</a></span>DISTANCE_MAX</h2>
+<a id="a9ecbb00b34704df6f7c4937fa6ceacfc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ecbb00b34704df6f7c4937fa6ceacfc">&#9670;&nbsp;</a></span>MUSIQUE_DE_FOND</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DISTANCE_MAX&#160;&#160;&#160;10</td>
+          <td class="memname">#define MUSIQUE_DE_FOND&#160;&#160;&#160;&quot;:/musiques/Musiques/musique_de_fond_1.wav&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>La distance max en nombre de cases. </p>
-
-<p class="definition">Définition à la ligne <a class="el" href="_i_h_m_8h_source.html#l00046">46</a> du fichier <a class="el" href="_i_h_m_8h_source.html">IHM.h</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="_i_h_m_8h_source.html#l00026">26</a> du fichier <a class="el" href="_i_h_m_8h_source.html">IHM.h</a>.</p>
 
 </div>
 </div>
-<a id="a2ed1f0593cbcb09935576e6f72ae9a4f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ed1f0593cbcb09935576e6f72ae9a4f">&#9670;&nbsp;</a></span>MODE_SIMULATION</h2>
+<a id="afae691acd2419684ef9acadf7bf54a5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afae691acd2419684ef9acadf7bf54a5a">&#9670;&nbsp;</a></span>RASPBERRY_PI</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define MODE_SIMULATION</td>
+          <td class="memname">#define RASPBERRY_PI</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Pour le mode simulation avec les touches de clavier. </p>
+<p>Pour le mode plein écran sur la RPI. </p>
 
-<p class="definition">Définition à la ligne <a class="el" href="_i_h_m_8h_source.html#l00027">27</a> du fichier <a class="el" href="_i_h_m_8h_source.html">IHM.h</a>.</p>
-
-</div>
-</div>
-<a id="a71a7ee24a205ebbc945f40ac9b1abbb1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71a7ee24a205ebbc945f40ac9b1abbb1">&#9670;&nbsp;</a></span>NB_CHEVAUX_MAX</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define NB_CHEVAUX_MAX&#160;&#160;&#160;6</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Le nombre de chevaux maximum pour une course. </p>
-
-<p class="definition">Définition à la ligne <a class="el" href="_i_h_m_8h_source.html#l00033">33</a> du fichier <a class="el" href="_i_h_m_8h_source.html">IHM.h</a>.</p>
-
-</div>
-</div>
-<a id="a1d8f8c55b6ba9459f8eaf50cb526ccf3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d8f8c55b6ba9459f8eaf50cb526ccf3">&#9670;&nbsp;</a></span>NB_COULEURS_TROU</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define NB_COULEURS_TROU&#160;&#160;&#160;3</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Le nombre de couleurs différentes pour les trous. </p>
-<dl class="section see"><dt>Voir également</dt><dd>Trou </dd></dl>
-
-<p class="definition">Définition à la ligne <a class="el" href="_i_h_m_8h_source.html#l00040">40</a> du fichier <a class="el" href="_i_h_m_8h_source.html">IHM.h</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="_i_h_m_8h_source.html#l00024">24</a> du fichier <a class="el" href="_i_h_m_8h_source.html">IHM.h</a>.</p>
 
 </div>
 </div>
@@ -215,7 +172,7 @@ Macros</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_f5b24512a5a4fabafe00bdd1f2ffc501.html">jolly-jumpi</a></li><li class="navelem"><a class="el" href="_i_h_m_8h.html">IHM.h</a></li>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Lundi 29 Mai 2023 09:00:48 pour jolly-jumpi par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Mardi 20 Juin 2023 06:00:32 pour jolly-jumpi par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
   </ul>
 </div>
 </body>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tempsdelapartie_107',['tempsDeLaPartie',['../class_statistiques.html#a3feed03c16c544bc22556244b5eb4661',1,'Statistiques']]]
+  ['joueurgagnant_327',['joueurGagnant',['../class_statistiques.html#a6153b5040d7ffc170a7401efd9c4383d',1,'Statistiques']]]
 ];

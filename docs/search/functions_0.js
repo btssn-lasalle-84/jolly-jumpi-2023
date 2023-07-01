@@ -1,8 +1,21 @@
 var searchData=
 [
-  ['actualiserpositionchevaux_75',['actualiserPositionChevaux',['../class_i_h_m.html#adcfb19e79382aea5223e4f1c2d4a84dd',1,'IHM']]],
-  ['afficherpage_76',['afficherPage',['../class_i_h_m.html#a7dada2a3f803c20fd160a8adcab4c28f',1,'IHM']]],
-  ['afficherpageconnexion_77',['afficherPageConnexion',['../class_i_h_m.html#a94ce62f486940657061274da61a02fe9',1,'IHM']]],
-  ['afficherpagecourse_78',['afficherPageCourse',['../class_i_h_m.html#a64b7af7227214b89584c9bc357d51adb',1,'IHM']]],
-  ['avancerchevaux_79',['avancerChevaux',['../class_i_h_m.html#a9762f0cec409986e01d4d35043d7462b',1,'IHM']]]
+  ['abandonpartie_220',['abandonPartie',['../class_bluetooth.html#a31210f8b2d1cd3fa1c7dbf2e880a916b',1,'Bluetooth']]],
+  ['accederparametres_221',['accederParametres',['../class_i_h_m.html#acc4391a4d4539147f0bb2200b2945b38',1,'IHM']]],
+  ['actualiserpositionchevaux_222',['actualiserPositionChevaux',['../class_course.html#af1e956e80e98b5b04c53af9b9f3b7ee9',1,'Course']]],
+  ['afficherclassement_223',['afficherClassement',['../class_i_h_m.html#a5f58a0911cb245d82d3342bd28d02d41',1,'IHM']]],
+  ['afficherdureepartie_224',['afficherDureePartie',['../class_i_h_m.html#a4269403adc487036cf860b20d02034bd',1,'IHM']]],
+  ['affichernombrepointspartir_225',['afficherNombrePointsParTir',['../class_i_h_m.html#ac0d73af0a5c8a44085dbca8625d14dce',1,'IHM']]],
+  ['affichernumerojoueur_226',['afficherNumeroJoueur',['../class_i_h_m.html#a804fba3a260a5c2a8fbe0bd674d8fc68',1,'IHM']]],
+  ['afficherpage_227',['afficherPage',['../class_i_h_m.html#a7dada2a3f803c20fd160a8adcab4c28f',1,'IHM']]],
+  ['afficherpageavantcourse_228',['afficherPageAvantCourse',['../class_i_h_m.html#a9873638e725c154356d9a3f16c3c495b',1,'IHM']]],
+  ['afficherpageconnexion_229',['afficherPageConnexion',['../class_i_h_m.html#a94ce62f486940657061274da61a02fe9',1,'IHM']]],
+  ['afficherpagecourse_230',['afficherPageCourse',['../class_i_h_m.html#a64b7af7227214b89584c9bc357d51adb',1,'IHM']]],
+  ['afficherpageparametres_231',['afficherPageParametres',['../class_i_h_m.html#a30ca3658296d5036956fd25cec3332a1',1,'IHM']]],
+  ['afficherpagestatistiques_232',['afficherPageStatistiques',['../class_i_h_m.html#a2cfb45329bca666b0ee9039aaf22d91f',1,'IHM']]],
+  ['afficherpointsparseconde_233',['afficherPointsParSeconde',['../class_i_h_m.html#a0ee4a702cc2c23728530811e0a53a460',1,'IHM']]],
+  ['afficherpositionfinale_234',['afficherPositionFinale',['../class_i_h_m.html#a07c59bc99911a5250fda9dca06aaaef0',1,'IHM']]],
+  ['afficherresultatjoueursuivant_235',['afficherResultatJoueurSuivant',['../class_i_h_m.html#aa17147d97b773dd852e6dc84dabed3ef',1,'IHM::afficherResultatJoueurSuivant()'],['../class_statistiques.html#a7605b602ae07305be26729901adfb7af',1,'Statistiques::afficherResultatJoueurSuivant()']]],
+  ['afficherresultats_236',['afficherResultats',['../class_statistiques.html#a8da5f0cb8d13995c114da596894397f3',1,'Statistiques']]],
+  ['avancerchevaux_237',['avancerChevaux',['../class_course.html#a30f8977c988e525ada896052aa7a9867',1,'Course::avancerChevaux()'],['../class_i_h_m.html#a9762f0cec409986e01d4d35043d7462b',1,'IHM::avancerChevaux()']]]
 ];

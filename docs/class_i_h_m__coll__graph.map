@@ -1,4 +1,8 @@
 <map id="IHM" name="IHM">
-<area shape="rect" id="node1" title="Affiche les pages d&#39;écran pour l&#39;application." alt="" coords="5,131,228,560"/>
-<area shape="rect" id="node2" href="$class_q_widget.html" title=" " alt="" coords="77,5,156,83"/>
+<area shape="rect" id="node1" title="Affiche les pages d&#39;écran pour l&#39;application." alt="" coords="97,132,337,811"/>
+<area shape="rect" id="node3" href="$class_bluetooth.html" title=" " alt="" coords="336,873,560,1303"/>
+<area shape="rect" id="node5" href="$class_course.html" title=" " alt="" coords="202,1365,425,1721"/>
+<area shape="rect" id="node6" href="$class_statistiques.html" title=" " alt="" coords="121,1784,361,2125"/>
+<area shape="rect" id="node2" href="$class_q_widget.html" title=" " alt="" coords="178,5,257,83"/>
+<area shape="rect" id="node4" href="$class_q_object.html" title=" " alt="" coords="560,433,635,510"/>
 </map>

@@ -1,6 +1,7 @@
 var hierarchy =
 [
     [ "QObject", "class_q_object.html", [
+      [ "Bluetooth", "class_bluetooth.html", null ],
       [ "Course", "class_course.html", null ],
       [ "Statistiques", "class_statistiques.html", null ]
     ] ],

@@ -1,6 +1,25 @@
 var searchData=
 [
-  ['_7ecourse_57',['~Course',['../class_course.html#aa9038f2e129526920037dda9e76d69d0',1,'Course']]],
-  ['_7eihm_58',['~IHM',['../class_i_h_m.html#af220622a4304f5a9ed1da28abb7da14d',1,'IHM']]],
-  ['_7estatistiques_59',['~Statistiques',['../class_statistiques.html#a0b3904d9f448c4eb3c88074932c25051',1,'Statistiques']]]
+  ['screen_167',['screen',['../class_i_h_m.html#aedbf81f5f619e7a114aa3075192ed5c4',1,'IHM']]],
+  ['screengeometry_168',['screenGeometry',['../class_i_h_m.html#a8699236281f2f567a7ceff171cadb6ef',1,'IHM']]],
+  ['selectionnerprecedent_169',['selectionnerPrecedent',['../class_i_h_m.html#a33faf3c3417bb55d7a6bf7f35530a961',1,'IHM']]],
+  ['selectionnersuivant_170',['selectionnerSuivant',['../class_i_h_m.html#a3136303ac739e34a234f02dd3d33bcca',1,'IHM']]],
+  ['setabandon_171',['setAbandon',['../class_bluetooth.html#a264d9eedacf9b6ff107faceee7ee87e8',1,'Bluetooth']]],
+  ['setbluetooth_172',['setBluetooth',['../class_course.html#a82f2e2184765f088c0919a2e0902af05',1,'Course']]],
+  ['setcourse_173',['setCourse',['../class_bluetooth.html#aa8a93008ae0114356fe36a72538cecf2',1,'Bluetooth::setCourse()'],['../class_statistiques.html#ab0bb46af6c0cf9a419565c4fd28cfa9b',1,'Statistiques::setCourse(Course *course)']]],
+  ['setdureedelapartie_174',['setDureeDeLaPartie',['../class_statistiques.html#a91b7f8b2740ba422e39568e83d323f42',1,'Statistiques']]],
+  ['setjoueurgagnant_175',['setJoueurGagnant',['../class_statistiques.html#a52e57864351ad32ba59516281538aefe',1,'Statistiques']]],
+  ['setnombrepoints_176',['setNombrePoints',['../class_statistiques.html#a6eda6e5f8b3ec24162da3900821da129',1,'Statistiques']]],
+  ['setnombretirs_177',['setNombreTirs',['../class_statistiques.html#a405f08ec5bf66bbeee60ec493c6114c5',1,'Statistiques']]],
+  ['setpositionclassement_178',['setPositionClassement',['../class_statistiques.html#a2b90f1e6a4e7a8f2695ef36e50ac1fe1',1,'Statistiques']]],
+  ['setrecord_179',['setRecord',['../class_statistiques.html#aa4d5642d742669450c34e938a162bf6a',1,'Statistiques']]],
+  ['setstatistiques_180',['setStatistiques',['../class_course.html#ac03db005dfdf72d706eef7e8f35fa383',1,'Course']]],
+  ['simulateur_181',['SIMULATEUR',['../bluetooth_8h.html#a3f77c1dd0ac1f1e112f4917a271d5a16',1,'bluetooth.h']]],
+  ['simuleravancementcheval_182',['simulerAvancementCheval',['../class_course.html#a7010560e86e3fb6b541e737c406b9ebc',1,'Course::simulerAvancementCheval()'],['../class_i_h_m.html#af800723bc452273c6f852d497a12303c',1,'IHM::simulerAvancementCheval()']]],
+  ['socket_183',['socket',['../class_bluetooth.html#affc06510a37cd3f6b4f9e2cf9777394f',1,'Bluetooth']]],
+  ['start_184',['START',['../bluetooth_8h.html#a3018c7600b7bb9866400596a56a57af7',1,'bluetooth.h']]],
+  ['statistiques_185',['Statistiques',['../class_statistiques.html#a2cf34ed28b5863025896d9772c014ab5',1,'Statistiques::Statistiques()'],['../class_statistiques.html',1,'Statistiques']]],
+  ['statistiques_2ecpp_186',['statistiques.cpp',['../statistiques_8cpp.html',1,'']]],
+  ['statistiques_2eh_187',['statistiques.h',['../statistiques_8h.html',1,'']]],
+  ['stats_188',['stats',['../class_course.html#a9a5e7e71bd033fa00dd1f126be741009',1,'Course::stats()'],['../class_i_h_m.html#a403936b459b13c2d32f8bfc127f20644',1,'IHM::stats()']]]
 ];

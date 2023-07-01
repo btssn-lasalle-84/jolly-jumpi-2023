@@ -4,8 +4,8 @@
 
 Course::Course(IHM* ihm) :
     QObject(ihm), ihm(ihm), stats(nullptr), bluetooth(nullptr),
-    nbChevaux(NB_CHEVAUX_MAX), numeroCheval(0), positionChevaux(nbChevaux, 0),
-    chronometre(0.0), course(false)
+    nbChevaux(NB_CHEVAUX_MAX), dureePartie(DISTANCE_MAX), numeroCheval(0),
+    positionChevaux(nbChevaux, 0), chronometre(-3.0), course(false), modeDeJeu(0)
 {
     qDebug() << Q_FUNC_INFO;
     initialiserChronometre();
@@ -26,6 +26,21 @@ void Course::setBluetooth(Bluetooth* bluetooth)
     this->bluetooth = bluetooth;
 }
 
+void Course::setNbChevaux(int nbChevaux)
+{
+    this->nbChevaux = nbChevaux;
+}
+
+void Course::setDureePartie(int dureePartie)
+{
+    this->dureePartie = dureePartie;
+}
+
+void Course::setModeDeJeu(int modeDeJeu)
+{
+    this->modeDeJeu = modeDeJeu;
+}
+
 QVector<unsigned int> Course::getPositionChevaux() const
 {
     return positionChevaux;
@@ -34,6 +49,26 @@ QVector<unsigned int> Course::getPositionChevaux() const
 int Course::getNbChevaux() const
 {
     return nbChevaux;
+}
+
+int Course::getNbChevauxMax() const
+{
+    return NB_CHEVAUX_MAX;
+}
+
+int Course::getDureePartie() const
+{
+    return dureePartie;
+}
+
+int Course::getDureeMax() const
+{
+    return DISTANCE_MAX;
+}
+
+int Course::getDureeMin() const
+{
+    return DISTANCE_MIN;
 }
 
 void Course::initialiserChronometre()
@@ -59,23 +94,28 @@ void Course::initialiserCourse()
     timer->start();
     avancerChevaux();
     course = true;
-    bluetooth->envoyerTrameDebutCourse();
+    if(modeDeJeu == ModeDeJeu::Normal)
+        bluetooth->envoyerTrameDebutCourse();
+    if(modeDeJeu == ModeDeJeu::PointsAleatoire)
+        bluetooth->envoyerTrameDebutCourseAleatoire();
+    qDebug() << Q_FUNC_INFO << "dureePartie" << dureePartie << "nbChevaux"
+             << nbChevaux << "modeDeJeu" << modeDeJeu;
 }
 
 bool Course::estCourseFinie()
 {
     for(int i = 0; i < nbChevaux; i++)
     {
-        if(positionChevaux[i] == DISTANCE_MAX)
+        if(positionChevaux[i] == dureePartie)
         {
             stats->setJoueurGagnant(i);
-            qDebug() << Q_FUNC_INFO << "DISTANCE_MAX"
+            qDebug() << Q_FUNC_INFO << "dureePartie"
                      << "true"
                      << "joueurGagnant" << stats->getJoueurGagnant();
             return true;
         }
     }
-    qDebug() << Q_FUNC_INFO << "DISTANCE_MAX"
+    qDebug() << Q_FUNC_INFO << "dureePartie"
              << "false";
     return false;
 }
@@ -143,13 +183,19 @@ void Course::actualiserPositionChevaux(int numeroCheval, int deplacement)
             break;
     }
 
+    if(modeDeJeu == ModeDeJeu::PointsAleatoire)
+    {
+        deplacement = randInt(0, 5);
+    }
+
+    qDebug() << Q_FUNC_INFO << "deplacement" << deplacement;
+
     stats->setNombreTirs(numeroCheval);
     stats->setNombrePoints(numeroCheval, deplacement);
     QVector<unsigned int> nombreTirs   = stats->getNombreTirs();
-    QVector<unsigned int> nombrePoints = stats->getNombreTirs();
-    nombrePoints[numeroCheval] += deplacement;
-    if(nombrePoints[numeroCheval] >= DISTANCE_MAX)
-        nombrePoints[numeroCheval] = DISTANCE_MAX;
+    QVector<unsigned int> nombrePoints = stats->getNombrePoints();
+    if(nombrePoints[numeroCheval] >= dureePartie)
+        nombrePoints[numeroCheval] = dureePartie;
     qDebug() << Q_FUNC_INFO << "Le cheval numéro" << numeroCheval + 1
              << ", qui était positionné à la case"
              << positionChevaux[numeroCheval] << "a avancé de"
@@ -161,9 +207,9 @@ void Course::actualiserPositionChevaux(int numeroCheval, int deplacement)
 
     positionChevaux[numeroCheval] =
       positionChevaux[numeroCheval] + int(deplacement);
-    if(positionChevaux[numeroCheval] > DISTANCE_MAX)
+    if(positionChevaux[numeroCheval] > dureePartie)
     {
-        positionChevaux[numeroCheval] = DISTANCE_MAX;
+        positionChevaux[numeroCheval] = dureePartie;
     }
 
     qDebug() << Q_FUNC_INFO << "Il est maintenant case"
@@ -177,7 +223,7 @@ void Course::simulerAvancementCheval()
     if(ihm->estBonIndex())
     {
         Trou trous[NB_COULEURS_TROU] = { JAUNE, BLEU, ROUGE };
-        int  numeroCheval            = randInt(0, NB_CHEVAUX_MAX - 1);
+        int  numeroCheval            = randInt(0, nbChevaux - 1);
         int  trou                    = randInt(0, NB_COULEURS_TROU - 1);
         actualiserPositionChevaux(numeroCheval, trous[trou]);
     }
