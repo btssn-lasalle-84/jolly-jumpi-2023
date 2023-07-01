@@ -59,7 +59,7 @@ Diaporama étudiant IR :
 
 ## Vidéo
 
-https://www.youtube.com/@projets-btssn-lasalle84
+[<img src="https://img.youtube.com/vi/vWXhNmLc52A/maxresdefault.jpg" width="50%">](https://youtu.be/vWXhNmLc52A)
 
 ## Diagramme de classes
 
